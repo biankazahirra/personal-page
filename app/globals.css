@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #e8e6de;
+  --color-ink: #101a1f;
+  --color-ink-muted: #4a5560;
+  --color-night: #101a1f;
+  --color-night-soft: #17252b;
+  --color-paper-on-night: #e8e6de;
+  --color-accent: #8a5a32;
+  --color-accent-warm: #c08b57;
+
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --ease-editorial: cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-warm);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+/* Scroll-driven reveal. Browsers without animation-timeline show content at once. */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes clip-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-up both var(--ease-editorial);
+      animation-timeline: view();
+      animation-range: entry 4% cover 22%;
+    }
+
+    .clip-reveal {
+      animation: clip-in both var(--ease-editorial);
+      animation-timeline: view();
+      animation-range: entry 8% cover 28%;
+    }
+  }
+}
+
+/* The horizontal chapter is driven by components/horizontal-chapters.tsx. */
+.h-track {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .h-section {
+    height: auto !important;
+  }
+
+  .h-sticky {
+    position: static !important;
+    height: auto !important;
+  }
+
+  .h-track {
+    transform: none !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .h-panel {
+    scroll-snap-align: center;
+  }
+}
+
+/* Page transition: panel empties upwards after a client-side navigation. */
+@keyframes page-wipe {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0);
+  }
+}
+
+.page-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+  transform-origin: top;
+  background-color: var(--color-night);
+  animation: page-wipe 640ms var(--ease-editorial) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-wipe {
+    display: none;
+  }
+}
+
+/* Chapter overlay entrance. */
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.overlay-panel {
+  animation: overlay-in 320ms var(--ease-editorial) both;
+}
+
+/* CSS-only category filter on /curiosity. */
+.filter-option {
+  color: var(--color-ink-muted);
+  border-bottom: 1px solid transparent;
+}
+
+.filter-option:hover {
+  color: var(--color-ink);
+}
+
+.filter-option:has(input:checked) {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-accent);
+}
+
+.notes-filter:has(#filter-ai:checked) [data-cat]:not([data-cat="ai"]),
+.notes-filter:has(#filter-code:checked) [data-cat]:not([data-cat="code"]),
+.notes-filter:has(#filter-tools:checked) [data-cat]:not([data-cat="tools"]),
+.notes-filter:has(#filter-learning:checked) [data-cat]:not([data-cat="learning"]) {
+  display: none;
+}
+
+/* Long-form body copy on detail pages. */
+.reading p {
+  max-width: 62ch;
+  line-height: 1.7;
+}
+
+.reading p + p {
+  margin-top: 1.25em;
+}

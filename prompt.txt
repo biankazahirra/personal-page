@@ -1,0 +1,558 @@
+# PROJECT BRIEF — PERSONAL WEBSITE / DIGITAL WORLD
+
+You are a senior creative web developer, digital art director, interaction designer, and frontend engineer.
+
+Your task is to DESIGN AND BUILD a complete, polished, distinctive personal website that feels like entering someone's own little world on the internet.
+
+This is NOT a conventional developer portfolio, resume website, corporate landing page, or personal branding sales page.
+
+The website should feel personal, artistic, expressive, immersive, and editorial. It should tell stories through imagery, typography, composition, motion, and carefully curated content.
+
+The primary design inspiration is the cinematic storytelling, strong visual identity, editorial photography, and chapter-based experience of https://charlesleclerc.com/en/.
+
+Use it as a reference for the QUALITY of art direction and storytelling, NOT as a template to copy. Do not reproduce its exact layouts, proprietary assets, logos, copywriting, or identity. Create an original visual identity for this website.
+
+---
+
+## 1. CORE CONCEPT
+
+Create a personal digital space that documents a person's life, interests, experiments, discoveries, and ongoing journey.
+
+The owner is a Computer Science student who enjoys exploring technology, coding, AI agents, developer tools, personal projects, music, ukulele, and other interests.
+
+The website should communicate curiosity, personality, creativity, and an evolving identity.
+
+It should combine several dimensions of the owner's life:
+
+- Personal life and everyday moments.
+- Hobbies, music, and personal interests.
+- Technology, AI agents, and tools currently being explored.
+- Learning notes, experiments, and discoveries.
+- Personal projects and things being built.
+- Education, professional experience, and technical skills.
+- Life updates, photographs, visual collections, and personal reflections.
+
+Professional experience and projects are important, but they must NOT dominate the experience.
+
+Visitors should feel that they are exploring someone's world, not being persuaded to hire them.
+
+The website should be able to grow naturally as its owner learns new things and experiences life.
+
+## 2. CREATIVE DIRECTION
+
+Visual direction: ARTISTIC & EXPRESSIVE.
+
+Create a sophisticated blend of:
+
+- Independent editorial magazine.
+- Cinematic personal website.
+- Contemporary digital art direction.
+- Visual journal and online scrapbook.
+- Experimental typography and expressive composition.
+- Personal digital garden.
+
+Avoid generic SaaS aesthetics and conventional portfolio templates.
+
+### Visual characteristics
+
+**Typography**
+- Use expressive typography with clear contrast between display headlines and readable body text.
+- Combine an editorial serif with a clean modern sans-serif, or another intentional pairing.
+- Use oversized typography, interesting line breaks, occasional italic emphasis, and carefully controlled text placement.
+- Typography should feel like a core visual element, not just a way to display information.
+
+**Layout**
+- Use asymmetric compositions, layered photography, unexpected spacing, editorial grids, and occasional full-bleed sections.
+- Let some sections feel like magazine spreads and others like personal scrapbook pages.
+- Create a strong sense of visual rhythm.
+- Use whitespace deliberately.
+- Do not make every section look identical or put everything inside rounded cards.
+- Avoid excessive borders, gradients, glassmorphism, and generic dashboard layouts.
+
+**Color**
+- Develop a distinctive, cohesive palette rather than defaulting to a generic purple AI aesthetic.
+- Explore warm neutrals, deep charcoal, muted reds, earthy tones, and selected expressive accent colors.
+- Use contrast strategically to distinguish different chapters of the site.
+- The result should feel artistic and intentional, not randomly colorful.
+
+**Photography and imagery**
+- Mix portrait photography, everyday scenes, hobby-related imagery, technology, objects, textures, and atmospheric photographs.
+- Use varied image proportions and editorial image placement.
+- Include occasional image collages or layered compositions where appropriate.
+- Treat images as storytelling devices rather than decorative thumbnails.
+- Use locally stored assets when available.
+- If the owner has not supplied photographs, create a clear, replaceable asset structure and use appropriate temporary placeholders. Never invent personal photographs or imply that stock images depict the owner.
+- Do not rely on broken remote image URLs or copyrighted reference-site assets.
+
+**Micro-interactions**
+- Use subtle image reveals, hover details, transitions, editorial navigation, and scroll-triggered effects where they improve the experience.
+- Motion should feel intentional and smooth.
+- Avoid excessive animation, distracting parallax, or effects that make the website slow.
+- Respect `prefers-reduced-motion`.
+
+The final design should feel expressive and memorable without sacrificing usability.
+
+## 3. INFORMATION ARCHITECTURE
+
+Create a coherent website with the following main areas. You may refine the names and presentation to support the art direction.
+
+### A. HOME — The entrance
+
+This is the first impression of the owner's digital world.
+
+Include:
+- A distinctive opening composition.
+- The owner's name or configurable personal alias.
+- A short, understated introduction.
+- A strong visual element or photographic composition.
+- Clear but visually integrated navigation.
+- A small glimpse of current interests or recent updates.
+- A natural invitation to explore further.
+
+The introduction should feel personal and understated.
+
+Possible copy direction:
+
+"just a person figuring things out."
+
+"collecting ideas, learning things, building little worlds."
+
+"currently somewhere between code, music, and too many open tabs."
+
+These are examples, not mandatory copy. Write natural, concise copy that suits the design.
+
+Do not use conventional hero copy such as "I build scalable digital solutions" or "Turning ideas into innovative products."
+
+### B. ABOUT — The person behind the screen
+
+Present the owner as a person, not a list of qualifications.
+
+Include:
+- A short personal introduction.
+- Education and background.
+- A selection of interests and hobbies.
+- Personal photographs or visual elements.
+- Professional experience, presented as part of the owner's journey.
+- A compact skills and tools section.
+- Optional links to a CV, GitHub, or professional profiles.
+
+The tone should be genuine, warm, and conversational.
+
+Do not invent personal facts, achievements, employers, dates, or accomplishments. Use clearly identifiable placeholders for information that has not been provided.
+
+### C. CURIOSITY / DIGITAL GARDEN
+
+A space for documenting things the owner is exploring.
+
+Possible topics:
+- AI agents and AI coding workflows.
+- Models and tools being tested.
+- Programming and software development.
+- Technical discoveries.
+- Notes from learning something new.
+- Small experiments and ideas.
+- Lessons learned while building applications.
+
+Represent this as a living collection of thoughts and experiments rather than a formal technical blog.
+
+Each entry may have:
+- A title.
+- A short description or excerpt.
+- A category.
+- A date, if supplied.
+- Optional cover imagery.
+- A detail page for longer notes.
+
+Do not fabricate technical findings or claim the owner has completed experiments they have not done.
+
+### D. LIFE LATELY / JOURNAL
+
+A visual journal of life, interests, and moments.
+
+Potential content:
+- Recent updates.
+- Music and currently enjoyed songs.
+- Ukulele progress.
+- Favorite objects, places, or activities.
+- Photo diaries.
+- Personal reflections.
+- Things currently inspiring the owner.
+
+Keep this section flexible. The owner should be able to add entries without redesigning the website.
+
+Do not make it feel like a social media feed. Prioritize thoughtful visual storytelling over engagement metrics, likes, and follower counts.
+
+### E. THINGS I'VE MADE
+
+A collection of personal projects and experiments.
+
+Include projects only when there is enough information to describe them accurately.
+
+A project entry may contain:
+- Project name.
+- Brief description.
+- Role and contribution.
+- Technologies used.
+- Screenshots or images.
+- Repository or live demo link, when available.
+- Development status, if known.
+
+The presentation should feel like a collection of things the owner has made, not a sales-oriented portfolio.
+
+### F. EXPERIENCE / TIMELINE
+
+Present education, work experience, and significant project milestones in an elegant, compact format.
+
+Use an editorial timeline or narrative layout rather than a conventional resume table.
+
+Make the section easy to discover without making it the homepage's main focus.
+
+### G. CONTACT / ELSEWHERE
+
+End with a personal, understated contact section.
+
+Include configurable links for:
+- GitHub.
+- Email.
+- LinkedIn or other social profiles, if supplied.
+
+Do not invent URLs, email addresses, or social handles.
+
+The footer should feel like the closing page of a personal journal.
+
+## 4. HOMEPAGE STORYTELLING
+
+Design the homepage as a continuous visual journey, not a stack of generic components.
+
+A possible sequence:
+
+1. An expressive opening with a strong visual identity.
+2. A short personal introduction.
+3. An immersive editorial image or collage.
+4. A "currently into" section featuring present interests.
+5. A glimpse of recent notes, experiments, or life updates.
+6. A distinctive transition into personal projects.
+7. A small preview of the owner's background.
+8. An understated closing section and navigation.
+
+You may change this sequence if a better creative direction emerges.
+
+Create meaningful transitions between sections. Use different compositions to keep the experience engaging.
+
+Do not place every category on the homepage in full. Provide previews that lead to dedicated pages.
+
+## 5. TECHNICAL REQUIREMENTS
+
+First inspect the existing repository and understand its current structure.
+
+If the repository is empty or a greenfield project, use this default stack unless there is a strong reason not to:
+
+- Next.js with App Router.
+- TypeScript.
+- Tailwind CSS.
+- A suitable icon library, such as Lucide.
+- Lightweight animation using CSS and/or Framer Motion when appropriate.
+- Local content data stored in TypeScript or JSON for easy editing.
+- Local assets organized under the public directory.
+
+The project will be maintained in GitHub and deployed to Vercel later.
+
+Do not assume Vercel-specific services are required.
+
+### Engineering principles
+
+- Use reusable components without overengineering.
+- Keep the architecture understandable and maintainable.
+- Separate content from presentation.
+- Use semantic HTML and accessible controls.
+- Support responsive layouts across desktop, tablet, and mobile.
+- Optimize images and avoid unnecessary client-side JavaScript.
+- Avoid unnecessary dependencies.
+- Do not introduce a database or authentication unless genuinely required.
+- Do not add analytics, tracking, or unnecessary external integrations.
+- Never expose API keys or secrets in client-side code.
+- Ensure all navigation, buttons, links, and interactive elements work.
+- Avoid placeholder links that look functional but do nothing.
+- Ensure the site can be built and deployed using standard project commands.
+
+If the repository already contains an established stack, inspect it before deciding whether to replace anything. Do not destroy or overwrite existing work without a clear reason.
+
+## 6. CONTENT AND ASSET ARCHITECTURE
+
+Make the site easy to personalize after the initial implementation.
+
+Create a clear location for:
+- Personal profile information.
+- Navigation labels.
+- Experience and education.
+- Projects.
+- Journal entries.
+- Learning notes.
+- Social links.
+- Image and media references.
+
+Use typed content structures where appropriate.
+
+Organize image assets into sensible folders, for example:
+- `public/images/portraits/`
+- `public/images/life/`
+- `public/images/interests/`
+- `public/images/projects/`
+- `public/images/textures/`
+
+Use an easy-to-understand naming convention.
+
+Include a short README explaining:
+- How to run the project locally.
+- Where to edit personal information.
+- How to add a journal entry.
+- How to add a learning note.
+- How to add a project.
+- Where to replace placeholder images.
+- How to deploy to Vercel.
+
+Do not build an elaborate CMS for the first version.
+
+## 7. RESPONSIVE AND ACCESSIBILITY REQUIREMENTS
+
+Desktop:
+- Take advantage of wide editorial compositions and layered imagery.
+- Make navigation elegant and easy to discover.
+- Preserve a strong visual hierarchy.
+
+Mobile:
+- Recompose the layout intentionally rather than simply shrinking desktop elements.
+- Maintain readable typography.
+- Ensure images crop appropriately.
+- Keep navigation touch-friendly.
+- Avoid horizontal overflow and excessive animation.
+
+Accessibility:
+- Use semantic landmarks and logical heading order.
+- Provide meaningful alternative text for informative images.
+- Maintain sufficient text contrast.
+- Support keyboard navigation.
+- Respect reduced-motion preferences.
+- Do not communicate essential information using color alone.
+
+## 8. IMPLEMENTATION WORKFLOW
+
+Work as an autonomous coding agent. Do not stop after generating a design description or a list of recommendations.
+
+Follow these stages:
+
+### Stage 1 — Inspect
+- Inspect repository files and existing configuration.
+- Identify the current framework, scripts, and dependencies.
+- Determine whether the project is empty or already implemented.
+- Report any important constraints briefly.
+
+### Stage 2 — Establish art direction
+- Define a cohesive design system.
+- Choose typography, color palette, spacing, layout rules, and interaction principles.
+- Create a consistent visual language for the entire site.
+- Use the creative brief to make decisions rather than repeatedly asking the owner to choose minor details.
+
+### Stage 3 — Implement
+- Build the complete homepage and the core secondary pages.
+- Implement working navigation and interactions.
+- Add realistic, clearly labeled placeholder content where personal information is missing.
+- Create responsive layouts.
+- Organize content and assets for future editing.
+- Do not leave the site as a static wireframe.
+
+### Stage 4 — Verify
+- Install or use the appropriate dependencies.
+- Run the available linting, type-checking, and build commands.
+- Fix errors introduced by your changes.
+- Check internal links, responsive behavior, image loading, and navigation.
+- Do not claim that a check passed unless you actually ran it and verified the result.
+- If a check cannot run, explain why.
+
+### Stage 5 — Report
+Summarize:
+- What was implemented.
+- The main design decisions.
+- Files or areas the owner should personalize.
+- Commands used for verification and their actual results.
+- Any remaining limitations or unfinished work.
+
+## 9. RESOURCE AND TOKEN DISCIPLINE
+
+Be efficient with context and tool usage.
+
+- Inspect only the files needed to understand the project.
+- Avoid repeatedly dumping the entire repository into context.
+- Do not regenerate working files unnecessarily.
+- Make coherent changes in manageable batches.
+- Run targeted checks after focused changes.
+- Run a production build after the main implementation is complete.
+- Diagnose errors from actual logs instead of blindly retrying commands.
+- Do not delete or weaken tests merely to make the project appear successful.
+- Do not start multiple competing build processes.
+
+## 10. DEFINITION OF DONE
+
+The first version is complete when:
+
+- The website has a distinctive, coherent artistic identity.
+- The homepage tells a personal story rather than selling services.
+- Personal life, hobbies, learning, technology, and projects coexist naturally.
+- Professional experience remains available without dominating the website.
+- Core pages and navigation work.
+- Content can be updated without editing layout components.
+- The website works on desktop and mobile.
+- Placeholder content and assets are clearly identifiable and easy to replace.
+- The project builds successfully, or any blockers are documented accurately.
+- The README explains how to maintain and deploy the site.
+
+FINAL CREATIVE PRINCIPLE:
+
+Make the website feel like a place someone would explore out of curiosity, even if they are not looking to hire the owner.
+
+It should feel human, visual, expressive, and constantly evolving.
+
+Prioritize personality over polish-for-polish's-sake, storytelling over salesmanship, and a coherent creative vision over generic portfolio conventions.
+
+Now inspect the repository and begin implementation.
+
+## PERSONAL IDENTITY AND CONTENT — IMPORTANT ADDENDUM
+
+The website owner is a curious person who enjoys exploring different interests, learning new tools, adapting to new situations, and occasionally following random ideas just to see where they lead.
+
+The website should reflect an evolving person, not a polished professional persona.
+
+### Confirmed personal interests
+
+1. **Film**
+   - Enjoys watching movies, particularly psychological thrillers.
+   - Has a Letterboxd account.
+   - Interested in creating a personal film journal, sharing brief reviews, recording films watched, and collecting memorable cinematic experiences.
+   - The actual Letterboxd username, favorite films, ratings, and reviews have not been provided. Do not invent them.
+
+2. **Music**
+   - Enjoys listening to music across different genres.
+   - Has a Spotify account.
+   - Wants music to be part of the website's personal identity.
+   - Possible content includes current listening habits, songs on repeat, music discoveries, and personal playlists.
+   - The actual Spotify username, playlist URLs, and listening history have not been provided. Do not fabricate them.
+
+3. **Ukulele**
+   - Currently learning to play the ukulele, with the goal of becoming proficient.
+   - Present this as an ongoing learning journey, not an achievement that has already been completed.
+   - Possible content includes songs being learned, progress notes, practice discoveries, and occasional photos.
+
+4. **AI agents and technology**
+   - Enjoys experimenting with AI agents using OpenCode.
+   - Likes exploring different AI models, developer tools, coding workflows, and new technologies.
+   - Enjoys creating small experimental projects with AI coding agents.
+   - The website may document experiments, useful discoveries, failures, lessons learned, and projects in progress.
+   - Avoid turning this section into promotional AI content or a generic list of tools.
+
+5. **Practical software development**
+   - Builds and maintains Microsoft Access systems to simplify personal work processes.
+   - Examples include systems for generating Purchase Requisition (PR) documents and LHSTP reports.
+   - This is a meaningful example of practical problem-solving: using technology to reduce repetitive work.
+   - Describe these systems accurately without inventing business results, metrics, or claims about their impact.
+
+### Personality and tone
+
+Known traits:
+- Curious.
+- Enjoys exploration.
+- Sometimes random.
+- Adaptable.
+- Learns new things quickly.
+
+Translate these qualities into the design through varied content, playful details, unexpected but intentional visual compositions, and a sense of ongoing discovery.
+
+The writing voice should be conversational, observant, honest, and understated.
+
+Avoid corporate language, excessive self-promotion, exaggerated claims, generic motivational quotes, and descriptions that make the owner sound like a fictional character.
+
+### Content philosophy
+
+This is a personal website focused on interests, creative work, learning, and thoughts.
+
+Professional experience should remain available but secondary.
+
+Prioritize:
+- Authenticity over polish.
+- Personal observations over generic summaries.
+- Experiments and learning processes over claims of mastery.
+- Visual storytelling over excessive explanatory text.
+- A living archive over a static portfolio.
+
+The owner prefers to focus on interests, creations, and thoughts rather than sharing every aspect of private life.
+
+Do not invent personal stories, private events, photographs, opinions, achievements, or account details.
+
+### Suggested creative framework
+
+Consider three recurring themes:
+
+- THE OBSERVER: films, music, everyday moments, visual inspiration, and things worth noticing.
+- THE EXPLORER: AI agents, coding, new tools, learning notes, and experiments.
+- THE MAKER: personal projects, practical software systems, and things built along the way.
+
+These themes are creative organizing principles, not rigid categories that must appear as literal navigation labels.
+
+Use them to create a coherent visual identity across the website.
+
+### Missing information
+
+The following details remain unconfirmed and must be editable or omitted until supplied:
+- Public display name or alias.
+- Preferred language of the website.
+- Profile photographs and personal image collection.
+- Letterboxd profile URL.
+- Spotify profile URL or preferred playlists.
+- GitHub and other public links.
+- Specific favorite films, artists, songs, and other interests.
+- Actual education and employment details, which should be taken from the owner's CV when provided.
+- Which personal details the owner wants to publish.
+
+Do not block implementation because these details are missing. Build the website with clearly identifiable placeholders and a simple content structure that makes later personalization easy.
+
+The final result should feel like an expressive, cinematic personal world that naturally combines film, music, technology, learning, and everyday creativity — without feeling like a conventional professional portfolio.
+
+## CV Integration & Professional Background
+
+Use the uploaded Indonesian CV titled "resume NEW (CV 2026) Bianka Zahirra Putri" as the primary source for professional background. Use the English Teacher CV only as a secondary reference where relevant.
+
+### Professional identity
+Present the owner as a curious, adaptable person with a Computer Science background who enjoys solving practical problems, experimenting with technology, and making everyday processes more efficient.
+
+Do not position the website as a procurement portfolio, teaching portfolio, or conventional developer résumé. Professional experience should be one part of a broader personal story.
+
+### Verified background to incorporate
+- Computer Science studies at Universitas Lampung, 2022–2024; completed 93 academic credits (SKS), last GPA 3.51/4.00. Studies were not completed.
+- Administration Support in the IT & Management System Division at PT Krakatau Sarana Properti, May 2025–present.
+- Built digital Purchase Requisition forms using Microsoft Access.
+- Managed LHSTP, vendor invoice documentation, company improvement records, and monthly KPI reporting.
+- Currently developing a digital LHSTP form workflow using Microsoft Access.
+- Hallistic: a building-booking information website built as an academic project using HTML, JavaScript, Tailwind CSS, PHP, and MySQL, with initial interface design in Figma.
+- PROPLAN: a project-planning information system built with Java and MySQL; led the project team.
+- Former Logic Course Teaching Assistant at Universitas Lampung, August–December 2023; supported structured tutorials and contributed to a reported 94% student pass rate.
+- Former Himakom Secretariat Bureau member; managed and archived 100+ documents.
+- Event Secretary for Computer Science Showdown 2024; managed document distribution to 50+ committee members.
+
+### How to tell the story
+Translate these facts into concise, human, first-person writing. Emphasize the connection between curiosity, learning, building things, organizing information, and solving real-world problems.
+
+Possible editorial themes:
+- "Small systems, smoother days" — practical tools and workflow automation.
+- "Things I learned by building" — Hallistic, PROPLAN, and future experiments.
+- "Learning in progress" — Computer Science, AI agents, coding tools, and new skills.
+- "A little structure, a little curiosity" — the balance between organized work and spontaneous exploration.
+
+These are editorial themes, not claims that must appear verbatim.
+
+### Accuracy and privacy rules
+- Do not invent employers, job titles, achievements, dates, degrees, project outcomes, or metrics.
+- Do not imply that the Computer Science degree was completed.
+- Do not publish the phone number, email address, or other private contact details from the CV without explicit approval.
+- Do not create fake links for LinkedIn, GitHub, Spotify, or Letterboxd. Use only URLs supplied by the owner, or leave clear editable placeholders.
+- Keep professional details concise and visually secondary to the personal interests and ongoing experiments.
+- Make all content easy to update in a dedicated content file, separate from the page layout.
+- Before finalizing, list any missing details that require the owner's confirmation instead of guessing.
