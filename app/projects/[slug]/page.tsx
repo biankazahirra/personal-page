@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { Texture } from "@/components/texture";
+import { Media } from "@/components/media";
 import { projects } from "@/content/projects";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -50,7 +50,13 @@ export default async function ProjectPage({ params }: Params) {
       </header>
 
       <div className="mt-14">
-        <Texture variant="field" label="screenshot pending" className="aspect-[16/9] w-full" />
+        <Media
+          image={project.cover}
+          variant="field"
+          label="screenshot pending"
+          className="aspect-[16/9] w-full"
+          sizes="(min-width: 1440px) 1440px, 100vw"
+        />
       </div>
 
       <div className="mt-14 grid gap-10 md:grid-cols-12 md:gap-8">

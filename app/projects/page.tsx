@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHeader } from "@/components/page-header";
-import { Texture } from "@/components/texture";
+import { Media } from "@/components/media";
 import { projects } from "@/content/projects";
 
 export const metadata: Metadata = {
@@ -31,7 +31,8 @@ export default function ProjectsPage() {
           {projects.map((project, index) => (
             <li key={project.slug} className={index % 2 === 1 ? "md:mt-16" : ""}>
               <Link href={`/projects/${project.slug}`} className="group block">
-                <Texture
+                <Media
+                  image={project.cover}
                   variant={
                     project.status === "in-progress"
                       ? "grid"
@@ -41,6 +42,7 @@ export default function ProjectsPage() {
                   }
                   label="screenshot pending"
                   className="clip-reveal aspect-[4/3] w-full transition-transform duration-700 ease-[cubic-bezier(.2,.6,.2,1)] group-hover:scale-[1.02]"
+                  sizes="(min-width: 768px) 50vw, 100vw"
                 />
 
                 <div className="mt-5 flex flex-wrap items-baseline justify-between gap-3">

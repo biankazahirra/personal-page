@@ -13,6 +13,10 @@ export type Site = {
   intro: string[];
   location?: string;
   email?: string;
+  /** Full-bleed homepage hero. Falls back to a texture. */
+  hero?: ImageRef;
+  /** Portrait used on the homepage chapter and /about. */
+  portrait?: ImageRef;
   links: { label: string; href?: string }[];
   currentlyInto: { label: string; note?: string }[];
 };

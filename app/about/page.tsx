@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHeader } from "@/components/page-header";
-import { Texture } from "@/components/texture";
+import { Media } from "@/components/media";
 import { site } from "@/content/site";
 import { timeline } from "@/content/timeline";
 
@@ -58,7 +58,13 @@ export default function AboutPage() {
       <section className="mx-auto max-w-[1440px] px-6 pb-16 md:px-12 md:pb-24">
         <div className="grid gap-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-4">
-            <Texture variant="field" label="portrait pending" className="aspect-[4/5] w-full" />
+            <Media
+              image={site.portrait}
+              variant="field"
+              label="portrait pending"
+              className="aspect-[4/5] w-full"
+              sizes="(min-width: 768px) 33vw, 100vw"
+            />
           </div>
 
           <div className="md:col-span-7 md:col-start-6">

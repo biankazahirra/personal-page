@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Media } from "@/components/media";
 import { Texture } from "@/components/texture";
 import { films } from "@/content/films";
 import { journal, kindLabels } from "@/content/journal";
@@ -43,11 +44,23 @@ export default function HomePage() {
       {/* the entrance */}
       <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-night text-paper-on-night">
         <div className="absolute inset-0">
-          <Texture
-            variant="waves"
-            tone="night"
-            className="h-full w-full opacity-60"
-          />
+          {site.hero ? (
+            <Media
+              image={site.hero}
+              variant="waves"
+              tone="night"
+              label="hero image pending"
+              className="h-full w-full"
+              sizes="100vw"
+              priority
+            />
+          ) : (
+            <Texture
+              variant="waves"
+              tone="night"
+              className="h-full w-full opacity-60"
+            />
+          )}
         </div>
         <div
           aria-hidden="true"
@@ -74,9 +87,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 02 — the person, pinned */}
-      <section id="chapter-02" className="relative h-[170vh] bg-paper">
-        <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden">
+      {/* 02 — the person, pinned from tablet up */}
+      <section id="chapter-02" className="relative bg-paper md:h-[170vh]">
+        <div className="flex items-center overflow-hidden py-20 md:sticky md:top-0 md:h-[100svh] md:py-0">
           <div className="relative mx-auto grid w-full max-w-[1440px] gap-10 px-6 md:grid-cols-12 md:px-12">
             <div className="md:col-span-6">
               <p className="eyebrow text-ink-muted">02 — the person</p>
@@ -100,10 +113,12 @@ export default function HomePage() {
             </div>
 
             <div className="md:col-span-4 md:col-start-9">
-              <Texture
+              <Media
+                image={site.portrait}
                 variant="field"
                 label="portrait pending"
                 className="clip-reveal aspect-[4/5] w-full"
+                sizes="(min-width: 768px) 33vw, 100vw"
               />
             </div>
           </div>
@@ -254,11 +269,13 @@ export default function HomePage() {
                 <div
                   className={`md:col-span-8 ${index % 2 === 1 ? "md:order-2 md:col-start-5" : ""}`}
                 >
-                  <Texture
+                  <Media
+                    image={project.cover}
                     variant={project.status === "in-progress" ? "grid" : "field"}
                     tone="night"
                     className="clip-reveal aspect-[16/9] w-full transition-transform duration-700 ease-[cubic-bezier(.2,.6,.2,1)] group-hover:scale-[1.02]"
                     label="screenshot pending"
+                    sizes="(min-width: 768px) 66vw, 100vw"
                   />
                 </div>
 

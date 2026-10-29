@@ -157,6 +157,9 @@ Rules: `--accent-warm` is for non-text elements or text ≥ 24px only. A chapter
 - Format: AVIF + WebP via `next/image`. `sizes` is mandatory.
 - Text over an image only at ≥ 4.5:1 contrast; otherwise move the text out.
 - Alt text is required by the data type, not optional.
+- Every slot degrades: `components/media.tsx` renders the real image when the
+  content supplies one, otherwise the labelled texture. Hero, portrait, note
+  cover, project cover and journal photos all use it.
 
 ## 7. Content model
 

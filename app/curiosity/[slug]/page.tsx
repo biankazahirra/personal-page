@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { Texture } from "@/components/texture";
+import { Media } from "@/components/media";
 import { notes } from "@/content/notes";
 import { formatDate } from "@/lib/format";
 
@@ -48,7 +48,13 @@ export default async function NotePage({ params }: Params) {
 
       <div className="mt-14 grid gap-10 md:grid-cols-12 md:gap-8">
         <div className="md:col-span-4">
-          <Texture variant="waves" label="image pending" className="aspect-[4/5] w-full" />
+          <Media
+            image={note.cover}
+            variant="waves"
+            label="image pending"
+            className="aspect-[4/5] w-full"
+            sizes="(min-width: 768px) 33vw, 100vw"
+          />
         </div>
 
         <div className="reading md:col-span-7 md:col-start-6">

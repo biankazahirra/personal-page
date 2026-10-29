@@ -79,32 +79,37 @@ the page then shows no button rather than a dead one.
 Append to `films` in `content/films.ts`. No invented titles or ratings — the list
 is empty until there is something real to log.
 
-## Replace the placeholder images
+## Add a photograph
 
-There are no photographs in this repository yet, and no stock photos of people
-are used. Image slots currently render abstract patterns from
-`components/texture.tsx`, labelled `portrait pending` / `image pending` /
-`screenshot pending`.
+Image slots render an abstract texture until content supplies an image, then
+`components/media.tsx` swaps in the real file in the same box. No page edits
+needed, only data.
 
-To use a real image:
+1. Put the file under `public/images/…`, kebab-case, no spaces:
+   `public/images/portraits/hero.jpg` → `"/images/portraits/hero.jpg"`.
+2. Compress first: longest side about 2000 px, under 300 KB. Next.js re-encodes
+   on Vercel but does not shrink what you upload.
+3. Fill the matching field:
 
-1. Put the file in the right folder:
-   - `public/images/portraits/`
-   - `public/images/life/`
-   - `public/images/interests/`
-   - `public/images/projects/`
-   - `public/images/textures/`
-2. Use `kebab-case` filenames, no spaces: `desk-at-night.jpg`.
-3. Reference it from content with `src`, `alt`, `width`, `height`:
+| Slot | Field |
+|------|-------|
+| Homepage hero, full-bleed | `site.hero` in `content/site.ts` |
+| Portrait, homepage chapter 02 and `/about` | `site.portrait` in `content/site.ts` |
+| Note image, `/curiosity/<slug>` | `notes[].cover` |
+| Project image, `/projects`, homepage, `/projects/<slug>` | `projects[].cover` |
+| Journal photos, `/life/<slug>` | `journal[].images[]` |
 
 ```ts
-cover: { src: "/images/projects/hallistic.jpg", alt: "Booking screen", width: 1600, height: 1200 }
+hero: {
+  src: "/images/portraits/hero.jpg",
+  alt: "Empty desk with a lamp on, late evening",
+  width: 2000,
+  height: 1333,
+}
 ```
 
-4. Replace the `<Texture …>` block on the page with the image (see
-   `app/projects/[slug]/page.tsx` for the pattern).
-
-Alt text is required, not optional.
+Alt text is required, not optional. Width and height are the real pixel size of
+the file: they reserve space so nothing jumps while the image loads.
 
 ## Placeholders to replace
 
