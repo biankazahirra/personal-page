@@ -140,10 +140,13 @@ These need real values from the owner. Nothing is invented to fill them:
 
 ## Deploy to Vercel
 
-1. Push the repository to GitHub.
-2. Import it in Vercel. Framework preset: Next.js. No environment variables are
-   required; `NEXT_PUBLIC_SITE_URL` is optional.
-3. Deploy. The site is fully static.
+1. Push the repository to GitHub. Done: `main` tracks
+   `https://github.com/biankazahirra/personal-page.git`.
+2. Import it in Vercel. Framework preset: Next.js, root directory `./`. No
+   environment variables are required; `NEXT_PUBLIC_SITE_URL` is optional.
+3. Do **not** set `NEXT_EXPORT` on Vercel. That flag is only for the Apache
+   export; leaving it unset keeps normal Next.js builds and image optimisation.
+4. Deploy. The site is fully static; every route prerenders at build time.
 
 ## Serve it from Apache (optional)
 
