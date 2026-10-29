@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Media } from "@/components/media";
+import { SchematicBoard } from "@/components/schematic-board";
 import { Texture } from "@/components/texture";
 import { films } from "@/content/films";
 import { journal, kindLabels } from "@/content/journal";
@@ -41,37 +42,34 @@ export default function HomePage() {
 
   return (
     <>
-      {/* the entrance */}
-      <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-night text-paper-on-night">
-        <div className="absolute inset-0">
-          {site.hero ? (
+      {/* the entrance — a board you can probe */}
+      <section className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden bg-night text-paper-on-night">
+        {site.hero ? (
+          <div className="absolute inset-0">
             <Media
               image={site.hero}
               variant="waves"
               tone="night"
               label="hero image pending"
-              className="h-full w-full"
+              className="h-full w-full opacity-30"
               sizes="100vw"
               priority
             />
-          ) : (
-            <Texture
-              variant="waves"
-              tone="night"
-              className="h-full w-full opacity-60"
-            />
-          )}
-        </div>
+          </div>
+        ) : null}
+        <div aria-hidden="true" className="schematic-grid absolute inset-0 opacity-20" />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(to_top,rgba(16,26,31,0.95),rgba(16,26,31,0.62)_55%,rgba(16,26,31,0.45))]"
+          className="absolute inset-0 bg-[linear-gradient(to_top,rgba(16,26,31,0.98),rgba(16,26,31,0.55)_60%,rgba(16,26,31,0.8))]"
         />
 
-        <p className="eyebrow absolute right-6 top-24 border border-paper-on-night/25 px-2 py-1 text-paper-on-night/60 md:right-12">
-          hero image pending
-        </p>
+        <div className="relative mx-auto w-full max-w-[1440px] px-6 pt-24 md:px-12 md:pt-28">
+          <div className="md:ml-auto md:max-w-[560px]">
+            <SchematicBoard />
+          </div>
+        </div>
 
-        <div className="relative mx-auto w-full max-w-[1440px] px-6 pb-8 md:px-12 md:pb-12">
+        <div className="relative mx-auto w-full max-w-[1440px] px-6 pb-8 pt-10 md:px-12 md:pb-12">
           <p className="eyebrow text-paper-on-night/70">an index of a small world</p>
 
           <h1 className="display mt-6 text-[clamp(4.5rem,17vw,15rem)]">Bianka</h1>
@@ -81,7 +79,7 @@ export default function HomePage() {
               {site.tagline}
             </p>
             <p className="eyebrow text-paper-on-night/60">
-              scroll to explore — chapters 01–06
+              six sockets — probe one, or scroll
             </p>
           </div>
         </div>

@@ -142,6 +142,41 @@
   background-size: 24px 24px;
 }
 
+/* Probe: the socket under the pointer or focus lights its trace,
+   the others step back. Pure CSS, so it works without JavaScript. */
+.schematic-board a {
+  transition: opacity 180ms ease;
+}
+
+.schematic-board a .trace,
+.schematic-board a .node-label {
+  transition:
+    opacity 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.schematic-board:has(a:hover) a:not(:hover) {
+  opacity: 0.35;
+}
+
+.schematic-board:has(a:focus-visible) a:not(:focus-visible) {
+  opacity: 0.35;
+}
+
+.schematic-board a:hover .trace,
+.schematic-board a:focus-visible .trace {
+  opacity: 1;
+  background-color: var(--color-accent);
+}
+
+.schematic-board a:hover .node-label,
+.schematic-board a:focus-visible .node-label {
+  color: var(--color-accent-warm);
+  border-color: color-mix(in oklab, var(--color-accent-warm) 60%, transparent);
+}
+
 /* Scroll-driven reveal. Browsers without animation-timeline show content at once. */
 @keyframes reveal-up {
   from {

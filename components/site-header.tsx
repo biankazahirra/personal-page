@@ -5,34 +5,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { MotionToggle } from "@/components/motion-toggle";
+import { components } from "@/content/components";
 import { site } from "@/content/site";
-
-const components = [
-  { href: "/", code: "C01", label: "index", blurb: "the entrance", status: "live" },
-  { href: "/about", code: "C02", label: "about", blurb: "the person", status: "live" },
-  {
-    href: "/curiosity",
-    code: "C03",
-    label: "curiosity",
-    blurb: "the explorer",
-    status: "live",
-  },
-  { href: "/life", code: "C04", label: "life", blurb: "the observer", status: "live" },
-  {
-    href: "/films",
-    code: "C05",
-    label: "films",
-    blurb: "the watcher",
-    status: "unpopulated",
-  },
-  {
-    href: "/projects",
-    code: "C06",
-    label: "projects",
-    blurb: "the maker",
-    status: "live",
-  },
-];
 
 export function SiteHeader() {
   const pathname = usePathname();
