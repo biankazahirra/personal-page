@@ -1,7 +1,7 @@
 import type { Site } from "./types";
 
 export const site: Site = {
-  name: "Bianka",
+  name: "Bianka Zahirra",
   fullName: "Bianka Zahirra Putri",
   tagline: "just a person figuring things out.",
   intro: [

@@ -72,7 +72,7 @@ export default function HomePage() {
             </p>
             <dl className="eyebrow mt-10 grid max-w-[26rem] grid-cols-[6rem_1fr] gap-y-2.5 border-t border-paper-on-night/20 pt-5">
               <dt className="text-paper-on-night/45">model</dt>
-              <dd className="text-paper-on-night/85">bianka</dd>
+              <dd className="text-paper-on-night/85">bianka zahirra</dd>
               <dt className="text-paper-on-night/45">revision</dt>
               <dd className="text-paper-on-night/85">2026</dd>
               <dt className="text-paper-on-night/45">status</dt>
@@ -90,7 +90,7 @@ export default function HomePage() {
         <div className="relative mx-auto w-full max-w-[1440px] px-6 pb-8 pt-10 md:px-12 md:pb-12">
           <p className="eyebrow text-paper-on-night/70">an index of a small world</p>
 
-          <h1 className="display mt-6 text-[clamp(4.5rem,17vw,15rem)]">Bianka</h1>
+          <h1 className="display mt-6 text-[clamp(2.75rem,9vw,8rem)]">{site.name}</h1>
 
           <div className="mt-6 flex flex-col gap-6 border-t border-paper-on-night/20 pt-5 md:flex-row md:items-baseline md:justify-between">
             <p className="max-w-[32ch] text-[clamp(1.125rem,2vw,1.5rem)] leading-snug">
