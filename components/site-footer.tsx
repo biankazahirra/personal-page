@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { MotionToggle } from "@/components/motion-toggle";
 import { site } from "@/content/site";
 
 export function SiteFooter() {
@@ -53,9 +54,12 @@ export function SiteFooter() {
           <p className="eyebrow text-ink-muted">
             {site.name} — built slowly, updated occasionally
           </p>
-          <Link href="/" className="eyebrow text-ink-muted hover:text-accent">
-            back to the beginning
-          </Link>
+          <div className="flex flex-wrap items-center gap-6">
+            <MotionToggle className="text-ink-muted hover:text-accent" />
+            <Link href="/" className="eyebrow text-ink-muted hover:text-accent">
+              back to the beginning
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

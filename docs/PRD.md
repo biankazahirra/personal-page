@@ -145,7 +145,9 @@ Rules: `--accent-warm` is for non-text elements or text ≥ 24px only. A chapter
   - Hover: underline sweep on "currently into", accent title, 2% image scale.
 - `prefers-reduced-motion: reduce` → scroll animations off,
   page wipe hidden, the horizontal chapter unpins and becomes a native
-  horizontally scrollable row. Content stays fully visible.
+  horizontally scrollable row. Content stays fully visible. The choice is
+  stored in `data-motion` on `<html>` and can be overridden per browser with the
+  `motion: on/off` control (chapters overlay and footer).
 - Without JavaScript the horizontal chapter also unpins; no panel is hidden.
 - Browsers without `animation-timeline` support show the final state immediately.
 

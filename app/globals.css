@@ -55,14 +55,28 @@
     text-wrap: pretty;
   }
 
+  html[data-motion="reduce"] {
+    scroll-behavior: auto;
+  }
+
+  html[data-motion="reduce"] *,
+  html[data-motion="reduce"] *::before,
+  html[data-motion="reduce"] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Script-free fallback: no data-motion attribute means JS did not run. */
   @media (prefers-reduced-motion: reduce) {
-    html {
+    html:not([data-motion]) {
       scroll-behavior: auto;
     }
 
-    *,
-    *::before,
-    *::after {
+    html:not([data-motion]) *,
+    html:not([data-motion]) *::before,
+    html:not([data-motion]) *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -108,19 +122,31 @@
 }
 
 @supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .reveal {
-      animation: reveal-up both var(--ease-editorial);
-      animation-timeline: view();
-      animation-range: entry 4% cover 22%;
-    }
-
-    .clip-reveal {
-      animation: clip-in both var(--ease-editorial);
-      animation-timeline: view();
-      animation-range: entry 8% cover 28%;
-    }
+  html[data-motion="full"] .reveal {
+    animation: reveal-up both var(--ease-editorial);
+    animation-timeline: view();
+    animation-range: entry 4% cover 22%;
   }
+
+  html[data-motion="full"] .clip-reveal {
+    animation: clip-in both var(--ease-editorial);
+    animation-timeline: view();
+    animation-range: entry 8% cover 28%;
+  }
+}
+
+/* Fallback for browsers without scroll-driven animations (see reveal-fallback). */
+html[data-motion="full"] .fallback-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 620ms var(--ease-editorial),
+    transform 620ms var(--ease-editorial);
+}
+
+html[data-motion="full"] .fallback-reveal.is-in {
+  opacity: 1;
+  transform: none;
 }
 
 /* The horizontal chapter is driven by components/horizontal-chapters.tsx. */
@@ -129,24 +155,43 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .h-section {
+  html:not([data-motion="full"]) .h-section {
     height: auto !important;
   }
 
-  .h-sticky {
+  html:not([data-motion="full"]) .h-sticky {
     position: static !important;
     height: auto !important;
   }
 
-  .h-track {
+  html:not([data-motion="full"]) .h-track {
     transform: none !important;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
   }
 
-  .h-panel {
+  html:not([data-motion="full"]) .h-panel {
     scroll-snap-align: center;
   }
+}
+
+html[data-motion="reduce"] .h-section {
+  height: auto !important;
+}
+
+html[data-motion="reduce"] .h-sticky {
+  position: static !important;
+  height: auto !important;
+}
+
+html[data-motion="reduce"] .h-track {
+  transform: none !important;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+html[data-motion="reduce"] .h-panel {
+  scroll-snap-align: center;
 }
 
 /* Page transition: panel empties upwards after a client-side navigation. */
@@ -170,9 +215,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-wipe {
+  html:not([data-motion="full"]) .page-wipe {
     display: none;
   }
+}
+
+html[data-motion="reduce"] .page-wipe {
+  display: none;
 }
 
 /* Chapter overlay entrance. */

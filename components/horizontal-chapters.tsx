@@ -5,15 +5,13 @@ import { useEffect } from "react";
 
 /**
  * Drives every [data-horizontal] chapter: vertical scroll moves the track
- * inside it sideways. Without JS or with reduced motion the CSS in globals.css
- * unpins the section and the track scrolls natively instead.
+ * inside it sideways. With motion off (`data-motion="reduce"`) the CSS in
+ * globals.css unpins the section and the track scrolls natively instead.
  */
 export function HorizontalChapters() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
     const sections = Array.from(
       document.querySelectorAll<HTMLElement>("[data-horizontal]"),
     );
@@ -23,11 +21,17 @@ export function HorizontalChapters() {
 
     const update = () => {
       frame = 0;
+      const animate = document.documentElement.dataset.motion !== "reduce";
       const viewport = window.innerHeight;
 
       for (const section of sections) {
         const track = section.querySelector<HTMLElement>("[data-horizontal-track]");
         if (!track) continue;
+
+        if (!animate) {
+          track.style.transform = "";
+          continue;
+        }
 
         const rect = section.getBoundingClientRect();
         const scrollable = rect.height - viewport;
@@ -46,10 +50,12 @@ export function HorizontalChapters() {
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+    window.addEventListener("motionchange", onScroll);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      window.removeEventListener("motionchange", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
   }, [pathname]);

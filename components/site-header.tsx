@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { MotionToggle } from "@/components/motion-toggle";
 import { site } from "@/content/site";
 
 const chapters = [
@@ -185,9 +186,12 @@ export function SiteHeader() {
               })}
             </nav>
 
-            <div className="flex items-baseline justify-between border-t border-paper-on-night/10 pt-4">
+            <div className="flex flex-wrap items-baseline justify-between gap-3 border-t border-paper-on-night/10 pt-4">
               <p className="eyebrow text-paper-on-night/60">{site.tagline}</p>
-              <p className="eyebrow text-paper-on-night/60">2026</p>
+              <div className="flex items-baseline gap-5">
+                <MotionToggle />
+                <p className="eyebrow text-paper-on-night/60">2026</p>
+              </div>
             </div>
           </div>
         </div>

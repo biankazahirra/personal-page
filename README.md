@@ -185,6 +185,10 @@ Then open `http://localhost/personal-page/`. Notes:
 - Without JavaScript or with reduced motion, the horizontal chapter unpins
   (`.h-section` in `app/globals.css`) and the panels become a normal
   horizontally scrollable row, so nothing is unreachable.
+- Motion respects the device setting by default. `app/layout.tsx` sets
+  `data-motion` before first paint from `localStorage` or
+  `prefers-reduced-motion`; the `motion: on/off` control in the chapters overlay
+  (and the footer) overrides it and persists per browser.
 - Page transitions: `components/page-wipe.tsx` replays a dark panel on route
   change. It is skipped entirely under reduced motion.
 - No icon library: the few icons are inline SVG or text.

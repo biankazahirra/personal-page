@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { PageWipe } from "@/components/page-wipe";
 import { HorizontalChapters } from "@/components/horizontal-chapters";
+import { RevealFallback } from "@/components/reveal-fallback";
 import { site } from "@/content/site";
 
 import "./globals.css";
@@ -57,6 +58,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${display.variable} ${sans.variable} ${mono.variable}`}
     >
       <body>
+        <script
+          // Runs before first paint so the reduced-motion styling never flashes.
+          dangerouslySetInnerHTML={{
+            __html:
+              'try{var s=localStorage.getItem("motion");document.documentElement.dataset.motion=(s?s==="full":!matchMedia("(prefers-reduced-motion: reduce)").matches)?"full":"reduce"}catch(e){document.documentElement.dataset.motion="full"}',
+          }}
+        />
         <a
           href="#main"
           className="eyebrow sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-3 focus:text-paper"
@@ -66,6 +74,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SiteHeader />
         <PageWipe />
         <HorizontalChapters />
+        <RevealFallback />
         <main id="main">{children}</main>
         <SiteFooter />
       </body>
