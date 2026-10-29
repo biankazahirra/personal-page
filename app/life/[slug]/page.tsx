@@ -34,8 +34,12 @@ export default async function JournalEntryPage({ params }: Params) {
 
   return (
     <article className="mx-auto max-w-[1440px] px-6 pb-24 pt-32 md:px-12 md:pt-44">
-      <Link href="/life" className="eyebrow text-ink-muted hover:text-accent">
-        ← life lately
+      <Link
+        href="/life"
+        className="eyebrow inline-flex items-center gap-3 text-ink-muted hover:text-accent"
+      >
+        <span className="node-label text-accent">C04</span>
+        life lately
       </Link>
 
       <header className="mt-10 max-w-[26ch]">

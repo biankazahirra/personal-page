@@ -18,7 +18,8 @@ export default function LifePage() {
   return (
     <>
       <PageHeader
-        index="04 — life lately"
+        code="C04"
+        name="life"
         title="A journal without a schedule."
         lede="Songs, small moments, practice notes. Not a feed, not a highlight reel — just what happened."
       />

@@ -18,7 +18,8 @@ export default function FilmsPage() {
   return (
     <>
       <PageHeader
-        index="05 — films"
+        code="C05"
+        name="films"
         title="Watched, then thought about."
         lede="A list that starts empty on purpose. Entries appear when there is something to say beyond a rating."
       />

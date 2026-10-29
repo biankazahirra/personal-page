@@ -36,8 +36,12 @@ export default async function ProjectPage({ params }: Params) {
 
   return (
     <article className="mx-auto max-w-[1440px] px-6 pb-24 pt-32 md:px-12 md:pt-44">
-      <Link href="/projects" className="eyebrow text-ink-muted hover:text-accent">
-        ← all projects
+      <Link
+        href="/projects"
+        className="eyebrow inline-flex items-center gap-3 text-ink-muted hover:text-accent"
+      >
+        <span className="node-label text-accent">C06</span>
+        all projects
       </Link>
 
       <header className="mt-10 max-w-[22ch]">

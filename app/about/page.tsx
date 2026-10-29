@@ -50,7 +50,8 @@ export default function AboutPage() {
   return (
     <>
       <PageHeader
-        index="02 — about"
+        code="C02"
+        name="about"
         title="The person behind the tabs."
         lede="Curious, adaptable, still learning. Not a finished product, and not trying to look like one."
       />

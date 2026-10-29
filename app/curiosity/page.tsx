@@ -15,7 +15,8 @@ export default function CuriosityPage() {
   return (
     <>
       <PageHeader
-        index="03 — curiosity"
+        code="C03"
+        name="curiosity"
         title="Notes from the open tabs."
         lede="Things I tried, what broke, and what I would do differently. Written while it is still fresh, not after it has become a nice story."
       />
