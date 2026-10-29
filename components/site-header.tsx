@@ -7,13 +7,31 @@ import { useEffect, useRef, useState } from "react";
 import { MotionToggle } from "@/components/motion-toggle";
 import { site } from "@/content/site";
 
-const chapters = [
-  { href: "/", label: "index", blurb: "the entrance" },
-  { href: "/about", label: "about", blurb: "the person" },
-  { href: "/curiosity", label: "curiosity", blurb: "the explorer" },
-  { href: "/life", label: "life", blurb: "the observer" },
-  { href: "/films", label: "films", blurb: "the watcher" },
-  { href: "/projects", label: "projects", blurb: "the maker" },
+const components = [
+  { href: "/", code: "C01", label: "index", blurb: "the entrance", status: "live" },
+  { href: "/about", code: "C02", label: "about", blurb: "the person", status: "live" },
+  {
+    href: "/curiosity",
+    code: "C03",
+    label: "curiosity",
+    blurb: "the explorer",
+    status: "live",
+  },
+  { href: "/life", code: "C04", label: "life", blurb: "the observer", status: "live" },
+  {
+    href: "/films",
+    code: "C05",
+    label: "films",
+    blurb: "the watcher",
+    status: "unpopulated",
+  },
+  {
+    href: "/projects",
+    code: "C06",
+    label: "projects",
+    blurb: "the maker",
+    status: "live",
+  },
 ];
 
 export function SiteHeader() {
@@ -103,21 +121,19 @@ export function SiteHeader() {
           {site.name}
         </Link>
 
-        <div className="flex items-baseline gap-5">
-          <span className={`eyebrow hidden sm:block ${mutedTone}`}>
-            a small world — 2026
-          </span>
+        <div className="flex items-baseline gap-4 md:gap-5">
+          <span className={`eyebrow hidden sm:block ${mutedTone}`}>rev 2026</span>
           <button
             ref={menuButton}
             type="button"
             onClick={() => setOpen(true)}
             aria-expanded={open}
-            aria-controls="chapters"
+            aria-controls="components"
             className={`eyebrow border px-3 py-2 transition-colors duration-200 hover:border-accent-warm hover:text-accent-warm ${
               onDark ? "border-paper-on-night/30" : "border-ink/25"
             }`}
           >
-            chapters
+            components
           </button>
         </div>
       </div>
@@ -131,16 +147,16 @@ export function SiteHeader() {
 
       {open ? (
         <div
-          id="chapters"
+          id="components"
           ref={dialog}
           role="dialog"
           aria-modal="true"
-          aria-label="Select your chapter"
+          aria-label="Select a component"
           className="fixed inset-0 z-40 overflow-y-auto bg-night text-paper-on-night"
         >
           <div className="overlay-panel mx-auto flex min-h-full max-w-[1440px] flex-col px-6 py-5 md:px-12">
             <div className="flex items-center justify-between">
-              <p className="eyebrow text-paper-on-night/60">select your chapter</p>
+              <p className="eyebrow text-paper-on-night/60">select a component</p>
               <button
                 ref={closeButton}
                 type="button"
@@ -154,32 +170,45 @@ export function SiteHeader() {
               </button>
             </div>
 
-            <nav aria-label="Chapters" className="flex flex-1 flex-col justify-center py-10">
-              {chapters.map((chapter, index) => {
+            <nav aria-label="Components" className="flex flex-1 flex-col justify-center py-10">
+              {components.map((item) => {
                 const active =
-                  chapter.href === "/"
+                  item.href === "/"
                     ? pathname === "/"
-                    : pathname.startsWith(chapter.href);
+                    : pathname.startsWith(item.href);
 
                 return (
                   <Link
-                    key={chapter.href}
-                    href={chapter.href}
+                    key={item.href}
+                    href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className="group flex items-baseline gap-4 border-b border-paper-on-night/10 py-3 md:gap-8"
+                    className="group flex items-baseline gap-3 border-b border-paper-on-night/10 py-3 md:gap-6"
                   >
-                    <span className="eyebrow w-8 shrink-0 text-paper-on-night/60">
-                      {String(index + 1).padStart(2, "0")}
+                    <span
+                      className={`node-label shrink-0 ${
+                        active ? "text-accent-warm" : "text-paper-on-night/60"
+                      }`}
+                    >
+                      {item.code}
                     </span>
                     <span
-                      className={`display text-[clamp(2rem,7vw,4.5rem)] transition-colors duration-200 group-hover:text-accent-warm ${
+                      className={`display text-[clamp(1.75rem,6vw,4.5rem)] transition-colors duration-200 group-hover:text-accent-warm ${
                         active ? "text-accent-warm" : ""
                       }`}
                     >
-                      {chapter.label}
+                      {item.label}
                     </span>
-                    <span className="eyebrow ml-auto hidden text-paper-on-night/60 sm:block">
-                      {chapter.blurb}
+                    <span className="ml-auto flex shrink-0 items-baseline gap-3">
+                      <span className="eyebrow hidden text-paper-on-night/60 sm:block">
+                        {item.blurb}
+                      </span>
+                      <span
+                        className={`eyebrow hidden text-paper-on-night/40 md:block ${
+                          item.status === "unpopulated" ? "text-paper-on-night/30" : ""
+                        }`}
+                      >
+                        {item.status}
+                      </span>
                     </span>
                   </Link>
                 );
@@ -190,7 +219,7 @@ export function SiteHeader() {
               <p className="eyebrow text-paper-on-night/60">{site.tagline}</p>
               <div className="flex items-baseline gap-5">
                 <MotionToggle />
-                <p className="eyebrow text-paper-on-night/60">2026</p>
+                <p className="eyebrow text-paper-on-night/60">rev 2026</p>
               </div>
             </div>
           </div>
