@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHeader } from "@/components/page-header";
+import { JourneyShaft } from "@/components/journey-shaft";
 import { Media } from "@/components/media";
 import { site } from "@/content/site";
 import { timeline } from "@/content/timeline";
@@ -100,28 +101,9 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <ol className="md:col-span-8 md:col-start-5">
-              {timeline.map((item) => (
-                <li key={`${item.period}-${item.title}`} className="border-t border-ink/15 py-6 first:border-t-0 first:pt-0">
-                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                    <p className="eyebrow text-ink-muted">{item.period}</p>
-                    <p className="eyebrow text-ink-muted">{item.kind}</p>
-                    {item.current ? (
-                      <span className="eyebrow rounded-none bg-ink px-2 py-0.5 text-paper">
-                        now
-                      </span>
-                    ) : null}
-                  </div>
-                  <h3 className="display mt-2 text-2xl">
-                    {item.title}
-                    {item.org ? (
-                      <span className="text-ink-muted"> — {item.org}</span>
-                    ) : null}
-                  </h3>
-                  <p className="mt-2 max-w-[52ch] text-ink-muted">{item.summary}</p>
-                </li>
-              ))}
-            </ol>
+            <div className="md:col-span-8 md:col-start-5">
+              <JourneyShaft items={timeline} />
+            </div>
           </div>
         </div>
       </section>

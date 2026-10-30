@@ -240,6 +240,9 @@ Then open `http://localhost/personal-page/`. Notes:
 - The category filter on `/curiosity` is a client component: it dims notes off
   the channel, keeps the choice in `?channel=`, and lights a note's channel on
   hover. Without JavaScript every note is listed and readable.
+- `/about` renders the timeline as a lift shaft with a copper carriage that
+  moves to the probed stop. It measures each stop, so it does not assume equal
+  row heights.
 - Motion, contrast and keyboard support follow the budgets in `docs/PRD.md` §10.
 
 ## Measured (2026-10-29, production build)

@@ -137,6 +137,18 @@ The header and the board both read it, so they cannot drift.
   Colour is never the only carrier.
 - A channel with no notes says so instead of leaving an empty grid.
 
+### 6.1c Journey shaft
+
+`/about` renders the timeline as a lift shaft (`components/journey-shaft.tsx`):
+
+- One rail, five stops, and a copper carriage that travels to the stop under the
+  pointer, focus or tap. Positions are measured from the stop itself, so rows
+  of different heights still line up.
+- The readout under the shaft reports `stop 03 / 05 · organization · Aug — Dec
+  2023`; the `current` stop carries a breathing lamp.
+- Every summary stays visible. Without JavaScript the rail and the full list
+  render; only the carriage waits for measurement.
+
 ### 6.2 Typography
 
 | Role | Font | Notes |

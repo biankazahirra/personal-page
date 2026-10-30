@@ -352,6 +352,23 @@ html[data-motion="reduce"] .page-wipe {
   opacity: 1;
 }
 
+/* Journey shaft on /about: the carriage only appears once it has been measured. */
+.journey-carriage {
+  opacity: 0;
+  transition:
+    transform 320ms var(--ease-editorial),
+    opacity 200ms ease;
+}
+
+.journey-shaft[data-ready="true"] .journey-carriage {
+  opacity: 1;
+}
+
+.journey-lamp {
+  background-color: var(--color-accent-warm);
+  animation: led-breathe 2.6s ease-in-out infinite;
+}
+
 /* Note status lamp: running breathes, closed sits solid, dropped stays hollow. */
 .status-led {
   display: inline-block;
@@ -385,12 +402,14 @@ html[data-motion="reduce"] .page-wipe {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html:not([data-motion="full"]) .status-led {
+  html:not([data-motion="full"]) .status-led,
+  html:not([data-motion="full"]) .journey-lamp {
     animation: none;
   }
 }
 
-html[data-motion="reduce"] .status-led {
+html[data-motion="reduce"] .status-led,
+html[data-motion="reduce"] .journey-lamp {
   animation: none;
 }
 
