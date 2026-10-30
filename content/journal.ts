@@ -2,6 +2,22 @@ import type { JournalEntry } from "./types";
 
 export const journal: JournalEntry[] = [
   {
+    slug: "clayface-tuesday",
+    title: "Clayface, on a Tuesday",
+    date: "2026-10-27",
+    kind: "update",
+    excerpt:
+      "Three tickets for the 18:15 show at Cilegon Center. Row B, seats 4 to 6.",
+    images: [
+      {
+        src: "/images/life/nonton-clayface.jpg",
+        alt: "Three Clayface cinema tickets from Cilegon Center held in front of rows of green seats",
+        width: 960,
+        height: 1280,
+      },
+    ],
+  },
+  {
     slug: "sample-on-repeat",
     title: "On repeat this month",
     date: "2026-10-18",

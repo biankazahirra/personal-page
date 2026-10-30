@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHeader } from "@/components/page-header";
-import { Texture } from "@/components/texture";
+import { Media } from "@/components/media";
 import { journal, kindLabels } from "@/content/journal";
 import { formatDate } from "@/lib/format";
 
@@ -30,10 +30,12 @@ export default function LifePage() {
             const content = (
               <div className="grid gap-8 md:grid-cols-12 md:items-end md:gap-8">
                 <div className={index % 2 === 0 ? "md:col-span-6" : "md:col-span-6 md:order-2"}>
-                  <Texture
+                  <Media
+                    image={entry.images?.[0]}
                     variant={entry.kind === "music" ? "waves" : entry.kind === "ukulele" ? "field" : "grid"}
                     label="image pending"
                     className="aspect-[4/3] w-full"
+                    sizes="(min-width: 768px) 50vw, 100vw"
                   />
                 </div>
 
