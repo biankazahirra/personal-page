@@ -91,13 +91,13 @@ Navbar: `index · about · curiosity · life · films · projects`. Transparent 
 
 | Role | Font | Notes |
 |------|------|-------|
-| Display / headings | Instrument Serif (italic available) | self-hosted via `next/font` |
-| Body / UI | Inter Tight | weights 400/500 |
-| Meta (dates, categories, numbers) | JetBrains Mono, uppercase, tracking 0.12em | 11–13px only |
+| Display / headings | Overpass 400 | signage-derived grotesque, self-hosted via `next/font` |
+| Body / UI | Overpass | same family as display, weights 400/500 |
+| Meta (dates, categories, numbers) | Overpass Mono, uppercase, tracking 0.12em | 11–13px only |
 
 Fluid scale:
 
-- Display: `clamp(3rem, 9vw, 8rem)`, line-height 0.92, letter-spacing -0.02em
+- Display: `clamp(3rem, 9vw, 8rem)`, line-height 0.95, letter-spacing -0.015em
 - Section H2: `clamp(2rem, 5vw, 4rem)`, line-height 1.0
 - Body: `1.0625rem`, line-height 1.65, max-width 62ch
 - Meta: `0.75rem`

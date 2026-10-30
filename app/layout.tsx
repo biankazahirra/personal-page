@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Overpass, Overpass_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { SiteFooter } from "@/components/site-footer";
@@ -11,27 +11,18 @@ import { site } from "@/content/site";
 
 import "./globals.css";
 
-const display = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  display: "swap",
-  variable: "--font-instrument-serif",
-});
-
-const sans = Inter_Tight({
+const sans = Overpass({
   subsets: ["latin"],
   display: "swap",
-  preload: false,
-  variable: "--font-inter-tight",
+  variable: "--font-overpass",
 });
 
-const mono = JetBrains_Mono({
+const mono = Overpass_Mono({
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
   preload: false,
-  variable: "--font-jetbrains-mono",
+  variable: "--font-overpass-mono",
 });
 
 export const metadata: Metadata = {
@@ -55,7 +46,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} ${mono.variable}`}
+      className={`${sans.variable} ${mono.variable}`}
     >
       <body>
         <script
