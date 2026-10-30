@@ -53,8 +53,16 @@ export const projects: Project[] = [
       "The hardest part was not the code. It was agreeing, early, on what a plan actually is.",
     ],
     schematic: [
-      { label: "Java application", role: "Where plans are written, read and changed." },
-      { label: "MySQL", role: "One store for plans that used to be scattered." },
+      {
+        label: "Java application",
+        role: "Where plans are written, read and changed.",
+        step: "A plan is written, read or changed in the Java application.",
+      },
+      {
+        label: "MySQL",
+        role: "One store for plans that used to be scattered.",
+        step: "The plan is saved in one store instead of scattered documents.",
+      },
     ],
   },
   {
@@ -78,8 +86,16 @@ export const projects: Project[] = [
       "It is not glamorous work. It does return time every month, and that is the point.",
     ],
     schematic: [
-      { label: "Access form", role: "The request is entered once, on screen." },
-      { label: "Shared record", role: "The same information is reused instead of rewritten." },
+      {
+        label: "Access form",
+        role: "The request is entered once, on screen.",
+        step: "The request is entered once, on screen.",
+      },
+      {
+        label: "Shared record",
+        role: "The same information is reused instead of rewritten.",
+        step: "The record is reused, so nothing is rewritten.",
+      },
     ],
   },
   {
@@ -96,8 +112,16 @@ export const projects: Project[] = [
       "This one is unfinished: the forms work, the workflow around them is still being shaped.",
     ],
     schematic: [
-      { label: "Forms", role: "Built, and in use." },
-      { label: "Workflow", role: "Still being shaped around the forms." },
+      {
+        label: "Forms",
+        role: "Built, and in use.",
+        step: "The forms are built and in use.",
+      },
+      {
+        label: "Workflow",
+        role: "Still being shaped around the forms.",
+        step: "The workflow around the forms is still being shaped.",
+      },
     ],
   },
   {
@@ -114,9 +138,21 @@ export const projects: Project[] = [
       "The structure is deliberately boring. Content lives in plain TypeScript files, so adding a note never means touching a layout.",
     ],
     schematic: [
-      { label: "Content files", role: "Plain TypeScript, one file per kind of thing." },
-      { label: "Next.js", role: "Turns those files into pages." },
-      { label: "Static pages", role: "What you are reading." },
+      {
+        label: "Content files",
+        role: "Plain TypeScript, one file per kind of thing.",
+        step: "A content file is edited: a note, a project, a journal entry.",
+      },
+      {
+        label: "Next.js",
+        role: "Turns those files into pages.",
+        step: "Next.js reads the files and renders the pages.",
+      },
+      {
+        label: "Static pages",
+        role: "What you are reading.",
+        step: "The page you are reading is the result.",
+      },
     ],
   },
 ];
