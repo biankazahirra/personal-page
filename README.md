@@ -82,11 +82,17 @@ accurately. Leave `links` out entirely when there is nothing public to link to;
 the page then shows no button rather than a dead one.
 
 `schematic` is optional. It lists the parts of the project in the order they
-connect, and each part expands to one sentence: its role. Keep the labels short.
+connect. The page runs them as a circuit when the diagram scrolls into view;
+each part has a short label and one sentence of role. Add `step` to describe what
+happens at that point in the flow, for the readout during the run.
 
 ```ts
 schematic: [
-  { label: "Figma", role: "Interfaces drawn before anything was built." },
+  {
+    label: "Figma",
+    role: "Interfaces drawn before anything was built.",
+    step: "The interface is drawn before anything is built.",
+  },
   { label: "PHP", role: "Handles the booking requests." },
 ]
 ```

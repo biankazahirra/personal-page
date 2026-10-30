@@ -16,10 +16,26 @@ export const projects: Project[] = [
       "What stayed with me is how much of the work is deciding what a form should ask, not how it should look.",
     ],
     schematic: [
-      { label: "Figma", role: "Interfaces drawn before anything was built." },
-      { label: "HTML, Tailwind CSS, JavaScript", role: "The front end I built from those drawings." },
-      { label: "PHP", role: "Handles the booking requests." },
-      { label: "MySQL", role: "Holds the records." },
+      {
+        label: "Figma",
+        role: "Interfaces drawn before anything was built.",
+        step: "The interface is drawn before anything is built.",
+      },
+      {
+        label: "HTML, Tailwind CSS, JavaScript",
+        role: "The front end I built from those drawings.",
+        step: "Those drawings become pages the browser can use.",
+      },
+      {
+        label: "PHP",
+        role: "Handles the booking requests.",
+        step: "A request reaches the server and PHP handles it.",
+      },
+      {
+        label: "MySQL",
+        role: "Holds the records.",
+        step: "The booking is stored as a record.",
+      },
     ],
   },
   {
