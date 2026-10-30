@@ -55,8 +55,8 @@ export const components: ComponentEntry[] = [
     code: "C05",
     label: "films",
     blurb: "the watcher",
-    spec: "no entries yet",
-    status: "unpopulated",
+    spec: "four favourites, no ratings yet",
+    status: "live",
   },
   {
     href: "/projects",
