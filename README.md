@@ -57,6 +57,7 @@ Append an object to `notes` in `content/notes.ts`:
   title: "An agent that failed quietly",
   date: "2026-11-02",
   category: "ai",                     // ai | code | tools | learning
+  status: "running",                  // running | closed | dropped (optional)
   excerpt: "One or two lines that appear in the index.",
   body: ["Paragraph one.", "Paragraph two."], // optional
 }
@@ -236,8 +237,9 @@ Then open `http://localhost/personal-page/`. Notes:
 - Page transitions: `components/page-wipe.tsx` replays a dark panel on route
   change. It is skipped entirely under reduced motion.
 - No icon library: the few icons are inline SVG or text.
-- The category filter on `/curiosity` is CSS-only (radio inputs plus `:has`), so
-  it works without JavaScript.
+- The category filter on `/curiosity` is a client component: it dims notes off
+  the channel, keeps the choice in `?channel=`, and lights a note's channel on
+  hover. Without JavaScript every note is listed and readable.
 - Motion, contrast and keyboard support follow the budgets in `docs/PRD.md` §10.
 
 ## Measured (2026-10-29, production build)

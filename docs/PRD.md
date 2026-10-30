@@ -56,7 +56,7 @@ Nine routes. Fully static (SSG), no server runtime.
 |-------|---------|---------------------|
 | `/` | Home, cinematic six-part flow | Six sockets (`C01`–`C06`) render in order; every socket opens its section; the board is readable without JavaScript and on touch; no section repeats another's content |
 | `/about` | Personal narrative + timeline + skills | Timeline and skills live on the same page (anchors `#journey`, `#toolbox`); first-person copy; no claim that the degree was completed |
-| `/curiosity` | Index of notes and experiments | Asymmetric grid; category filter (ai / code / tools / learning) works without reload; entries without `body` have no detail link |
+| `/curiosity` | Index of notes and experiments | Asymmetric grid; four-position channel bank (all / ai / code / tools / learning) that dims off-channel notes without a reload; `status` lamp per note; entries without `body` have no detail link |
 | `/curiosity/[slug]` | Note detail | Only for entries with `body`; `generateStaticParams` covers every slug |
 | `/life` | Visual journal | Entries newest first; supports `update`, `photo`, `music`, `ukulele`; layout varies per kind, never a uniform feed |
 | `/life/[slug]` | Journal detail | Same as notes; gallery supports 1–4 images |
@@ -118,6 +118,24 @@ openable, and every role is still readable.
 `content/components.ts` is the single source for the six entries: code, label,
 blurb, board spec line, status (`live` / `unpopulated`) and optional `links`.
 The header and the board both read it, so they cannot drift.
+
+### 6.1b Note channels
+
+`/curiosity` is a four-position channel bank, built in
+`components/notes-board.tsx`:
+
+- Choosing a channel dims notes outside it to 0.35 and removes them from the tab
+  order; nothing is unmounted, so the grid never reflows.
+- The readout under the bank reports the channel, the note count and the status
+  mix (`2 running · 1 closed`).
+- Hovering or focusing a note lights its channel back, the same two-way probe as
+  the assembly board.
+- The choice is written to `?channel=` with `history.replaceState`, so returning
+  from a note keeps the channel.
+- `status` on a note is one of `running`, `closed`, `dropped`. It is shown with
+  a text label and a lamp: running breathes, closed is solid, dropped is hollow.
+  Colour is never the only carrier.
+- A channel with no notes says so instead of leaving an empty grid.
 
 ### 6.2 Typography
 

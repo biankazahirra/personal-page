@@ -26,6 +26,8 @@ export type Note = {
   title: string;
   date?: string;
   category: "ai" | "code" | "tools" | "learning";
+  /** How the experiment ended: still running, closed, or dropped. */
+  status?: "running" | "closed" | "dropped";
   excerpt: string;
   cover?: ImageRef;
   body?: string[];

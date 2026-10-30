@@ -6,6 +6,7 @@ export const notes: Note[] = [
     title: "What I actually do with AI agents",
     date: "2026-10-10",
     category: "ai",
+    status: "running",
     excerpt:
       "A sample note. Replace it with what you really tried, and what actually helped.",
     body: [
@@ -20,6 +21,7 @@ export const notes: Note[] = [
     title: "A tool I tried and then dropped",
     date: "2026-09-22",
     category: "tools",
+    status: "dropped",
     excerpt:
       "A sample note about a tool that did not survive the second week. Your version goes here.",
     placeholder: true,
@@ -29,6 +31,7 @@ export const notes: Note[] = [
     title: "The small script that gave me an hour back",
     date: "2026-08-30",
     category: "code",
+    status: "closed",
     excerpt:
       "A sample note about repetition, boredom and the shortest possible fix.",
     placeholder: true,
@@ -37,6 +40,7 @@ export const notes: Note[] = [
     slug: "sample-learning-in-progress",
     title: "Learning in progress",
     category: "learning",
+    status: "running",
     excerpt:
       "A sample note for the things you are learning right now, written before you finish them.",
     placeholder: true,

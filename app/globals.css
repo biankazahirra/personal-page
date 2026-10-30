@@ -310,26 +310,88 @@ html[data-motion="reduce"] .page-wipe {
   animation: overlay-in 320ms var(--ease-editorial) both;
 }
 
-/* CSS-only category filter on /curiosity. */
+/* Note channels on /curiosity: four positions, one readout. */
 .filter-option {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
   color: var(--color-ink-muted);
   border-bottom: 1px solid transparent;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
 }
 
 .filter-option:hover {
   color: var(--color-ink);
 }
 
-.filter-option:has(input:checked) {
+.filter-option[data-active="true"] {
   color: var(--color-ink);
   border-bottom-color: var(--color-accent);
 }
 
-.notes-filter:has(#filter-ai:checked) [data-cat]:not([data-cat="ai"]),
-.notes-filter:has(#filter-code:checked) [data-cat]:not([data-cat="code"]),
-.notes-filter:has(#filter-tools:checked) [data-cat]:not([data-cat="tools"]),
-.notes-filter:has(#filter-learning:checked) [data-cat]:not([data-cat="learning"]) {
-  display: none;
+.filter-option[data-probe="true"] {
+  color: var(--color-accent);
+}
+
+.filter-option:has(input:focus-visible) {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.filter-count {
+  border: 1px solid currentColor;
+  padding: 0.1rem 0.3rem;
+  font-size: 0.5625rem;
+  line-height: 1;
+  opacity: 0.65;
+}
+
+.filter-option[data-active="true"] .filter-count {
+  opacity: 1;
+}
+
+/* Note status lamp: running breathes, closed sits solid, dropped stays hollow. */
+.status-led {
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+}
+
+.status-led[data-status="running"] {
+  background-color: var(--color-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 18%, transparent);
+  animation: led-breathe 2.6s ease-in-out infinite;
+}
+
+.status-led[data-status="closed"] {
+  background-color: var(--color-accent);
+}
+
+.status-led[data-status="dropped"] {
+  border: 1px solid var(--color-ink-muted);
+}
+
+@keyframes led-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .status-led {
+    animation: none;
+  }
+}
+
+html[data-motion="reduce"] .status-led {
+  animation: none;
 }
 
 /* Long-form body copy on detail pages. */

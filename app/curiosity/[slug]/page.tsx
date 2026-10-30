@@ -42,10 +42,17 @@ export default async function NotePage({ params }: Params) {
       </Link>
 
       <header className="mt-10 max-w-[24ch]">
-        <p className="eyebrow text-ink-muted">
-          {note.category}
-          {note.date ? ` · ${formatDate(note.date)}` : ""}
-          {note.placeholder ? " · sample" : ""}
+        <p className="eyebrow flex flex-wrap items-center gap-x-2 gap-y-1 text-ink-muted">
+          <span>{note.category}</span>
+          {note.date ? <span>· {formatDate(note.date)}</span> : null}
+          {note.placeholder ? <span>· sample</span> : null}
+          {note.status ? (
+            <span className="inline-flex items-center gap-1.5">
+              <span aria-hidden="true">·</span>
+              <span aria-hidden="true" className="status-led" data-status={note.status} />
+              {note.status}
+            </span>
+          ) : null}
         </p>
         <h1 className="display mt-4 text-[clamp(2.5rem,7vw,5rem)]">{note.title}</h1>
       </header>
