@@ -128,6 +128,9 @@ hero: {
 Alt text is required, not optional. Width and height are the real pixel size of
 the file: they reserve space so nothing jumps while the image loads.
 
+A project cover on `/projects/<slug>` keeps its own ratio and is never cropped,
+so screenshots stay readable. Everywhere else, media fills a fixed box and crops.
+
 ## Placeholders to replace
 
 Sample content is marked in the data (`placeholder: true`) and rendered with a

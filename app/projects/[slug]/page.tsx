@@ -59,7 +59,8 @@ export default async function ProjectPage({ params }: Params) {
           image={project.cover}
           variant="field"
           label="screenshot pending"
-          className="aspect-[16/9] w-full"
+          fit="intrinsic"
+          className={project.cover ? "w-full" : "aspect-[16/9] w-full"}
           sizes="(min-width: 1440px) 1440px, 100vw"
         />
       </div>

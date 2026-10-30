@@ -50,6 +50,12 @@ export const projects: Project[] = [
     role: "Built and maintain it",
     stack: ["Microsoft Access"],
     status: "shipped",
+    cover: {
+      src: "/images/projects/purchase-requisition-form.png",
+      alt: "The Access form: recipient, sender, subject and date fields, a budget detail table on the right, and print buttons.",
+      width: 1295,
+      height: 627,
+    },
     body: [
       "Purchase requisitions used to move through documents that had to be rewritten every time.",
       "I built digital forms in Microsoft Access so the same information is entered once and reused.",

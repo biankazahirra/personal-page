@@ -13,6 +13,8 @@ type MediaProps = {
   className?: string;
   sizes?: string;
   priority?: boolean;
+  /** `intrinsic` keeps the image's own ratio instead of cropping it. */
+  fit?: "cover" | "intrinsic";
 };
 
 /**
@@ -28,6 +30,7 @@ export function Media({
   className = "",
   sizes = "100vw",
   priority = false,
+  fit = "cover",
 }: MediaProps) {
   if (!image) {
     return (
@@ -36,14 +39,21 @@ export function Media({
   }
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div
+      className={`relative overflow-hidden ${className}`}
+      style={
+        fit === "intrinsic"
+          ? { aspectRatio: `${image.width} / ${image.height}` }
+          : undefined
+      }
+    >
       <Image
         src={image.src}
         alt={image.alt}
         fill
         sizes={sizes}
         priority={priority}
-        className="object-cover"
+        className={fit === "intrinsic" ? "object-contain" : "object-cover"}
       />
     </div>
   );
