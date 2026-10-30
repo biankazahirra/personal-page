@@ -65,6 +65,8 @@ export type Project = {
   links?: { label: string; href: string }[];
   cover?: ImageRef;
   body?: string[];
+  /** How the parts connect. Rendered as a chain of expandable nodes. */
+  schematic?: { label: string; role: string }[];
   placeholder?: boolean;
 };
 

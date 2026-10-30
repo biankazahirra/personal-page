@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Media } from "@/components/media";
+import { ProjectSchematic } from "@/components/project-schematic";
 import { projects } from "@/content/projects";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -63,6 +64,15 @@ export default async function ProjectPage({ params }: Params) {
         />
       </div>
 
+      {project.schematic && project.schematic.length > 0 ? (
+        <section className="mt-16 max-w-[36rem] border-t border-ink/15 pt-8 md:mt-20">
+          <p className="eyebrow text-ink-muted">how it fits together</p>
+          <div className="mt-6">
+            <ProjectSchematic nodes={project.schematic} />
+          </div>
+        </section>
+      ) : null}
+
       <div className="mt-14 grid gap-10 md:grid-cols-12 md:gap-8">
         <dl className="md:col-span-4">
           {project.role ? (
@@ -101,13 +111,19 @@ export default async function ProjectPage({ params }: Params) {
           ) : null}
         </dl>
 
-        <div className="reading md:col-span-7 md:col-start-6">
-          {project.body?.map((paragraph) => (
-            <p key={paragraph} className="text-ink-muted">
-              {paragraph}
-            </p>
+        <ol className="reading md:col-span-7 md:col-start-6">
+          {project.body?.map((paragraph, index) => (
+            <li
+              key={paragraph}
+              className="grid grid-cols-[2rem_1fr] gap-4 border-t border-ink/15 py-5 first:border-t-0 first:pt-0 last:pb-0"
+            >
+              <span aria-hidden className="eyebrow pt-1.5 text-ink-muted">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <p className="text-ink-muted">{paragraph}</p>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </article>
   );

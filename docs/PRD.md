@@ -62,7 +62,7 @@ Nine routes. Fully static (SSG), no server runtime.
 | `/life/[slug]` | Journal detail | Same as notes; gallery supports 1–4 images |
 | `/films` | Film journal | List with year, rating, short note; no detail page in v1; outbound Letterboxd link only when a URL is supplied |
 | `/projects` | Collection of things made | Status visible (shipped / in-progress / archived); projects without links show no dead button |
-| `/projects/[slug]` | Project detail | Shows summary, role, stack, status, imagery; no unverified impact metrics |
+| `/projects/[slug]` | Project detail | Shows summary, role, stack, status, imagery, a numbered note list and an optional part-by-part schematic; no unverified impact metrics |
 | `not-found` | 404 | Same visual language; a way back to `/` |
 
 Mandatory extras: `sitemap.xml`, `robots.txt`, OG image per primary route.
@@ -232,6 +232,7 @@ type Project = {
   status: "shipped" | "in-progress" | "archived";
   links?: { label: string; href: string }[];
   cover?: ImageRef; body?: string[]; placeholder?: boolean;
+  schematic?: { label: string; role: string }[]; // parts, in order; each expands
 };
 
 type TimelineItem = {

@@ -81,6 +81,16 @@ Append to `projects` in `content/projects.ts`. Only add projects you can describ
 accurately. Leave `links` out entirely when there is nothing public to link to;
 the page then shows no button rather than a dead one.
 
+`schematic` is optional. It lists the parts of the project in the order they
+connect, and each part expands to one sentence: its role. Keep the labels short.
+
+```ts
+schematic: [
+  { label: "Figma", role: "Interfaces drawn before anything was built." },
+  { label: "PHP", role: "Handles the booking requests." },
+]
+```
+
 ## Add a film
 
 Append to `films` in `content/films.ts`. No invented titles or ratings — the list

@@ -15,6 +15,12 @@ export const projects: Project[] = [
       "The visual work happened in Figma first, then moved into HTML, Tailwind CSS and JavaScript, with PHP and MySQL behind it.",
       "What stayed with me is how much of the work is deciding what a form should ask, not how it should look.",
     ],
+    schematic: [
+      { label: "Figma", role: "Interfaces drawn before anything was built." },
+      { label: "HTML, Tailwind CSS, JavaScript", role: "The front end I built from those drawings." },
+      { label: "PHP", role: "Handles the booking requests." },
+      { label: "MySQL", role: "Holds the records." },
+    ],
   },
   {
     slug: "proplan",
@@ -29,6 +35,10 @@ export const projects: Project[] = [
       "PROPLAN keeps project plans in one place instead of scattered across documents.",
       "I led the team and worked on the system itself: Java for the application, MySQL for the data.",
       "The hardest part was not the code. It was agreeing, early, on what a plan actually is.",
+    ],
+    schematic: [
+      { label: "Java application", role: "Where plans are written, read and changed." },
+      { label: "MySQL", role: "One store for plans that used to be scattered." },
     ],
   },
   {
@@ -45,6 +55,10 @@ export const projects: Project[] = [
       "I built digital forms in Microsoft Access so the same information is entered once and reused.",
       "It is not glamorous work. It does return time every month, and that is the point.",
     ],
+    schematic: [
+      { label: "Access form", role: "The request is entered once, on screen." },
+      { label: "Shared record", role: "The same information is reused instead of rewritten." },
+    ],
   },
   {
     slug: "lhstp-workflow",
@@ -59,6 +73,10 @@ export const projects: Project[] = [
       "The LHSTP paperwork is the next thing to move off paper.",
       "This one is unfinished: the forms work, the workflow around them is still being shaped.",
     ],
+    schematic: [
+      { label: "Forms", role: "Built, and in use." },
+      { label: "Workflow", role: "Still being shaped around the forms." },
+    ],
   },
   {
     slug: "this-site",
@@ -72,6 +90,11 @@ export const projects: Project[] = [
     body: [
       "This page is a place to keep things that do not belong in a CV: notes, films, songs, half-finished experiments.",
       "The structure is deliberately boring. Content lives in plain TypeScript files, so adding a note never means touching a layout.",
+    ],
+    schematic: [
+      { label: "Content files", role: "Plain TypeScript, one file per kind of thing." },
+      { label: "Next.js", role: "Turns those files into pages." },
+      { label: "Static pages", role: "What you are reading." },
     ],
   },
 ];
