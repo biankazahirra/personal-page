@@ -124,7 +124,7 @@ export default function HomePage() {
                 href="/about"
                 className="eyebrow mt-8 inline-block border-b border-accent pb-1 hover:text-accent"
               >
-                read the whole chapter
+                read the whole section
               </Link>
             </div>
 
@@ -258,7 +258,7 @@ export default function HomePage() {
                 href="/films"
                 className="eyebrow mt-6 inline-block border-b border-accent pb-1 hover:text-accent"
               >
-                the films chapter
+                the films section
               </Link>
             </div>
           </div>

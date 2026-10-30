@@ -3,8 +3,14 @@
 A small personal world: notes on AI agents and small systems, a film journal,
 songs on repeat, and an ukulele still being learned.
 
+The site is read as one machine being assembled, and the visitor is holding the
+service manual. Six sockets (`C01`–`C06`) replace chapter numbers: the homepage
+board shows them, the header keeps the list, and every section carries its part
+number. The prose stays plain; only the frame is schematic.
+
 Built with Next.js (App Router), TypeScript and Tailwind CSS v4. Everything is
-static. There is no database, no CMS, and no tracking.
+static. There is no database, no CMS, and no tracking. Fonts are Overpass and
+Overpass Mono, served by `next/font`.
 
 The specification lives in [`docs/PRD.md`](docs/PRD.md).
 
@@ -30,6 +36,7 @@ npm run build
 | What | File |
 |------|------|
 | Name, tagline, intro, currently-into, links | `content/site.ts` |
+| Component list: codes, names, status, board spec line | `content/components.ts` |
 | Notes / curiosity entries | `content/notes.ts` |
 | Journal entries | `content/journal.ts` |
 | Films | `content/films.ts` |

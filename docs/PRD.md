@@ -11,6 +11,7 @@
 | Version | Change |
 |---------|--------|
 | 1.0 | First PRD. Turns the free-form brief into a spec: routes, acceptance criteria, design tokens, content schema, non-functional budgets, milestones. |
+| 1.1 | Frame rebuilt around the "machine being assembled" metaphor: six sockets replace chapter numbers, a probeable assembly board on the homepage, part labels everywhere else, Overpass typography. Content, routes and palette unchanged. |
 
 ---
 
@@ -53,7 +54,7 @@ Nine routes. Fully static (SSG), no server runtime.
 
 | Route | Content | Acceptance criteria |
 |-------|---------|---------------------|
-| `/` | Home, cinematic six-part flow | Six parts render in order; every preview links to the full page; no section repeats another's content |
+| `/` | Home, cinematic six-part flow | Six sockets (`C01`–`C06`) render in order; every socket opens its section; the board is readable without JavaScript and on touch; no section repeats another's content |
 | `/about` | Personal narrative + timeline + skills | Timeline and skills live on the same page (anchors `#journey`, `#toolbox`); first-person copy; no claim that the degree was completed |
 | `/curiosity` | Index of notes and experiments | Asymmetric grid; category filter (ai / code / tools / learning) works without reload; entries without `body` have no detail link |
 | `/curiosity/[slug]` | Note detail | Only for entries with `body`; `generateStaticParams` covers every slug |
@@ -66,26 +67,51 @@ Nine routes. Fully static (SSG), no server runtime.
 
 Mandatory extras: `sitemap.xml`, `robots.txt`, OG image per primary route.
 
-**Home sequence (six parts):**
+**Home sequence (six sockets):**
 
-1. Opening: name/alias, one introductory line, one strong visual element.
-2. Short introduction (2–3 sentences, first person).
-3. Full-bleed editorial collage — the Observer part.
-4. "Currently into": 3–5 present interests, from `content/site.ts`.
-5. Preview: two latest notes, two latest journal entries, two films.
-6. Projects preview + background teaser + closing footer.
+1. Assembly board: six probeable sockets, model/revision/status table, name and one line.
+2. Short introduction (2–3 sentences, first person), portrait slot.
+3. Notes preview — the Explorer socket (`C03`).
+4. Horizontal journal strip — the Observer socket (`C04`).
+5. Films socket (`C05`), shown as unpopulated while `content/films.ts` is empty.
+6. Projects preview (`C06`), then the day job, recently, and the footer.
 
-Navbar: `index · about · curiosity · life · films · projects`. Transparent over the opening, solid after scroll. Mobile: fullscreen overlay, single column, touch targets ≥ 44px.
+Navigation: the header keeps `Bianka Zahirra`, `rev 2026` and a `components`
+button that opens the socket list as an overlay. Transparent over the opening,
+solid after scroll. Mobile: fullscreen overlay, single column, touch targets ≥ 44px.
 
 ## 6. Creative direction
 
 ### 6.1 Principles
 
+- The site is one machine being assembled; the visitor reads its service manual.
+  Every frame element agrees with that, prose does not.
+- Six sockets (`C01`–`C06`) replace chapter numbers. They appear on the homepage
+  board, in the header overlay, and as part labels on every page.
 - Asymmetry, deliberate whitespace, magazine-spread composition.
 - Typography is the main visual element, not a wrapper for text.
 - Images tell stories, not decorative thumbnails.
-- Visual rhythm: light sections and dark sections act as "chapters".
+- Visual rhythm: light sections and dark sections alternate down the page.
 - Avoid: decorative gradients, glassmorphism, uniform border radii, heavy soft shadows.
+
+### 6.1a Schematic primitives
+
+Defined in `app/globals.css`, shared by the board and the page headers:
+
+| Class | What it is |
+|-------|------------|
+| `.trace`, `.trace-h`, `.trace-v` | copper hairline, 1px |
+| `.node-label` | bordered mono badge for a part code |
+| `.schematic-grid` | faint 24px grid, homepage hero only |
+
+The homepage board (`components/schematic-board.tsx`) is markup plus CSS: hovering
+or focusing a socket lights its trace and steps the other sockets back to 0.35
+opacity. It works before hydration, without JavaScript, and on touch, where a tap
+opens the section directly.
+
+`content/components.ts` is the single source for the six entries: code, label,
+blurb, board spec line and status (`live` / `unpopulated`). The header and the
+board both read it, so they cannot drift.
 
 ### 6.2 Typography
 
