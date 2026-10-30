@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <section className="mx-auto flex min-h-[70vh] max-w-[1440px] flex-col justify-center px-6 py-32 md:px-12">
-      <p className="eyebrow text-ink-muted">404 — nothing here</p>
+      <p className="eyebrow text-ink-muted">404 — socket not found</p>
       <h1 className="display mt-6 max-w-[18ch] text-[clamp(2.5rem,8vw,6rem)]">
         This page went quiet.
       </h1>
@@ -15,7 +15,7 @@ export default function NotFound() {
         href="/"
         className="eyebrow mt-10 inline-block w-fit border-b border-accent pb-1 hover:text-accent"
       >
-        back to the beginning
+        back to the index
       </Link>
     </section>
   );

@@ -52,12 +52,12 @@ export function SiteFooter() {
 
         <div className="mt-16 flex flex-col gap-4 border-t border-ink/15 pt-6 md:flex-row md:items-center md:justify-between">
           <p className="eyebrow text-ink-muted">
-            {site.name} — built slowly, updated occasionally
+            {site.name} — assembled slowly, revised occasionally
           </p>
           <div className="flex flex-wrap items-center gap-6">
             <MotionToggle className="text-ink-muted hover:text-accent" />
             <Link href="/" className="eyebrow text-ink-muted hover:text-accent">
-              back to the beginning
+              back to the index
             </Link>
           </div>
         </div>

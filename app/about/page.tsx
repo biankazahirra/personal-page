@@ -53,7 +53,7 @@ export default function AboutPage() {
         code="C02"
         name="about"
         title="The person behind the tabs."
-        lede="Curious, adaptable, still learning. Not a finished product, and not trying to look like one."
+        lede="Still learning, in public. Not a finished product, and not trying to look like one."
       />
 
       <section className="mx-auto max-w-[1440px] px-6 pb-16 md:px-12 md:pb-24">

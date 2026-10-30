@@ -28,16 +28,14 @@ export default function FilmsPage() {
         {logged.length === 0 ? (
           <div className="grid gap-10 border-t border-ink/15 pt-10 md:grid-cols-12 md:gap-8">
             <div className="md:col-span-4">
-              <p className="display text-[clamp(2rem,5vw,3.5rem)]">Nothing logged yet.</p>
+              <p className="display text-[clamp(2rem,5vw,3.5rem)]">Socket C05 is empty.</p>
             </div>
 
             <div className="md:col-span-7 md:col-start-6">
               <p className="max-w-[52ch] text-ink-muted">
-                No invented titles, ratings, or reviews — that would defeat the
+                No invented titles, ratings, or reviews; that would defeat the
                 point of keeping a journal. When the first film is worth a line,
-                it goes in{" "}
-                <code className="font-mono text-[0.9em] text-ink">content/films.ts</code>{" "}
-                and shows up here.
+                its row appears here.
               </p>
 
               <ul className="mt-8 border-t border-ink/15">

@@ -368,6 +368,17 @@ Manual:
 
 Tone: conversational, honest, observant, understated. First person. Short sentences.
 
+Two registers, and they do not mix inside one sentence:
+
+- **Frame** (header, board, part labels, overlay, footer microcopy): service
+  manual. Nouns are parts and sockets, verbs are probe, assemble, revise. Terse,
+  no jokes, lowercase labels.
+- **Body** (about, notes, journal, project text): plain and direct, first person,
+  no metaphor. A reader who ignores the frame still gets a normal personal site.
+
+Visitors never see repository details. File paths, build steps and "TODO" belong
+in the README, not on a page.
+
 Allowed: "still learning", "trying things out", "not finished", "a temporary note".
 
 Forbidden: "passionate", "innovative solutions", "leveraging technology", "seasoned", "expert", "10x", motivational quotes, emoji in UI.
