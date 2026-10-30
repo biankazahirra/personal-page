@@ -102,6 +102,19 @@ schematic: [
 Append to `films` in `content/films.ts`. No invented titles or ratings — the list
 is empty until there is something real to log.
 
+## Connect two sockets
+
+The homepage board lights related sockets when you probe one. Relations live in
+`content/components.ts` as socket codes:
+
+```ts
+{ code: "C03", label: "curiosity", /* … */ links: ["C06"] }
+```
+
+Add a link only when the content justifies it. `C01` links to every other socket
+because it is the entrance; the others stay empty until a note or a project
+really refers to another section.
+
 ## Add a photograph
 
 Image slots render an abstract texture until content supplies an image, then

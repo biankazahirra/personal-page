@@ -104,14 +104,20 @@ Defined in `app/globals.css`, shared by the board and the page headers:
 | `.node-label` | bordered mono badge for a part code |
 | `.schematic-grid` | faint 24px grid, homepage hero only |
 
-The homepage board (`components/schematic-board.tsx`) is markup plus CSS: hovering
-or focusing a socket lights its trace and steps the other sockets back to 0.35
-opacity. It works before hydration, without JavaScript, and on touch, where a tap
-opens the section directly.
+The homepage board (`components/schematic-board.tsx`) reads six sockets on one
+power bus. Probing with the pointer or keyboard lights that socket's spur and
+rail segment, lights any socket listed in its `links`, and steps the rest back
+to 0.35 opacity. The footer line reports the probed socket, its status and its
+entry count; the `?` block reports system facts (counts, last revision) and is
+not navigation.
+
+Counts come from the content modules, so the board never states a number by
+hand. Probing needs JavaScript; without it every socket is still visible and
+openable, and every role is still readable.
 
 `content/components.ts` is the single source for the six entries: code, label,
-blurb, board spec line and status (`live` / `unpopulated`). The header and the
-board both read it, so they cannot drift.
+blurb, board spec line, status (`live` / `unpopulated`) and optional `links`.
+The header and the board both read it, so they cannot drift.
 
 ### 6.2 Typography
 

@@ -6,6 +6,8 @@ export type ComponentEntry = {
   /** One line shown on the assembly board. */
   spec: string;
   status: "live" | "unpopulated";
+  /** Codes of sockets this one connects to. Related parts light on probe. */
+  links?: string[];
 };
 
 /**
@@ -21,6 +23,8 @@ export const components: ComponentEntry[] = [
     blurb: "the entrance",
     spec: "one page, six sockets",
     status: "live",
+    // The index carries every other socket.
+    links: ["C02", "C03", "C04", "C05", "C06"],
   },
   {
     href: "/about",
