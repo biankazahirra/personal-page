@@ -140,7 +140,7 @@ These need real values from the owner. Nothing is invented to fill them:
 - Personal photographs.
 - OG image per route. Metadata exists, the generated image does not yet.
 - A domain. `sitemap.ts` and `robots.ts` fall back to
-  `https://personal-page.vercel.app`; set `NEXT_PUBLIC_SITE_URL` when a real
+  `https://biankazahirra.vercel.app`; set `NEXT_PUBLIC_SITE_URL` when a real
   domain exists.
 
 ## Deploy to Vercel

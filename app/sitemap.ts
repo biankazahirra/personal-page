@@ -6,7 +6,7 @@ import { projects } from "@/content/projects";
 
 export const dynamic = "force-static";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://personal-page.vercel.app";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://biankazahirra.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = ["", "/about", "/curiosity", "/life", "/films", "/projects"];

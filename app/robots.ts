@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://personal-page.vercel.app";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://biankazahirra.vercel.app";
 
 export default function robots(): MetadataRoute.Robots {
   return {

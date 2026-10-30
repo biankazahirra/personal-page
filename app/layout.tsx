@@ -27,7 +27,7 @@ const mono = Overpass_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://personal-page.vercel.app",
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://biankazahirra.vercel.app",
   ),
   title: {
     default: `${site.name} — a small world`,
