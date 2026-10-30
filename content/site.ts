@@ -10,7 +10,7 @@ export const site: Site = {
   ],
   links: [
     { label: "GitHub" },
-    { label: "Letterboxd" },
+    { label: "Letterboxd", href: "https://letterboxd.com/biyyaanca/" },
     { label: "Spotify" },
   ],
   currentlyInto: [

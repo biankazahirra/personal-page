@@ -21,7 +21,7 @@ export default function FilmsPage() {
         code="C05"
         name="films"
         title="Watched, then thought about."
-        lede="A list that starts empty on purpose. Entries appear when there is something to say beyond a rating."
+        lede="Four favourites to start with. A rating or a line appears only when there is something real to say."
       />
 
       <section className="mx-auto max-w-[1440px] px-6 pb-24 md:px-12">
@@ -65,7 +65,17 @@ export default function FilmsPage() {
               >
                 <div className="md:col-span-6">
                   <h2 className="display text-[clamp(1.5rem,3vw,2.25rem)]">
-                    {film.title}
+                    {film.letterboxdUrl ? (
+                      <a
+                        href={film.letterboxdUrl}
+                        rel="noreferrer"
+                        className="hover:text-accent"
+                      >
+                        {film.title}
+                      </a>
+                    ) : (
+                      film.title
+                    )}
                     {film.year ? (
                       <span className="text-ink-muted"> ({film.year})</span>
                     ) : null}
@@ -80,9 +90,11 @@ export default function FilmsPage() {
                   {film.placeholder ? " · sample" : ""}
                 </p>
 
-                <p className="max-w-[40ch] text-ink-muted md:col-span-3">
-                  {film.note ?? ""}
-                </p>
+                {film.note ? (
+                  <p className="max-w-[40ch] text-ink-muted md:col-span-3">
+                    {film.note}
+                  </p>
+                ) : null}
 
                 <p className="eyebrow text-ink-muted md:col-span-1 md:text-right">
                   {film.rating ? `${film.rating}/5` : "—"}
