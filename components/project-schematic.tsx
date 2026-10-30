@@ -108,7 +108,7 @@ export function ProjectSchematic({ nodes }: { nodes: SchematicNode[] }) {
                 <span
                   aria-hidden
                   className={`absolute bottom-0 left-3.5 top-8 w-px transition-colors duration-500 ${
-                    linked ? "bg-accent-warm shadow-[0_0_8px_rgba(192,139,87,0.7)]" : "bg-ink/15"
+                    linked ? "bg-accent shadow-[0_0_8px_rgba(182,95,56,0.7)]" : "bg-ink/15"
                   }`}
                 />
               )}

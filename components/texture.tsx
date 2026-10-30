@@ -9,8 +9,8 @@ type TextureProps = {
 };
 
 const palettes: Record<TextureTone, { bg: string; stroke: string; accent: string }> = {
-  paper: { bg: "#DCD8CD", stroke: "#101A1F", accent: "#8A5A32" },
-  night: { bg: "#17252B", stroke: "#E8E6DE", accent: "#C08B57" },
+  paper: { bg: "#DCD8CD", stroke: "#69777A", accent: "#B65F38" },
+  night: { bg: "#2F3638", stroke: "#A49B83", accent: "#B65F38" },
 };
 
 function Pattern({ variant, stroke, accent }: { variant: TextureVariant; stroke: string; accent: string }) {

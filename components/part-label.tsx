@@ -5,7 +5,7 @@ type PartLabelProps = {
 };
 
 /**
- * The section marker: part number, name, and a short copper trace.
+ * The section marker: part number, name, and a short aged-metal trace.
  * Same shape as a socket on the assembly board, so a section reads as
  * another part of the same machine.
  */

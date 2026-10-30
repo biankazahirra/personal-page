@@ -100,7 +100,7 @@ Defined in `app/globals.css`, shared by the board and the page headers:
 
 | Class | What it is |
 |-------|------------|
-| `.trace`, `.trace-h`, `.trace-v` | copper hairline, 1px |
+| `.trace`, `.trace-h`, `.trace-v` | aged-metal hairline, 1px |
 | `.node-label` | bordered mono badge for a part code |
 | `.schematic-grid` | faint 24px grid, homepage hero only |
 
@@ -141,7 +141,7 @@ The header and the board both read it, so they cannot drift.
 
 `/about` renders the timeline as a lift shaft (`components/journey-shaft.tsx`):
 
-- One rail, five stops, and a copper carriage that travels to the stop under the
+- One rail, five stops, and a rust carriage that travels to the stop under the
   pointer, focus or tap. Positions are measured from the stop itself, so rows
   of different heights still line up.
 - The readout under the shaft reports `stop 03 / 05 · organization · Aug — Dec
@@ -170,14 +170,20 @@ Rules: at most three display sizes per page. Italic for emphasis, never for a wh
 
 | Token | Hex | Use |
 |-------|-----|-----|
-| `--paper` | `#E8E6DE` | primary light background (chalk) |
-| `--ink` | `#101A1F` | text on paper (deep blue-ink) |
-| `--ink-muted` | `#4A5560` | secondary text |
-| `--night` | `#101A1F` | dark chapter background |
-| `--night-soft` | `#17252B` | panels and placeholders on dark |
-| `--paper-on-night` | `#E8E6DE` | text on dark |
-| `--accent` | `#8A5A32` | text-safe copper: links, rules, active marker |
-| `--accent-warm` | `#C08B57` | copper light, decorative only — never small text |
+| `--paper` | `#E8E5DC` | Machine Paper: primary light background |
+| `--ink` | `#252A2B` | Graphite: text on paper, dark panels |
+| `--ink-muted` | `#55666B` | Steel Blue darkened for secondary text (4.76:1 on paper) |
+| `--night` | `#252A2B` | Graphite: dark chapter background |
+| `--night-soft` | `#2F3638` | panels and placeholders on dark |
+| `--paper-on-night` | `#E8E5DC` | Machine Paper: text on dark |
+| `--accent` | `#9A4A28` | Safety Rust darkened for small text: links, rules, active marker (4.93:1 on paper) |
+| `--accent-warm` | `#A49B83` | Aged Metal: traces, borders and text on Graphite (5.26:1) |
+| `--olive` | `#66745D` | Machine Olive: operational status lamps only |
+
+The supplied palette also uses Safety Rust `#B65F38` and Steel Blue `#69777A` at
+full strength in decorative textures (`components/texture.tsx`). Their exact
+values fail 4.5:1 for small text on Machine Paper, so the text tokens above are
+the darkened shades. Aged Metal is never used as text on paper (2.20:1).
 
 Rules: `--accent-warm` is for non-text elements or text ≥ 24px only. A chapter may switch background (`paper` ↔ `night`), but text tokens switch with it. No colour outside this table without a written reason.
 

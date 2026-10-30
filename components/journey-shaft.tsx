@@ -48,7 +48,7 @@ export function JourneyShaft({ items }: { items: TimelineItem[] }) {
 
       <span
         aria-hidden="true"
-        className="journey-carriage absolute left-[-5px] top-0 h-2.5 w-2.5 bg-accent shadow-[0_0_8px_rgba(192,139,87,0.7)]"
+        className="journey-carriage absolute left-[-5px] top-0 h-2.5 w-2.5 bg-accent shadow-[0_0_8px_rgba(182,95,56,0.7)]"
         style={{ transform: `translateY(${top}px)` }}
       />
 

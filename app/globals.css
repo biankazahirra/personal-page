@@ -1,14 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #e8e6de;
-  --color-ink: #101a1f;
-  --color-ink-muted: #4a5560;
-  --color-night: #101a1f;
-  --color-night-soft: #17252b;
-  --color-paper-on-night: #e8e6de;
-  --color-accent: #8a5a32;
-  --color-accent-warm: #c08b57;
+  /* Precision / Industrial palette. accent and ink-muted are the given hues
+     darkened to keep small text above 4.5:1 on machine paper. */
+  --color-paper: #e8e5dc;
+  --color-ink: #252a2b;
+  --color-ink-muted: #55666b;
+  --color-night: #252a2b;
+  --color-night-soft: #2f3638;
+  --color-paper-on-night: #e8e5dc;
+  --color-accent: #9a4a28;
+  --color-accent-warm: #a49b83;
+  --color-olive: #66745d;
 
   --font-sans: var(--font-overpass), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-overpass), ui-sans-serif, system-ui, sans-serif;
@@ -100,7 +103,7 @@
   letter-spacing: -0.015em;
 }
 
-/* Schematic primitives: copper traces, node labels, grid. */
+/* Schematic primitives: aged-metal traces, node labels, grid. */
 .trace {
   background-color: var(--color-accent-warm);
 }
@@ -161,7 +164,7 @@
 .schematic-board a:hover .trace,
 .schematic-board a:focus-visible .trace {
   opacity: 1;
-  background-color: var(--color-accent);
+  background-color: var(--color-paper-on-night);
 }
 
 .schematic-board a:hover .node-label,
@@ -365,7 +368,7 @@ html[data-motion="reduce"] .page-wipe {
 }
 
 .journey-lamp {
-  background-color: var(--color-accent-warm);
+  background-color: var(--color-olive);
   animation: led-breathe 2.6s ease-in-out infinite;
 }
 
@@ -378,13 +381,13 @@ html[data-motion="reduce"] .page-wipe {
 }
 
 .status-led[data-status="running"] {
-  background-color: var(--color-accent);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 18%, transparent);
+  background-color: var(--color-olive);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-olive) 22%, transparent);
   animation: led-breathe 2.6s ease-in-out infinite;
 }
 
 .status-led[data-status="closed"] {
-  background-color: var(--color-accent);
+  background-color: var(--color-olive);
 }
 
 .status-led[data-status="dropped"] {
