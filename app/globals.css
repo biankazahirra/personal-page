@@ -1,23 +1,48 @@
 @import "tailwindcss";
 
 @theme {
-  /* Precision / Industrial palette. accent and ink-muted are the given hues
-     darkened to keep small text above 4.5:1 on machine paper. */
-  --color-paper: #e8e5dc;
-  --color-ink: #252a2b;
-  --color-ink-muted: #55666b;
-  --color-night: #252a2b;
-  --color-night-soft: #2f3638;
-  --color-paper-on-night: #e8e5dc;
-  --color-accent: #9a4a28;
-  --color-accent-warm: #a49b83;
-  --color-olive: #66745d;
+  /* Vintage industrial manual — DAY SHIFT defaults. Night shift remaps the
+     same tokens below so every utility follows the theme. */
+  --color-paper: #efe6d0;
+  --color-paper-2: #dad5c7;
+  --color-ink: #2b2620;
+  --color-ink-muted: #5a5145;
+  --color-night: #26221c;
+  --color-night-soft: #322d25;
+  --color-paper-on-night: #efe6d0;
+  --color-accent: #b83a22;
+  --color-accent-warm: #d9a441;
+  --color-mustard: #d9a441;
+  --color-metal: #c9c3b4;
+  --color-olive: #b08a2e;
+  --color-band: #a6311c;
+  --color-band-ink: #f4ead3;
 
-  --font-sans: var(--font-overpass), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-overpass), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-overpass-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-sans: var(--font-courier), "Courier New", ui-monospace, monospace;
+  --font-display: var(--font-stencil), "Arial Black", sans-serif;
+  --font-mono: var(--font-courier), "Courier New", ui-monospace, monospace;
+  --font-label: var(--font-narrow), "Arial Narrow", sans-serif;
 
   --ease-editorial: cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+/* NIGHT SHIFT: warm charcoal paper, cream ink, accents lifted for AA. */
+html[data-shift="night"] {
+  color-scheme: dark;
+  --color-paper: #1e1b17;
+  --color-paper-2: #2a2621;
+  --color-ink: #efe6d0;
+  --color-ink-muted: #b9af9c;
+  --color-night: #14110d;
+  --color-night-soft: #2a2621;
+  --color-paper-on-night: #efe6d0;
+  --color-accent: #e4674a;
+  --color-accent-warm: #e3b45c;
+  --color-mustard: #e3b45c;
+  --color-metal: #4a443b;
+  --color-olive: #c9a24b;
+  --color-band: #8e2c19;
+  --color-band-ink: #f6edda;
 }
 
 @layer base {
@@ -28,21 +53,42 @@
   }
 
   body {
+    position: relative;
     background-color: var(--color-paper);
+    /* Ruled paper, 28px pitch, ~6% ink. */
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0 27px,
+      color-mix(in oklab, var(--color-ink) 6%, transparent) 27px 28px
+    );
     color: var(--color-ink);
     font-family: var(--font-sans);
+    line-height: 1.65;
+    padding-bottom: calc(3.5rem + env(safe-area-inset-bottom));
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
+  /* Paper grain. One fixed, pointer-transparent layer; no blend modes. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+
   ::selection {
     background-color: var(--color-accent);
-    color: var(--color-paper);
+    color: var(--color-band-ink);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent-warm);
-    outline-offset: 3px;
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
   }
 
   h1,
@@ -50,7 +96,7 @@
   h3 {
     font-family: var(--font-display);
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.01em;
     text-wrap: balance;
   }
 
@@ -88,9 +134,11 @@
   }
 }
 
+/* Type roles: label, stencil display, typewriter body. */
 .eyebrow {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 0.6875rem;
+  font-weight: 700;
   line-height: 1.4;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -99,11 +147,142 @@
 .display {
   font-family: var(--font-display);
   font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -0.015em;
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
 
-/* Schematic primitives: aged-metal traces, node labels, grid. */
+.label {
+  font-family: var(--font-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* Manual shell: red header band. */
+.manual-band {
+  background-color: var(--color-band);
+  color: var(--color-band-ink);
+  border-bottom: 3px double color-mix(in oklab, var(--color-band-ink) 45%, transparent);
+}
+
+.band-rule {
+  border-color: color-mix(in oklab, var(--color-band-ink) 35%, transparent);
+}
+
+.band-control {
+  border: 1px solid color-mix(in oklab, var(--color-band-ink) 45%, transparent);
+  padding: 0.3rem 0.5rem;
+  line-height: 1;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.band-control:hover,
+.band-control:focus-visible {
+  background-color: var(--color-band-ink);
+  color: var(--color-band);
+}
+
+/* Riveted metal data plate. */
+.data-plate {
+  position: relative;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 55%, transparent);
+  background-color: var(--color-metal);
+  background-image:
+    radial-gradient(circle at 9px 9px, var(--color-ink) 0 1.5px, transparent 2px),
+    radial-gradient(circle at calc(100% - 9px) 9px, var(--color-ink) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 9px calc(100% - 9px), var(--color-ink) 0 1.5px, transparent 2px),
+    radial-gradient(
+      circle at calc(100% - 9px) calc(100% - 9px),
+      var(--color-ink) 0 1.5px,
+      transparent 2px
+    ),
+    linear-gradient(
+      160deg,
+      color-mix(in oklab, #ffffff 22%, transparent),
+      transparent 55%,
+      color-mix(in oklab, #000000 12%, transparent)
+    );
+  background-repeat: no-repeat;
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, #ffffff 40%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, #000000 25%, transparent),
+    0 1px 2px color-mix(in oklab, #000000 22%, transparent);
+  color: #2b2620;
+}
+
+html[data-shift="night"] .data-plate {
+  color: #efe6d0;
+}
+
+/* Rubber stamps. Decorative unless it carries state. */
+.stamp {
+  display: inline-block;
+  border: 2px solid currentColor;
+  padding: 0.15rem 0.5rem;
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  opacity: 0.9;
+  transform: rotate(-4deg);
+}
+
+.stamp[data-tone="mustard"] {
+  color: var(--color-mustard);
+}
+
+.stamp[data-tone="ink"] {
+  color: var(--color-ink);
+}
+
+@keyframes stamp-thud {
+  0% {
+    opacity: 0;
+    transform: scale(1.7) rotate(-7deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(0.97) rotate(-4deg);
+  }
+  100% {
+    opacity: 0.9;
+    transform: scale(1) rotate(-4deg);
+  }
+}
+
+html[data-motion="full"] .stamp-in {
+  animation: stamp-thud 260ms var(--ease-editorial) both;
+}
+
+/* Hazard stripe strip: mustard + ink diagonals. */
+.hazard {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--color-mustard) 0 10px,
+    var(--color-ink) 10px 20px
+  );
+}
+
+.notice {
+  border: 1px solid color-mix(in oklab, var(--color-ink) 35%, transparent);
+  background-color: color-mix(in oklab, var(--color-mustard) 12%, transparent);
+}
+
+/* Dotted leaders in the printed contents list. */
+.toc-leader {
+  flex: 1 1 auto;
+  margin: 0 0.6rem;
+  border-bottom: 1px dotted currentColor;
+  opacity: 0.45;
+}
+
+/* Schematic primitives. Kept for the existing sockets board. */
 .trace {
   background-color: var(--color-accent-warm);
 }
@@ -123,8 +302,9 @@
   justify-content: center;
   border: 1px solid color-mix(in oklab, currentColor 32%, transparent);
   padding: 0.25rem 0.4rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 0.625rem;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -145,9 +325,7 @@
   background-size: 24px 24px;
 }
 
-/* Probe: the socket under the pointer or focus lights its trace,
-   its rail segment and its linked sockets. State lives in the component;
-   without JavaScript every socket is still visible and openable. */
+/* Probe: the socket under the pointer or focus lights its trace. */
 .schematic-board a {
   transition: opacity 180ms ease;
 }
@@ -208,7 +386,7 @@
   }
 }
 
-/* Fallback for browsers without scroll-driven animations (see reveal-fallback). */
+/* Fallback for browsers without scroll-driven animations. */
 html[data-motion="full"] .fallback-reveal {
   opacity: 0;
   transform: translateY(14px);
@@ -222,7 +400,7 @@ html[data-motion="full"] .fallback-reveal.is-in {
   transform: none;
 }
 
-/* The horizontal chapter is driven by components/horizontal-chapters.tsx. */
+/* Horizontal chapter. */
 .h-track {
   will-change: transform;
 }
@@ -267,7 +445,7 @@ html[data-motion="reduce"] .h-panel {
   scroll-snap-align: center;
 }
 
-/* Page transition: panel empties upwards after a client-side navigation. */
+/* Page transition: panel empties upwards after client-side navigation. */
 @keyframes page-wipe {
   from {
     transform: scaleY(1);
@@ -283,7 +461,7 @@ html[data-motion="reduce"] .h-panel {
   z-index: 45;
   pointer-events: none;
   transform-origin: top;
-  background-color: var(--color-night);
+  background-color: var(--color-band);
   animation: page-wipe 640ms var(--ease-editorial) forwards;
 }
 
@@ -297,7 +475,7 @@ html[data-motion="reduce"] .page-wipe {
   display: none;
 }
 
-/* Chapter overlay entrance. */
+/* Overlay entrance. */
 @keyframes overlay-in {
   from {
     opacity: 0;
@@ -313,7 +491,7 @@ html[data-motion="reduce"] .page-wipe {
   animation: overlay-in 320ms var(--ease-editorial) both;
 }
 
-/* Note channels on /curiosity: four positions, one readout. */
+/* Note channels on /curiosity. */
 .filter-option {
   display: inline-flex;
   align-items: baseline;
@@ -355,7 +533,7 @@ html[data-motion="reduce"] .page-wipe {
   opacity: 1;
 }
 
-/* Journey shaft on /about: the carriage only appears once it has been measured. */
+/* Journey shaft on /about: measured before the carriage appears. */
 .journey-carriage {
   opacity: 0;
   transition:
@@ -372,7 +550,7 @@ html[data-motion="reduce"] .page-wipe {
   animation: led-breathe 2.6s ease-in-out infinite;
 }
 
-/* Note status lamp: running breathes, closed sits solid, dropped stays hollow. */
+/* Note status lamp. */
 .status-led {
   display: inline-block;
   width: 0.4rem;

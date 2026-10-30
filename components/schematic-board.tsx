@@ -92,10 +92,10 @@ export function SchematicBoard() {
                 >
                   {item.code}
                 </span>
-                <span className="truncate text-base text-paper-on-night/90 sm:text-lg">
+                <span className="whitespace-nowrap text-base text-paper-on-night/90 sm:text-lg">
                   {item.label}
                 </span>
-                <span className="eyebrow ml-auto hidden truncate pl-4 text-paper-on-night/45 md:block">
+                <span className="eyebrow ml-auto hidden truncate pl-4 text-paper-on-night/45 lg:block">
                   {item.spec}
                 </span>
                 <span
