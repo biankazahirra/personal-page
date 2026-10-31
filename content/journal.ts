@@ -18,17 +18,16 @@ export const journal: JournalEntry[] = [
     ],
   },
   {
-    slug: "sample-on-repeat",
-    title: "On repeat this month",
-    date: "2026-10-18",
+    slug: "im-with-you",
+    title: "I'm With You, on repeat",
+    date: "2026-10-31",
     kind: "music",
-    excerpt:
-      "Sample entry. A few songs, a line about each, nothing rated out of ten.",
+    loops: 77,
+    excerpt: "Avril Lavigne — I'm With You. 77 plays in one month.",
     body: [
-      "This is a placeholder so the layout has something to hold. Replace it with the songs you actually had on repeat.",
-      "Two lines per song is enough: why it stayed, when you played it, what it reminded you of.",
+      "The loop counter is real this time: 77 plays of I'm With You by Avril Lavigne in October 2026.",
+      "Why it stayed on repeat is still unwritten. [ note pending ]",
     ],
-    placeholder: true,
   },
   {
     slug: "sample-four-chords",
