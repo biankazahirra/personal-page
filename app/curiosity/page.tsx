@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { NotesBoard } from "@/components/notes-board";
+import { Logbook } from "@/components/logbook";
 import { PageHeader } from "@/components/page-header";
 import { notes } from "@/content/notes";
 
@@ -21,7 +21,7 @@ export default function CuriosityPage() {
       />
 
       <section className="mx-auto max-w-[1440px] px-6 pb-24 md:px-12">
-        <NotesBoard notes={notes} />
+        <Logbook notes={notes} />
       </section>
     </>
   );

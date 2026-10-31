@@ -7,6 +7,8 @@ export const notes: Note[] = [
     date: "2026-10-10",
     category: "ai",
     status: "running",
+    faultCode: "E-014",
+    severity: "moderate",
     excerpt:
       "A sample note. Replace it with what you really tried, and what actually helped.",
     body: [
@@ -22,6 +24,10 @@ export const notes: Note[] = [
     date: "2026-09-22",
     category: "tools",
     status: "dropped",
+    faultCode: "E-021",
+    severity: "minor",
+    rootCause: "It did not survive the second week of use.",
+    fix: "Dropped it. The entry stays in the log anyway.",
     excerpt:
       "A sample note about a tool that did not survive the second week. Your version goes here.",
     placeholder: true,
@@ -32,6 +38,10 @@ export const notes: Note[] = [
     date: "2026-08-30",
     category: "code",
     status: "closed",
+    faultCode: "E-008",
+    severity: "minor",
+    rootCause: "The same small task kept being done by hand.",
+    fix: "A short script now does the repetitive part.",
     excerpt:
       "A sample note about repetition, boredom and the shortest possible fix.",
     placeholder: true,
@@ -41,6 +51,8 @@ export const notes: Note[] = [
     title: "Learning in progress",
     category: "learning",
     status: "running",
+    faultCode: "E-002",
+    severity: "moderate",
     excerpt:
       "A sample note for the things you are learning right now, written before you finish them.",
     placeholder: true,

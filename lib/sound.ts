@@ -83,3 +83,9 @@ export function playStamp() {
   tone(96, 0.16, { type: "triangle", gain: 0.09 });
   tone(58, 0.22, { type: "sine", gain: 0.06, delay: 0.01 });
 }
+
+/** A short ukulele pluck. Only audible when sound is enabled. */
+export function playPluck(frequency: number) {
+  tone(frequency, 0.7, { type: "triangle", gain: 0.05 });
+  tone(frequency * 2, 0.35, { type: "sine", gain: 0.018, delay: 0.01 });
+}

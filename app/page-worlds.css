@@ -1,0 +1,1103 @@
+/* ============================================================
+   PHASE 3 — PAGE WORLDS
+   Material rules for the parts list, logbook, specifications,
+   inspection photos, indicator lamps and the carbon-copy form.
+   ============================================================ */
+
+/* --- C06 Illustrated parts list ------------------------------------------ */
+
+.parts-head,
+.parts-summary {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 2.4fr) minmax(0, 1.1fr) minmax(0, 1.1fr) 6.5rem 5.5rem;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.parts-head {
+  border-bottom: 2px solid var(--color-ink);
+  padding: 0 0 0.5rem;
+  color: var(--color-ink-muted);
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.parts-list > ul {
+  border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 35%, transparent);
+}
+
+.parts-row {
+  border-top: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+}
+
+.parts-row:first-child {
+  border-top: 0;
+}
+
+.parts-summary {
+  position: relative;
+  min-height: 44px;
+  padding: 1.1rem 0;
+  cursor: pointer;
+  list-style: none;
+  transition: background-color 160ms ease;
+}
+
+.parts-summary::-webkit-details-marker {
+  display: none;
+}
+
+.parts-summary::marker {
+  content: "";
+}
+
+.parts-summary:hover {
+  background-color: color-mix(in oklab, var(--color-accent) 4%, transparent);
+}
+
+.parts-summary:hover .parts-desc .display {
+  color: var(--color-accent);
+}
+
+.parts-row[open] > .parts-summary {
+  background-color: color-mix(in oklab, var(--color-mustard) 10%, transparent);
+}
+
+.parts-cell {
+  min-width: 0;
+}
+
+.parts-no {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-ink-muted);
+}
+
+.parts-note,
+.parts-material {
+  font-size: 0.9375rem;
+  color: var(--color-ink-muted);
+}
+
+.parts-cue {
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: right;
+  color: var(--color-accent);
+}
+
+.parts-cue-open {
+  display: inline;
+}
+
+.parts-cue-close {
+  display: none;
+}
+
+.parts-row[open] .parts-cue-open {
+  display: none;
+}
+
+.parts-row[open] .parts-cue-close {
+  display: inline;
+}
+
+.parts-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 2rem;
+  border-top: 1px dashed color-mix(in oklab, var(--color-ink) 30%, transparent);
+  padding: 1.5rem 0 2rem;
+}
+
+.parts-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.parts-step {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.75rem;
+  border-top: 1px solid color-mix(in oklab, var(--color-ink) 14%, transparent);
+  padding-top: 0.75rem;
+}
+
+.parts-step-no {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.parts-change {
+  border-top: 1px solid color-mix(in oklab, var(--color-ink) 14%, transparent);
+  padding-top: 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--color-ink-muted);
+}
+
+.parts-figure {
+  border-left: 1px dashed color-mix(in oklab, var(--color-ink) 30%, transparent);
+  padding-left: 1.5rem;
+}
+
+@media (max-width: 767px) {
+  .parts-head {
+    display: none;
+  }
+
+  .parts-summary {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem 1rem;
+    padding: 1.25rem 5.5rem 1.25rem 0;
+  }
+
+  .parts-no {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .parts-desc {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .parts-note,
+  .parts-material,
+  .parts-cell[data-label="status"] {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: 5.5rem 1fr;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .parts-note::before,
+  .parts-material::before,
+  .parts-cell[data-label="status"]::before {
+    content: attr(data-label);
+    font-family: var(--font-label);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  .parts-cue {
+    position: absolute;
+    top: 1.25rem;
+    right: 0;
+  }
+
+  .parts-panel {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .parts-figure {
+    border-left: 0;
+    border-top: 1px dashed color-mix(in oklab, var(--color-ink) 30%, transparent);
+    padding-left: 0;
+    padding-top: 1.25rem;
+  }
+}
+
+/* --- C03 Maintenance logbook -------------------------------------------- */
+
+.logbook-plate {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 40%, transparent);
+  border-bottom: 0;
+  background-color: color-mix(in oklab, var(--color-paper-2) 55%, transparent);
+  padding: 0.7rem 1rem;
+}
+
+.logbook-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 40%, transparent);
+  padding: 0.75rem 1rem;
+}
+
+.logbook-filters .filter-option {
+  min-height: 44px;
+  align-items: center;
+}
+
+.log-entry {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 1.5rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+  padding: 1.5rem 0;
+}
+
+.log-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.log-code {
+  border: 1px solid var(--color-ink);
+  padding: 0.1rem 0.4rem;
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.log-date {
+  font-family: var(--font-label);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.log-sample {
+  border: 1px dashed color-mix(in oklab, var(--color-ink) 45%, transparent);
+  padding: 0 0.3rem;
+  font-family: var(--font-label);
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.log-findings {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  border-top: 1px dashed color-mix(in oklab, var(--color-ink) 28%, transparent);
+  padding-top: 0.75rem;
+}
+
+.log-findings dt {
+  margin-bottom: 0.1rem;
+}
+
+.log-findings dd {
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 768px) {
+  .log-findings {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem 1.5rem;
+  }
+}
+
+.severity {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.severity span {
+  width: 0.3rem;
+  height: 0.65rem;
+  border: 1px solid var(--color-ink-muted);
+}
+
+.severity[data-level="1"] span:nth-child(-n + 1),
+.severity[data-level="2"] span:nth-child(-n + 2),
+.severity[data-level="3"] span:nth-child(-n + 3) {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.stamp[data-tone="accent"] {
+  color: var(--color-accent);
+}
+
+.stamp[data-tone="resolved"] {
+  color: #6f5a1c;
+}
+
+html[data-shift="night"] .stamp[data-tone="resolved"] {
+  color: var(--color-olive);
+}
+
+.stamp[data-tone="muted"] {
+  color: var(--color-ink-muted);
+}
+
+html .stamp[data-tone="mustard"] {
+  color: #7a5a12;
+}
+
+html[data-shift="night"] .stamp[data-tone="mustard"] {
+  color: var(--color-mustard);
+}
+
+@media (max-width: 767px) {
+  .log-entry {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .log-rail {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+/* --- C02 Specifications, revision history, tool rack -------------------- */
+
+.spec-sheet {
+  border-top: 2px solid var(--color-ink);
+}
+
+.spec-row {
+  border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+}
+
+.spec-row > summary {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr) 1.5rem;
+  gap: 1rem;
+  align-items: baseline;
+  min-height: 44px;
+  padding: 0.75rem 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.spec-row > summary::-webkit-details-marker {
+  display: none;
+}
+
+.spec-row > summary::marker {
+  content: "";
+}
+
+.spec-row > summary:hover .spec-value {
+  color: var(--color-accent);
+}
+
+.spec-label {
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.spec-value {
+  font-size: 1.0625rem;
+}
+
+.spec-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 40%, transparent);
+  font-family: var(--font-label);
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.spec-toggle::before {
+  content: "+";
+}
+
+.spec-row[open] .spec-toggle::before {
+  content: "−";
+}
+
+.spec-note {
+  padding: 0 0 1rem calc(9rem + 1rem);
+  max-width: 66ch;
+  font-size: 0.9375rem;
+  color: var(--color-ink-muted);
+}
+
+.shift-card {
+  border: 1px solid color-mix(in oklab, var(--color-paper-on-night) 25%, transparent);
+  border-top: 3px solid var(--color-accent-warm);
+  background-color: color-mix(in oklab, var(--color-paper-on-night) 5%, transparent);
+  padding: 1.25rem;
+}
+
+.revision-table {
+  border-top: 2px solid var(--color-ink);
+}
+
+.revision-row {
+  display: grid;
+  grid-template-columns: 5rem 8rem minmax(0, 1.1fr) minmax(0, 1.4fr);
+  gap: 1rem;
+  align-items: start;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+  padding: 1rem 0;
+}
+
+.revision-rev {
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.revision-period {
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.revision-detail {
+  font-size: 0.9375rem;
+  color: var(--color-ink-muted);
+}
+
+.tool-rack {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 45%, transparent);
+  padding: 1rem;
+  color: var(--color-paper-on-night);
+  background-color: var(--color-night);
+  background-image: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-paper-on-night) 16%, transparent) 1px,
+    transparent 1.5px
+  );
+  background-size: 18px 18px;
+}
+
+.tool-group {
+  border-left: 2px solid var(--color-accent-warm);
+  padding-left: 0.75rem;
+}
+
+.tool-group .eyebrow {
+  color: color-mix(in oklab, var(--color-paper-on-night) 60%, transparent);
+}
+
+.tool-group ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.tool-tag {
+  position: relative;
+  border: 1px solid color-mix(in oklab, var(--color-paper-on-night) 35%, transparent);
+  background-color: color-mix(in oklab, var(--color-paper-on-night) 8%, transparent);
+  padding: 0.35rem 0.6rem 0.35rem 1.35rem;
+  font-size: 0.875rem;
+}
+
+.tool-tag::before {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  width: 0.4rem;
+  height: 0.4rem;
+  border: 1px solid var(--color-accent-warm);
+  border-radius: 9999px;
+  transform: translateY(-50%);
+}
+
+@media (min-width: 768px) {
+  .tool-rack {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .spec-row > summary {
+    grid-template-columns: 1fr 1.5rem;
+    gap: 0.25rem 1rem;
+  }
+
+  .spec-value {
+    grid-column: 1;
+  }
+
+  .spec-toggle {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+  }
+
+  .spec-note {
+    padding: 0 0 1rem;
+  }
+
+  .revision-row {
+    grid-template-columns: 1fr auto;
+    gap: 0.35rem 1rem;
+  }
+
+  .revision-rev {
+    order: 1;
+  }
+
+  .revision-period {
+    order: 2;
+    text-align: right;
+  }
+
+  .revision-change {
+    order: 3;
+    grid-column: 1 / -1;
+  }
+
+  .revision-detail {
+    order: 4;
+    grid-column: 1 / -1;
+  }
+}
+
+/* --- C04 Inspection photos, film strip, counters ------------------------ */
+
+.photo-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .photo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3rem 2.5rem;
+  }
+}
+
+.photo-frame[data-tilt="0"] .photo-mount {
+  transform: rotate(-0.35deg);
+}
+
+.photo-frame[data-tilt="1"] .photo-mount {
+  transform: rotate(0.35deg);
+}
+
+.photo-mount {
+  position: relative;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 28%, transparent);
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(135deg, var(--color-ink) 0 50%, transparent 50%),
+    linear-gradient(225deg, var(--color-ink) 0 50%, transparent 50%),
+    linear-gradient(45deg, var(--color-ink) 0 50%, transparent 50%),
+    linear-gradient(315deg, var(--color-ink) 0 50%, transparent 50%);
+  background-repeat: no-repeat;
+  background-size: 15px 15px;
+  background-position:
+    4px 4px,
+    calc(100% - 4px) 4px,
+    4px calc(100% - 4px),
+    calc(100% - 4px) calc(100% - 4px);
+  padding: 14px 14px 0;
+  box-shadow: 0 10px 22px color-mix(in oklab, #000000 14%, transparent);
+}
+
+.inspection-caption {
+  padding: 0.9rem 0.15rem 1.1rem;
+}
+
+.film-strip-wrap {
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.film-strip {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+.film-strip:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.film-frame {
+  width: min(72vw, 17rem);
+  scroll-snap-align: start;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 55%, transparent);
+  background-color: var(--color-night);
+  padding: 0.4rem;
+}
+
+.film-frame-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.film-frame-caption {
+  padding: 0.5rem 0.3rem 0.25rem;
+  color: var(--color-paper-on-night);
+}
+
+.film-frame-caption .text-ink-muted {
+  color: color-mix(in oklab, var(--color-paper-on-night) 62%, transparent);
+}
+
+.film-frame-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12rem;
+  border-style: dashed;
+  color: color-mix(in oklab, var(--color-paper-on-night) 62%, transparent);
+  padding: 1rem;
+}
+
+.loop-counter,
+.tuner {
+  border: 1px solid color-mix(in oklab, var(--color-ink) 40%, transparent);
+  background-color: color-mix(in oklab, var(--color-paper-2) 45%, transparent);
+  padding: 1.25rem;
+}
+
+.odometer {
+  display: inline-flex;
+  gap: 2px;
+  border: 2px solid #2b2620;
+  background-color: var(--color-night);
+  padding: 0.2rem;
+  box-shadow: inset 0 2px 4px color-mix(in oklab, #000000 45%, transparent);
+}
+
+.odometer-digit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 2.4rem;
+  background-color: #efe6d0;
+  color: #2b2620;
+  border-right: 1px solid color-mix(in oklab, #2b2620 20%, transparent);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.odometer-digit:last-child {
+  border-right: 0;
+}
+
+.tuner-gauge {
+  position: relative;
+  height: 8rem;
+  margin-top: 1rem;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 40%, transparent);
+  background-color: color-mix(in oklab, var(--color-ink) 6%, transparent);
+  overflow: hidden;
+}
+
+.tuner-scale {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 1.4rem;
+  height: 2.8rem;
+  border-bottom: 2px solid color-mix(in oklab, var(--color-ink) 45%, transparent);
+  background-image: repeating-linear-gradient(
+    to right,
+    color-mix(in oklab, var(--color-ink) 55%, transparent) 0 1px,
+    transparent 1px 11px
+  );
+  opacity: 0.6;
+}
+
+.tuner-needle {
+  position: absolute;
+  left: calc(50% - 1px);
+  bottom: 1.4rem;
+  width: 2px;
+  height: 5.6rem;
+  background-color: var(--color-accent);
+  transform-origin: bottom center;
+  transition: transform 620ms cubic-bezier(0.2, 0.9, 0.25, 1.3);
+}
+
+.tuner-needle[data-active="true"] {
+  box-shadow: 0 0 8px color-mix(in oklab, var(--color-accent) 55%, transparent);
+}
+
+.tuner-pivot {
+  position: absolute;
+  left: calc(50% - 0.35rem);
+  bottom: calc(1.4rem - 0.3rem);
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid var(--color-ink);
+  border-radius: 9999px;
+  background-color: var(--color-paper);
+}
+
+.tuner-key {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 45%, transparent);
+  background-color: var(--color-paper);
+  font-family: var(--font-label);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition:
+    background-color 140ms ease,
+    color 140ms ease,
+    border-color 140ms ease;
+}
+
+.tuner-key:hover,
+.tuner-key:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.tuner-key[aria-pressed="true"] {
+  background-color: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* --- C05 Indicator panel ------------------------------------------------- */
+
+.lamp-grid {
+  display: grid;
+  gap: 1.25rem;
+  border-top: 2px solid var(--color-ink);
+  padding-top: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .lamp-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.lamp-panel {
+  border: 1px solid color-mix(in oklab, var(--color-ink) 35%, transparent);
+  background-color: color-mix(in oklab, var(--color-paper-2) 40%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in oklab, #ffffff 22%, transparent);
+}
+
+.lamp-summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  min-height: 44px;
+  padding: 1rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.lamp-summary::-webkit-details-marker {
+  display: none;
+}
+
+.lamp-summary::marker {
+  content: "";
+}
+
+.lamp-summary:hover .lamp-label .display {
+  color: var(--color-accent);
+}
+
+.lamp-bezel {
+  display: block;
+  width: 3.1rem;
+  height: 3.1rem;
+  padding: 0.32rem;
+  border: 2px solid #8a6a2f;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 30%, #e3c47a, #a97f2a 55%, #6d4f18);
+  box-shadow:
+    inset 0 1px 1px color-mix(in oklab, #ffffff 50%, transparent),
+    0 2px 3px color-mix(in oklab, #000000 28%, transparent);
+}
+
+.lamp-lens {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #1c1812;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 40% 35%, #6f6758, #2b2620 72%);
+  transition:
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.lamp-panel[open] .lamp-lens {
+  background: radial-gradient(circle at 40% 35%, #ffe9a8, var(--color-mustard) 58%, #b57b1e);
+  box-shadow: 0 0 16px color-mix(in oklab, var(--color-mustard) 70%, transparent);
+}
+
+.lamp-state-on {
+  display: none;
+}
+
+.lamp-panel[open] .lamp-state-off {
+  display: none;
+}
+
+.lamp-panel[open] .lamp-state-on {
+  display: inline;
+}
+
+.lamp-cue {
+  color: var(--color-accent);
+}
+
+.lamp-cue-off {
+  display: none;
+}
+
+.lamp-panel[open] .lamp-cue-on {
+  display: none;
+}
+
+.lamp-panel[open] .lamp-cue-off {
+  display: inline;
+}
+
+.lamp-note {
+  border-top: 1px solid color-mix(in oklab, var(--color-ink) 22%, transparent);
+  padding: 1rem;
+  background-color: color-mix(in oklab, var(--color-paper) 55%, transparent);
+}
+
+.lamp-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+  border-top: 1px dashed color-mix(in oklab, var(--color-ink) 28%, transparent);
+  padding-top: 0.75rem;
+}
+
+.lamp-meta dd {
+  margin-top: 0.1rem;
+  font-size: 0.9375rem;
+}
+
+/* --- Section 7 Carbon-copy service request ------------------------------ */
+
+.carbon-stack {
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.carbon-sheet {
+  position: absolute;
+  inset: 0;
+  border: 1px solid color-mix(in oklab, #2b2620 45%, transparent);
+  background-color: #f2df9d;
+  transform: translate(5px, 5px);
+}
+
+.carbon-sheet[data-sheet="pink"] {
+  background-color: #ecc7c0;
+  transform: translate(10px, 10px);
+}
+
+.carbon-form {
+  --color-ink: #2b2620;
+  --color-ink-muted: #5a5145;
+  --color-paper: #f4ecd9;
+  --color-accent: #a6311c;
+  --color-paper-2: #e7dcc2;
+  --color-mustard: #a97f2a;
+  --color-olive: #6f5a1c;
+
+  position: relative;
+  z-index: 1;
+  border: 1px solid #2b2620;
+  background-color: #f4ecd9;
+  color: #2b2620;
+  padding: 1.1rem;
+  box-shadow: 0 8px 20px color-mix(in oklab, #000000 14%, transparent);
+}
+
+.carbon-form-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  border-bottom: 2px solid #2b2620;
+  padding-bottom: 0.55rem;
+}
+
+.carbon-fields {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.carbon-field label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-label);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5a5145;
+}
+
+.carbon-field input,
+.carbon-field select,
+.carbon-field textarea {
+  width: 100%;
+  min-height: 2.75rem;
+  border: 1px solid color-mix(in oklab, #2b2620 65%, transparent);
+  background-color: transparent;
+  padding: 0.5rem 0.6rem;
+  color: #2b2620;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.carbon-field textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.carbon-field input::placeholder,
+.carbon-field textarea::placeholder {
+  color: #6b6154;
+  opacity: 1;
+}
+
+.carbon-field input:focus-visible,
+.carbon-field select:focus-visible,
+.carbon-field textarea:focus-visible {
+  outline: 3px solid #a6311c;
+  outline-offset: 1px;
+}
+
+.carbon-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  border-top: 1px dashed color-mix(in oklab, #2b2620 40%, transparent);
+  padding-top: 1rem;
+}
+
+.carbon-submit {
+  min-height: 2.75rem;
+  border: 2px solid #2b2620;
+  background-color: #2b2620;
+  color: #f4ecd9;
+  padding: 0.55rem 1.2rem;
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
+}
+
+.carbon-submit:hover:not(:disabled) {
+  background-color: #a6311c;
+  border-color: #a6311c;
+}
+
+.carbon-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.carbon-status:empty {
+  display: none;
+}
+
+.carbon-receipt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  border: 1px dashed #2b2620;
+  background-color: color-mix(in oklab, #d9a441 18%, transparent);
+  padding: 0.75rem;
+}
+
+.carbon-error {
+  margin-top: 1rem;
+  border-left: 3px solid #a6311c;
+  background-color: color-mix(in oklab, #a6311c 8%, transparent);
+  padding: 0.5rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .carbon-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .carbon-field-wide {
+    grid-column: 1 / -1;
+  }
+
+  .carbon-form {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .carbon-sheet {
+    transform: translate(4px, 4px);
+  }
+
+  .carbon-sheet[data-sheet="pink"] {
+    transform: translate(8px, 8px);
+  }
+
+  .carbon-stack {
+    padding-bottom: 8px;
+  }
+}

@@ -8,6 +8,12 @@ import { formatDate } from "@/lib/format";
 
 type Params = { params: Promise<{ slug: string }> };
 
+const logStatus = {
+  running: "still open",
+  closed: "resolved",
+  dropped: "abandoned",
+} as const;
+
 function findBySlug(slug: string) {
   return notes.find((note) => note.slug === slug && note.body);
 }
@@ -50,7 +56,7 @@ export default async function NotePage({ params }: Params) {
             <span className="inline-flex items-center gap-1.5">
               <span aria-hidden="true">·</span>
               <span aria-hidden="true" className="status-led" data-status={note.status} />
-              {note.status}
+              {logStatus[note.status]}
             </span>
           ) : null}
         </p>
@@ -77,6 +83,25 @@ export default async function NotePage({ params }: Params) {
               {paragraph}
             </p>
           ))}
+
+          <dl className="log-findings mt-8 border-t border-ink/20 pt-4">
+            <div>
+              <dt className="eyebrow text-ink-muted">fault code</dt>
+              <dd>{note.faultCode ?? "[ not logged ]"}</dd>
+            </div>
+            <div>
+              <dt className="eyebrow text-ink-muted">root cause</dt>
+              <dd className={note.rootCause ? "" : "text-ink-muted"}>
+                {note.rootCause ?? "[ not recorded — still being worked out ]"}
+              </dd>
+            </div>
+            <div>
+              <dt className="eyebrow text-ink-muted">fix</dt>
+              <dd className={note.fix ? "" : "text-ink-muted"}>
+                {note.fix ?? "[ no fix recorded ]"}
+              </dd>
+            </div>
+          </dl>
         </div>
       </div>
     </article>

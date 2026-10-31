@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import { PageHeader } from "@/components/page-header";
-import { Media } from "@/components/media";
+import { PartsList } from "@/components/parts-list";
 import { projects } from "@/content/projects";
 
 export const metadata: Metadata = {
@@ -10,12 +9,6 @@ export const metadata: Metadata = {
   description:
     "Small systems, academic projects, and things built to make a repetitive day shorter.",
 };
-
-const statusLabel = {
-  shipped: "shipped",
-  "in-progress": "in progress",
-  archived: "archived",
-} as const;
 
 export default function ProjectsPage() {
   return (
@@ -28,42 +21,21 @@ export default function ProjectsPage() {
       />
 
       <section className="mx-auto max-w-[1440px] px-6 pb-24 md:px-12">
-        <ul className="grid gap-x-10 gap-y-16 md:grid-cols-2">
-          {projects.map((project, index) => (
-            <li key={project.slug} className={index % 2 === 1 ? "md:mt-16" : ""}>
-              <Link href={`/projects/${project.slug}`} className="group block">
-                <Media
-                  image={project.cover}
-                  variant={
-                    project.status === "in-progress"
-                      ? "grid"
-                      : project.status === "archived"
-                        ? "arcs"
-                        : "field"
-                  }
-                  label="screenshot pending"
-                  className="clip-reveal aspect-[4/3] w-full transition-transform duration-700 ease-[cubic-bezier(.2,.6,.2,1)] group-hover:scale-[1.02]"
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                />
+        <div className="mb-8 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
+          <p className="eyebrow text-ink-muted">
+            Section 6 · illustrated parts list · {projects.length} parts
+          </p>
+          <p className="eyebrow text-ink-muted">
+            open a row to inspect it
+          </p>
+        </div>
 
-                <div className="mt-5 flex flex-wrap items-baseline justify-between gap-3">
-                  <p className="eyebrow text-ink-muted">
-                    {statusLabel[project.status]}
-                    {project.year ? ` · ${project.year}` : ""}
-                  </p>
-                  <p className="eyebrow text-ink-muted">
-                    {project.stack.slice(0, 3).join(" · ")}
-                  </p>
-                </div>
+        <PartsList projects={projects} />
 
-                <h2 className="display mt-2 text-[clamp(1.75rem,3.5vw,2.75rem)] group-hover:text-accent">
-                  {project.title}
-                </h2>
-                <p className="mt-2 max-w-[44ch] text-ink-muted">{project.summary}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <p className="mt-10 max-w-[62ch] border-t border-ink/15 pt-6 text-sm text-ink-muted">
+          Material is what it was built from, not a claim that any of it is
+          mastered. A part marked in progress is still on the bench.
+        </p>
       </section>
     </>
   );

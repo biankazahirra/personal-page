@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./page-worlds.css";
 
 @theme {
   /* Vintage industrial manual — DAY SHIFT defaults. Night shift remaps the
