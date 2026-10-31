@@ -8,6 +8,7 @@ export const site: Site = {
     "I keep forms, spreadsheets and small systems in order for a living. The rest of the time I make things, take them apart, and write down what happened.",
     "Most of what lives here is unfinished on purpose: notes on AI agents, films I keep turning over, songs on repeat, a ukulele I am still slow at.",
   ],
+  email: "biankaazahirra@gmail.com",
   portrait: {
     src: "/images/portraits/portrait.jpg",
     alt: "Bianka in a black hijab and a batik shirt, smiling at the camera",
@@ -15,9 +16,10 @@ export const site: Site = {
     height: 1500,
   },
   links: [
-    { label: "GitHub" },
+    { label: "GitHub", href: "https://github.com/biankazahirra" },
     { label: "Letterboxd", href: "https://letterboxd.com/biyyaanca/" },
-    { label: "Spotify" },
+    { label: "Spotify", href: "https://open.spotify.com/user/biankazahirra" },
+    { label: "Instagram", href: "https://instagram.com/biankaazahirra" },
   ],
   currentlyInto: [
     {
