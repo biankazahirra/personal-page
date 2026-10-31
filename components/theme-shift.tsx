@@ -39,7 +39,7 @@ export function ThemeShift({ className = "" }: { className?: string }) {
     <button
       type="button"
       onClick={toggle}
-      className={`band-control eyebrow ${className}`}
+      className={`band-control eyebrow min-w-[8rem] ${className}`}
       aria-label={
         shift === null
           ? "DAY / NIGHT SHIFT — switch theme"

@@ -48,10 +48,22 @@ export const revisions = [
 
 export const manual = {
   model: "BZ-2026",
+  /** Decorative serial stamped on the data plate. Not a real asset number. */
+  serial: "BZ-2026-0042",
+  revision: "2026",
   printedRev: "Rev C",
   /** Shown in the footer as the closing line. */
   closing: "Printed Rev 2026 — assembled slowly, revised occasionally.",
 };
+
+/** The self-test typed on the start-up sheet, once per session. */
+export const bootLines = [
+  "power .......... ok",
+  "curiosity .......... excessive",
+  "ukulele .......... uncalibrated",
+  "forms .......... in order",
+  "status: partly assembled",
+];
 
 /** Longest matching route, so detail pages keep their section in the band. */
 export function sectionForPath(pathname: string): ManualSection {

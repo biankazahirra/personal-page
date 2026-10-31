@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AssemblyMeter } from "@/components/assembly-meter";
 import { ContentsOverlay } from "@/components/contents-overlay";
 import { MotionToggle } from "@/components/motion-toggle";
+import { SoundToggle } from "@/components/sound-toggle";
 import { ThemeShift } from "@/components/theme-shift";
 import { manual, sectionForPath } from "@/content/manual";
 
@@ -43,9 +44,7 @@ export function SiteHeader() {
             <span className="eyebrow hidden text-band-ink/85 xl:inline">
               lang en · id todo
             </span>
-            <span className="eyebrow hidden text-band-ink/85 xl:inline">
-              sound off
-            </span>
+            <SoundToggle />
           </div>
         </div>
 

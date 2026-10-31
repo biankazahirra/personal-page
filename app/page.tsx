@@ -1,8 +1,12 @@
 import Link from "next/link";
 
+import { AssemblyExtra } from "@/components/assembly-extra";
+import { ConsoleShell } from "@/components/console-shell";
+import { ExplodedHero } from "@/components/exploded-hero";
 import { Media } from "@/components/media";
 import { PartLabel } from "@/components/part-label";
 import { SchematicBoard } from "@/components/schematic-board";
+import { StartupChecklist } from "@/components/startup-checklist";
 import { Texture } from "@/components/texture";
 import { films } from "@/content/films";
 import { journal, kindLabels } from "@/content/journal";
@@ -43,62 +47,65 @@ export default function HomePage() {
 
   return (
     <>
-      {/* the entrance — a board you can probe */}
-      <section className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden bg-night text-paper-on-night">
-        {site.hero ? (
-          <div className="absolute inset-0">
-            <Media
-              image={site.hero}
-              variant="waves"
-              tone="night"
-              label="hero image pending"
-              className="h-full w-full opacity-30"
-              sizes="100vw"
-              priority
-            />
-          </div>
-        ) : null}
-        <div aria-hidden="true" className="schematic-grid absolute inset-0 opacity-20" />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(to_top,rgba(16,26,31,0.98),rgba(16,26,31,0.55)_60%,rgba(16,26,31,0.8))]"
-        />
+      <StartupChecklist />
 
-        <div className="relative mx-auto grid w-full max-w-[1440px] gap-12 px-6 pt-24 md:grid-cols-12 md:px-12 md:pt-28">
-          <div className="hidden md:col-span-6 md:block">
-            <p className="eyebrow text-paper-on-night/60">read me first</p>
-            <p className="display mt-6 max-w-[16ch] text-[clamp(2rem,3.4vw,3.25rem)] leading-[0.95] text-paper-on-night/90">
-              One machine, six sockets, assembled in public.
-            </p>
-            <dl className="eyebrow mt-10 grid max-w-[26rem] grid-cols-[6rem_1fr] gap-y-2.5 border-t border-paper-on-night/20 pt-5">
-              <dt className="text-paper-on-night/45">model</dt>
-              <dd className="text-paper-on-night/85">bianka zahirra</dd>
-              <dt className="text-paper-on-night/45">revision</dt>
-              <dd className="text-paper-on-night/85">2026</dd>
-              <dt className="text-paper-on-night/45">status</dt>
-              <dd className="text-accent-warm">partly assembled</dd>
-              <dt className="text-paper-on-night/45">sockets</dt>
-              <dd className="text-paper-on-night/85">6 · one unpopulated</dd>
-            </dl>
-          </div>
+      {/* 01 — identification, as an exploded view */}
+      <ExplodedHero />
 
-          <div className="md:col-span-6 md:col-start-7">
-            <SchematicBoard />
+      {/* 01.1 — the logbook console */}
+      <section id="console" className="bg-paper">
+        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-12 md:py-24">
+          <div className="grid gap-8 md:grid-cols-12">
+            <div className="md:col-span-4">
+              <PartLabel code="C01.1" name="logbook console" />
+              <h2 className="display mt-5 text-[clamp(2rem,4vw,3.25rem)]">
+                Ask the machine.
+              </h2>
+              <p className="mt-4 max-w-[34ch] text-ink-muted">
+                A small terminal for people who like typing. It answers a few
+                commands and then gets out of the way.
+              </p>
+              <div className="notice mt-6 px-4 py-3">
+                <p className="label text-[10px] text-ink-muted">Warning</p>
+                <p className="mt-1 max-w-[34ch] text-sm">
+                  May cause excessive curiosity. Do not remove the lid without
+                  snacks.
+                </p>
+              </div>
+            </div>
+
+            <div className="md:col-span-7 md:col-start-6">
+              <ConsoleShell />
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="relative mx-auto w-full max-w-[1440px] px-6 pb-8 pt-10 md:px-12 md:pb-12">
-          <p className="eyebrow text-paper-on-night/70">an index of a small world</p>
+      {/* 01.2 — the socket board */}
+      <section id="assembly-board" className="bg-paper-2/35">
+        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-12 md:py-24">
+          <div className="flex flex-wrap items-baseline justify-between gap-4 border-b-2 border-ink/70 pb-4">
+            <PartLabel code="C01.2" name="assembly board" />
+            <p className="eyebrow text-ink-muted">six sockets · one bus</p>
+          </div>
 
-          <h1 className="display mt-6 text-[clamp(2.75rem,9vw,8rem)]">{site.name}</h1>
+          <div className="mt-8 grid gap-8 md:grid-cols-12">
+            <div className="md:col-span-4">
+              <h2 className="display text-[clamp(2rem,4vw,3.25rem)]">
+                Six sockets. Probe one.
+              </h2>
+              <p className="mt-4 max-w-[34ch] text-ink-muted">
+                Hover or focus a tab to trace it. The preview follows the probe;
+                the tab opens the section.
+              </p>
+              <p className="eyebrow mt-6 text-ink-muted">
+                keyboard: tab through the rack
+              </p>
+            </div>
 
-          <div className="mt-6 flex flex-col gap-6 border-t border-paper-on-night/20 pt-5 md:flex-row md:items-baseline md:justify-between">
-            <p className="max-w-[32ch] text-[clamp(1.125rem,2vw,1.5rem)] leading-snug">
-              {site.tagline}
-            </p>
-            <p className="eyebrow text-paper-on-night/60">
-              six sockets — probe one, or scroll
-            </p>
+            <div className="md:col-span-7 md:col-start-6">
+              <SchematicBoard />
+            </div>
           </div>
         </div>
       </section>
@@ -108,7 +115,7 @@ export default function HomePage() {
         <div className="flex items-center overflow-hidden py-20 md:sticky md:top-0 md:h-[100svh] md:py-0">
           <div className="relative mx-auto grid w-full max-w-[1440px] gap-10 px-6 md:grid-cols-12 md:px-12">
             <div className="md:col-span-6">
-              <PartLabel code="C02" name="the person" />
+              <PartLabel code="C02" name="specifications" />
               <h2 className="display mt-5 text-[clamp(2.5rem,5.5vw,4.5rem)]">
                 A person, not a profile.
               </h2>
@@ -141,12 +148,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 03 — the explorer */}
+      {/* 03 — the maintenance logbook */}
       <section id="chapter-03" className="relative overflow-hidden bg-paper">
         <div className="relative mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
           <div className="grid gap-8 md:grid-cols-12">
             <div className="md:col-span-3">
-              <PartLabel code="C03" name="the explorer" />
+              <PartLabel code="C03" name="maintenance logbook" />
               <h2 className="display mt-5 text-[clamp(2rem,4vw,3.25rem)]">
                 Notes from the open tabs.
               </h2>
@@ -187,7 +194,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 04 — the observer, horizontal chapter */}
+      {/* 04 — the inspection photos, horizontal chapter */}
       <section
         id="chapter-04"
         data-horizontal
@@ -196,7 +203,7 @@ export default function HomePage() {
         <div className="h-sticky sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
           <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
             <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-paper-on-night/20 pb-4">
-              <PartLabel code="C04" name="the observer" tone="night" />
+              <PartLabel code="C04" name="inspection photos" tone="night" />
               <p className="eyebrow text-paper-on-night/60">keep scrolling —</p>
             </div>
           </div>
@@ -240,11 +247,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 05 — the watcher */}
+      {/* 05 — the indicator panel */}
       <section id="chapter-05" className="bg-paper">
         <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-12 md:py-24">
           <div className="grid gap-8 md:grid-cols-12">
-            <div className="md:col-span-3"><PartLabel code="C05" name="the watcher" /></div>
+            <div className="md:col-span-3">
+              <PartLabel code="C05" name="indicator panel" />
+            </div>
             <div className="md:col-span-8 md:col-start-5">
               <h2 className="display text-[clamp(2rem,4vw,3.25rem)]">
                 Films, noted after the credits.
@@ -265,15 +274,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 06 — the maker */}
+      {/* 06 — the illustrated parts list */}
       <section id="chapter-06" className="bg-night text-paper-on-night">
         <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
           <div className="flex flex-wrap items-baseline justify-between gap-4 border-b border-paper-on-night/20 pb-5">
-            <PartLabel code="C06" name="the maker" tone="night" />
+            <PartLabel code="C06" name="illustrated parts list" tone="night" />
             <Link href="/projects" className="eyebrow hover:text-accent-warm">
               all projects
             </Link>
           </div>
+
+          <h2 className="display mt-8 max-w-[18ch] text-[clamp(2rem,4vw,3.5rem)]">
+            Things I have made, with the notes still attached.
+          </h2>
 
           <div className="mt-14 flex flex-col gap-20 md:gap-28">
             {featuredProjects.map((project, index) => (
@@ -367,7 +380,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 06 — closing, before the footer */}
+      {/* closing, before the footer */}
       <section className="bg-paper">
         <div className="mx-auto max-w-[1440px] px-6 pb-10 md:px-12">
           <div className="grid gap-6 border-t border-ink/15 pt-8 md:grid-cols-12">
@@ -395,6 +408,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <AssemblyExtra />
     </>
   );
 }
