@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { AssemblyMeter } from "@/components/assembly-meter";
 import { ContentsOverlay } from "@/components/contents-overlay";
+import { LangSwitch } from "@/components/lang-switch";
 import { MotionToggle } from "@/components/motion-toggle";
 import { SoundToggle } from "@/components/sound-toggle";
 import { ThemeShift } from "@/components/theme-shift";
@@ -25,6 +26,7 @@ export function SiteHeader() {
           <div className="flex items-baseline gap-x-3 gap-y-1">
             <Link
               href="/"
+              data-egg="logo"
               className="eyebrow border-b border-transparent hover:border-band-ink"
               aria-label="Service Manual — home"
             >
@@ -41,9 +43,9 @@ export function SiteHeader() {
             <span className="eyebrow hidden text-band-ink/85 md:inline">
               {section.section} · {section.page}
             </span>
-            <span className="eyebrow hidden text-band-ink/85 xl:inline">
-              lang en · id todo
-            </span>
+            <div className="eyebrow hidden text-band-ink/85 xl:block">
+              <LangSwitch />
+            </div>
             <SoundToggle />
           </div>
         </div>

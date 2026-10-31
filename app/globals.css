@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./page-worlds.css";
+@import "./phase-four.css";
 
 @theme {
   /* Vintage industrial manual — DAY SHIFT defaults. Night shift remaps the
@@ -13,6 +14,7 @@
   --color-paper-on-night: #efe6d0;
   --color-accent: #b83a22;
   --color-accent-warm: #d9a441;
+  --color-accent-ink: #8a2a17;
   --color-mustard: #d9a441;
   --color-metal: #c9c3b4;
   --color-olive: #b08a2e;
@@ -39,6 +41,7 @@ html[data-shift="night"] {
   --color-paper-on-night: #efe6d0;
   --color-accent: #e4674a;
   --color-accent-warm: #e3b45c;
+  --color-accent-ink: #ee8663;
   --color-mustard: #e3b45c;
   --color-metal: #4a443b;
   --color-olive: #c9a24b;
@@ -885,7 +888,7 @@ html[data-motion="reduce"] .journey-lamp {
 
 .socket-tab-code {
   flex: none;
-  color: var(--color-accent);
+  color: var(--color-accent-ink);
 }
 
 .socket-tab-spur {

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { EggMeter } from "@/components/egg-meter";
 import { manual, revisions } from "@/content/manual";
 import { site } from "@/content/site";
 
@@ -55,10 +56,11 @@ export function SiteFooter() {
                     </a>
                   </li>
                 ))}
-                <li className="text-sm text-ink-muted">
-                  github · spotify — pending (add a URL to content/site.ts)
-                </li>
               </ul>
+
+              <p className="mt-4 text-[11px] text-ink-muted">
+                Printed in English · Indonesian edition in translation.
+              </p>
             </div>
           </div>
 
@@ -94,12 +96,20 @@ export function SiteFooter() {
               </table>
             </div>
 
+            <EggMeter />
+
             <div className="mt-6 flex flex-wrap items-baseline justify-between gap-3 border-t border-ink/25 pt-4">
               <p className="text-sm text-ink-muted">{manual.closing}</p>
               <Link href="/" className="eyebrow border-b border-ink/40 pb-0.5 hover:text-accent">
                 back to the index
               </Link>
             </div>
+            <p className="maintenance-only mt-3 font-mono text-[11px] text-ink-muted">
+              hidden part no. BZ-99-00 · the manual itself · inspection copy
+            </p>
+            <p className="maintenance-only mt-2 border-l-2 border-accent pl-2 font-mono text-[11px] text-ink-muted">
+              margin note: do not laminate the revision table.
+            </p>
           </div>
         </div>
       </div>

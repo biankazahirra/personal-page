@@ -4,15 +4,33 @@ import type { ReactNode } from "react";
 
 import { AssemblyComplete } from "@/components/assembly-complete";
 import { AssemblyTracker } from "@/components/assembly-tracker";
+import { EggLayerMount } from "@/components/egg-layer-mount";
+import { RouteAnnouncer } from "@/components/route-announcer";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { IndexTabs } from "@/components/index-tabs";
 import { PageWipe } from "@/components/page-wipe";
 import { HorizontalChapters } from "@/components/horizontal-chapters";
 import { RevealFallback } from "@/components/reveal-fallback";
+import { defaultLocale } from "@/content/i18n";
 import { site } from "@/content/site";
 
 import "./globals.css";
+
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://biankazahirra.vercel.app";
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.fullName,
+  alternateName: site.name,
+  url: baseUrl,
+  ...(site.portrait ? { image: `${baseUrl}${site.portrait.src}` } : {}),
+  email: site.email,
+  description: site.tagline,
+  sameAs: site.links.map((link) => link.href),
+  knowsAbout: site.currentlyInto.map((item) => item.label),
+};
 
 const stencil = Stardos_Stencil({
   subsets: ["latin"],
@@ -36,26 +54,35 @@ const courier = Courier_Prime({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://biankazahirra.vercel.app",
-  ),
+  metadataBase: new URL(baseUrl),
   title: {
     default: `${site.name} — service manual`,
     template: `%s — ${site.name}`,
   },
   description:
     "A personal service manual: notes on AI agents and small systems, a film journal, songs on repeat, and an ukulele still being learned.",
+  alternates: { canonical: "/" },
   openGraph: {
     title: `${site.name} — service manual`,
     description: site.tagline,
     type: "website",
+    url: "/",
+    siteName: `${site.name} — service manual`,
+    locale: "en_US",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} — service manual`,
+    description: site.tagline,
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
-      lang="en"
+      lang={defaultLocale}
+      dir="ltr"
       suppressHydrationWarning
       className={`${stencil.variable} ${narrow.variable} ${courier.variable}`}
     >
@@ -73,14 +100,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           skip to content
         </a>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
         <SiteHeader />
         <AssemblyTracker />
         <PageWipe />
+        <RouteAnnouncer />
         <HorizontalChapters />
         <RevealFallback />
         <main id="main">{children}</main>
         <SiteFooter />
         <IndexTabs />
+        <EggLayerMount />
         <AssemblyComplete />
       </body>
     </html>

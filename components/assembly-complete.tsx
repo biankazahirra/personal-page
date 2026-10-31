@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { ASSEMBLY_TOTAL, foundCount } from "@/lib/assembly";
+import { EGG_TOTAL, eggCount } from "@/lib/eggs";
 
 const SESSION_KEY = "bz-assembly-startup";
 
@@ -153,6 +154,9 @@ export function AssemblyComplete() {
             {foundCount()}/{ASSEMBLY_TOTAL} parts found
           </p>
         </div>
+        <p className="eyebrow mt-3 text-right text-ink-muted">
+          field kit {eggCount()}/{EGG_TOTAL} hidden parts
+        </p>
       </div>
     </div>
   );

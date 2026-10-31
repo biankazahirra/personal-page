@@ -81,7 +81,7 @@ export function StartupChecklist() {
       }
 
       const line = bootLines[lineIndex];
-      charIndex += 1;
+      charIndex = Math.min(line.length, charIndex + 3);
       setLines((previous) => {
         const next = [...previous];
         next[lineIndex] = line.slice(0, charIndex);
@@ -91,9 +91,9 @@ export function StartupChecklist() {
       if (charIndex >= line.length) {
         lineIndex += 1;
         charIndex = 0;
-        timer = window.setTimeout(step, 180);
+        timer = window.setTimeout(step, 90);
       } else {
-        timer = window.setTimeout(step, 10 + Math.random() * 14);
+        timer = window.setTimeout(step, 12 + Math.random() * 8);
       }
     };
 
@@ -202,15 +202,19 @@ export function StartupChecklist() {
             {">"} running self-test
           </p>
           <div aria-hidden="true">
-            {lines.map((line, index) => (
-              <p key={index} className="whitespace-pre">
-                {line}
-                {typing && index === lines.length - 1 ? (
-                  <span className="boot-cursor" />
-                ) : null}
+            {bootLines.map((line, index) => (
+              <p key={index} className="grid whitespace-pre">
+                {/* The full line is always in the flow, so typing never
+                    changes the panel's height (and never shifts the page). */}
+                <span className="invisible [grid-area:1/1]">{line}</span>
+                <span className="[grid-area:1/1]">
+                  {lines[index] ?? ""}
+                  {typing && index === Math.max(lines.length - 1, 0) ? (
+                    <span className="boot-cursor" />
+                  ) : null}
+                </span>
               </p>
             ))}
-            {typing && lines.length === 0 ? <span className="boot-cursor" /> : null}
           </div>
         </div>
 

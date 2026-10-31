@@ -1,0 +1,541 @@
+/* ============================================================
+   PHASE 4 — FIELD KIT
+   Hidden parts, maintenance mode and the language card. All of it
+   is cosmetic: the manual reads the same when none of it is used.
+   ============================================================ */
+
+/* --- corner staple ------------------------------------------------------- */
+
+.egg-staple {
+  position: fixed;
+  z-index: 30;
+  top: calc(7.25rem + env(safe-area-inset-top));
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--color-ink-muted);
+  opacity: 0.42;
+  touch-action: none;
+  cursor: grab;
+  transition:
+    opacity 160ms ease,
+    color 160ms ease;
+}
+
+.egg-staple svg {
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(1px 1px 0 color-mix(in oklab, var(--color-paper) 70%, transparent));
+}
+
+.egg-staple:hover,
+.egg-staple:focus-visible {
+  color: var(--color-accent);
+  opacity: 1;
+}
+
+.egg-staple:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 767px) {
+  .egg-staple {
+    top: calc(8.5rem + env(safe-area-inset-top));
+  }
+}
+
+/* --- field kit dock ------------------------------------------------------ */
+
+/* Without the pre-paint script there is no data-motion attribute. Hide the
+   field kit then, so no dead controls appear in a script-free reading. */
+html:not([data-motion]) .egg-staple,
+html:not([data-motion]) .egg-dock {
+  display: none;
+}
+
+.egg-dock {
+  position: fixed;
+  z-index: 30;
+  right: 0.5rem;
+  bottom: calc(4.4rem + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.egg-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 2px solid var(--color-ink);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: 2px 2px 0 color-mix(in oklab, var(--color-ink) 35%, transparent);
+  transition:
+    background-color 140ms ease,
+    color 140ms ease,
+    transform 140ms ease;
+}
+
+.egg-tool:hover,
+.egg-tool:focus-visible {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.egg-tool[aria-pressed="true"] {
+  background-color: var(--color-accent);
+  color: var(--color-band-ink);
+  box-shadow: none;
+}
+
+.egg-warranty {
+  flex-direction: column;
+  gap: 0;
+  width: 5.6rem;
+  padding: 0.35rem 0.3rem;
+  border-style: dashed;
+  background-color: var(--color-mustard);
+  color: #2b2620;
+  font-family: var(--font-label);
+  font-size: 0.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+
+.egg-warranty:hover,
+.egg-warranty:focus-visible,
+.egg-warranty[aria-pressed="true"] {
+  color: #2b2620;
+  background-color: var(--color-mustard);
+  transform: rotate(0deg);
+}
+
+.egg-warranty[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  outline: 3px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.egg-ink svg {
+  width: 22px;
+  height: 22px;
+}
+
+.egg-hint {
+  position: fixed;
+  z-index: 55;
+  right: 0.5rem;
+  bottom: calc(11.25rem + env(safe-area-inset-bottom));
+  max-width: min(20rem, calc(100vw - 1rem));
+  border: 1px solid var(--color-ink);
+  background-color: var(--color-paper);
+  padding: 0.5rem 0.65rem;
+  font-size: 12px;
+  line-height: 1.45;
+  box-shadow: 3px 3px 0 color-mix(in oklab, var(--color-ink) 30%, transparent);
+}
+
+.egg-hint kbd {
+  border: 1px solid color-mix(in oklab, var(--color-ink) 45%, transparent);
+  padding: 0 0.2rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+html[data-inking="on"] body,
+html[data-inking="on"] a,
+html[data-inking="on"] button,
+html[data-inking="on"] summary {
+  cursor: crosshair;
+}
+
+/* --- ink stamps ---------------------------------------------------------- */
+
+.egg-mark {
+  position: fixed;
+  z-index: 55;
+  pointer-events: none;
+  white-space: nowrap;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.85rem;
+  opacity: 0.85;
+  animation: stamp-thud 220ms var(--ease-editorial) both;
+}
+
+/* --- toast --------------------------------------------------------------- */
+
+@keyframes egg-toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.egg-toast {
+  position: fixed;
+  z-index: 60;
+  left: 50%;
+  bottom: calc(16rem + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: min(30rem, calc(100vw - 1rem));
+  transform: translateX(-50%);
+  border: 2px solid var(--color-ink);
+  background-color: var(--color-paper);
+  padding: 0.55rem 0.45rem 0.55rem 0.75rem;
+  box-shadow: 5px 5px 0 color-mix(in oklab, var(--color-ink) 30%, transparent);
+  animation: egg-toast-in 220ms var(--ease-editorial) both;
+}
+
+.egg-toast .stamp {
+  flex: none;
+}
+
+.egg-toast-close {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin: -0.45rem -0.35rem -0.45rem 0;
+  border-left: 1px solid color-mix(in oklab, var(--color-ink) 30%, transparent);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.egg-toast-close:hover,
+.egg-toast-close:focus-visible {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+@media (max-width: 480px) {
+  .egg-toast {
+    bottom: calc(16.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* --- ukulele + override -------------------------------------------------- */
+
+@keyframes egg-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) rotate(-2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-1deg);
+  }
+}
+
+.egg-ukulele {
+  position: fixed;
+  inset: 0;
+  z-index: 65;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  padding: 1rem;
+}
+
+.egg-ukulele-card {
+  width: min(26rem, calc(100vw - 2rem));
+  border: 2px solid var(--color-ink);
+  background-color: var(--color-paper);
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  box-shadow: 8px 8px 0 color-mix(in oklab, var(--color-ink) 28%, transparent);
+  animation: egg-card-in 260ms var(--ease-editorial) both;
+  transform: rotate(-1deg);
+}
+
+.egg-ukulele-word {
+  margin-top: 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 12vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.egg-ukulele-note {
+  margin-top: 0.65rem;
+  font-size: 0.9rem;
+  color: var(--color-ink-muted);
+}
+
+@keyframes override-in {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  12%,
+  82% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.egg-override {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 66;
+  pointer-events: none;
+  padding: 0.55rem 1rem;
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--color-mustard) 0 10px,
+    var(--color-ink) 10px 20px
+  );
+  animation: override-in 2.4s linear both;
+}
+
+.egg-override span {
+  display: block;
+  width: fit-content;
+  margin-inline: auto;
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-ink);
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* --- five taps on the nameplate ----------------------------------------- */
+
+@keyframes egg-logo-hit {
+  0%,
+  100% {
+    transform: none;
+    color: inherit;
+  }
+  35% {
+    transform: translateY(-2px) rotate(-1deg);
+    color: var(--color-mustard);
+  }
+  70% {
+    transform: translateY(1px) rotate(1deg);
+  }
+}
+
+.egg-logo-hit {
+  display: inline-block;
+  animation: egg-logo-hit 620ms var(--ease-editorial) both;
+}
+
+/* --- maintenance mode ---------------------------------------------------- */
+
+.maintenance-only,
+.maintenance-inline {
+  display: none;
+}
+
+html[data-maintenance="on"] .maintenance-only {
+  display: block;
+}
+
+html[data-maintenance="on"] .maintenance-inline {
+  display: inline;
+}
+
+html[data-maintenance="on"] body {
+  background-size: 100% 14px;
+}
+
+html[data-maintenance="on"] body::after {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 2.4rem;
+  display: none;
+  width: 1px;
+  pointer-events: none;
+  background-color: color-mix(in oklab, var(--color-accent) 45%, transparent);
+}
+
+@media (min-width: 768px) {
+  html[data-maintenance="on"] body::after {
+    display: block;
+  }
+}
+
+@media (min-width: 1600px) {
+  html[data-maintenance="on"] body::after {
+    left: 7rem;
+  }
+}
+
+.maintenance-rail {
+  position: fixed;
+  z-index: 20;
+  left: 0.4rem;
+  top: 50%;
+  display: none;
+  width: 6.25rem;
+  transform: translateY(-50%);
+  flex-direction: column;
+  gap: 1.1rem;
+  pointer-events: none;
+}
+
+@media (min-width: 1600px) {
+  html[data-maintenance="on"] .maintenance-rail {
+    display: flex;
+  }
+}
+
+.maintenance-rail p {
+  border-left: 2px solid var(--color-accent);
+  padding-left: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  transform: rotate(-1.4deg);
+}
+
+.maintenance-rail p:nth-child(even) {
+  transform: rotate(1.2deg);
+}
+
+/* --- field kit meter ----------------------------------------------------- */
+
+.egg-meter {
+  margin-top: 1.5rem;
+  border-top: 1px solid color-mix(in oklab, var(--color-ink) 25%, transparent);
+  padding-top: 0.85rem;
+}
+
+.egg-meter-holes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 0.4rem;
+}
+
+.egg-meter-holes li {
+  display: grid;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 45%, transparent);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1;
+  color: var(--color-ink-muted);
+}
+
+.egg-meter-holes li[data-found="true"] {
+  background-color: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* --- unlisted part in C06 ------------------------------------------------ */
+
+.egg-part {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  border-top: 1px dashed color-mix(in oklab, var(--color-ink) 45%, transparent);
+  padding: 0.9rem 0;
+  text-align: left;
+  color: var(--color-ink-muted);
+  opacity: 1;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.egg-part:hover,
+.egg-part:focus-visible {
+  color: var(--color-accent-ink);
+  background-color: color-mix(in oklab, var(--color-accent) 4%, transparent);
+}
+
+.egg-part-filed,
+.egg-part-filed:hover {
+  color: var(--color-ink);
+  background-color: transparent;
+}
+
+.egg-part-cue {
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+@media (max-width: 767px) {
+  .egg-part {
+    grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+    gap: 0.6rem;
+  }
+}
+
+/* --- language card ------------------------------------------------------- */
+
+.lang-switch summary::-webkit-details-marker {
+  display: none;
+}
+
+.lang-switch summary::marker {
+  content: "";
+}
+
+.lang-switch[open] summary {
+  color: var(--color-mustard);
+}
+
+.lang-panel {
+  animation: overlay-in 200ms var(--ease-editorial) both;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+/* --- print: the field kit does not exist --------------------------------- */
+
+@media print {
+  .egg-staple,
+  .egg-dock,
+  .egg-hint,
+  .egg-toast,
+  .egg-ukulele,
+  .egg-override,
+  .egg-mark,
+  .maintenance-rail {
+    display: none !important;
+  }
+}

@@ -36,6 +36,13 @@ export default function ProjectsPage() {
           Material is what it was built from, not a claim that any of it is
           mastered. A part marked in progress is still on the bench.
         </p>
+
+        <p className="maintenance-only mt-4 font-mono text-[11px] text-ink-muted">
+          hidden part no. BZ-06-00 · the manual itself · filed in the margin
+        </p>
+        <p className="maintenance-only mt-2 border-l-2 border-accent pl-2 font-mono text-[11px] text-ink-muted">
+          margin note: part numbers are stamped by hand; expect one crooked.
+        </p>
       </section>
     </>
   );

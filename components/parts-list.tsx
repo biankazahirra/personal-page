@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { EggPart } from "@/components/egg-part";
 import { ProjectSchematic } from "@/components/project-schematic";
 import type { Project } from "@/content/types";
 
@@ -139,6 +140,8 @@ export function PartsList({ projects }: { projects: Project[] }) {
           );
         })}
       </ul>
+
+      <EggPart />
     </div>
   );
 }

@@ -27,6 +27,7 @@ export function IndexTabs() {
             <li key={item.code} className="min-w-[5.5rem] flex-1 snap-start">
               <Link
                 href={item.href}
+                prefetch={false}
                 aria-current={active ? "page" : undefined}
                 className={`flex h-14 flex-col items-start justify-center border-r border-ink/20 px-3 transition-colors md:px-4 ${
                   active
@@ -48,6 +49,7 @@ export function IndexTabs() {
         <li className="hidden min-w-[7rem] flex-1 snap-start md:block">
           <Link
             href="/contact"
+            prefetch={false}
             className={`flex h-14 flex-col items-start justify-center border-l border-ink/20 px-4 transition-colors ${
               pathname.startsWith("/contact")
                 ? "-mt-1 h-[3.75rem] border-t-4 border-t-mustard bg-paper text-ink"

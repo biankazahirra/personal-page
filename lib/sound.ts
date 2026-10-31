@@ -89,3 +89,30 @@ export function playPluck(frequency: number) {
   tone(frequency, 0.7, { type: "triangle", gain: 0.05 });
   tone(frequency * 2, 0.35, { type: "sine", gain: 0.018, delay: 0.01 });
 }
+
+/** A loose staple pulled out of the paper. */
+export function playStaple() {
+  tone(1760, 0.05, { type: "triangle", gain: 0.035 });
+  tone(240, 0.09, { type: "square", gain: 0.012, delay: 0.03 });
+}
+
+/** Four strings, struck once. Used by the typed ukulele. */
+export function playChord() {
+  playPluck(261.63);
+  playPluck(329.63);
+  playPluck(392);
+  playPluck(523.25);
+}
+
+/** The ink pad: a soft press, then a stamp. */
+export function playInk() {
+  tone(180, 0.08, { type: "sine", gain: 0.03 });
+  playStamp();
+}
+
+/** Three rising notes for the service override. */
+export function playOverride() {
+  tone(392, 0.16, { type: "triangle", gain: 0.04 });
+  tone(523.25, 0.16, { type: "triangle", gain: 0.04, delay: 0.1 });
+  tone(659.25, 0.3, { type: "triangle", gain: 0.05, delay: 0.2 });
+}
