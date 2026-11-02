@@ -20,6 +20,7 @@ export default function FilmsPage() {
       <PageHeader
         code="C05"
         name="films"
+        plain="Films I've watched"
         title="Watched, then thought about."
         lede="Four favourites to start with. A rating or a line appears only when there is something real to say."
       />

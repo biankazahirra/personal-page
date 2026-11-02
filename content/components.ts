@@ -2,6 +2,8 @@ export type ComponentEntry = {
   href: string;
   code: string;
   label: string;
+  /** Plain meaning, always shown so the metaphor is never required. */
+  plain: string;
   blurb: string;
   /** One line shown on the assembly board. */
   spec: string;
@@ -20,6 +22,7 @@ export const components: ComponentEntry[] = [
     href: "/",
     code: "C01",
     label: "index",
+    plain: "Explore all sections",
     blurb: "the entrance",
     spec: "one page, six sockets",
     status: "live",
@@ -30,6 +33,7 @@ export const components: ComponentEntry[] = [
     href: "/about",
     code: "C02",
     label: "about",
+    plain: "About me",
     blurb: "the person",
     spec: "portrait, timeline, toolbox",
     status: "live",
@@ -38,6 +42,7 @@ export const components: ComponentEntry[] = [
     href: "/curiosity",
     code: "C03",
     label: "curiosity",
+    plain: "Notes & experiments",
     blurb: "the explorer",
     spec: "notes, some unfinished",
     status: "live",
@@ -46,6 +51,7 @@ export const components: ComponentEntry[] = [
     href: "/life",
     code: "C04",
     label: "life",
+    plain: "Personal moments",
     blurb: "the observer",
     spec: "journal, photos, music",
     status: "live",
@@ -54,6 +60,7 @@ export const components: ComponentEntry[] = [
     href: "/films",
     code: "C05",
     label: "films",
+    plain: "Films I've watched",
     blurb: "the watcher",
     spec: "four favourites, no ratings yet",
     status: "live",
@@ -62,6 +69,7 @@ export const components: ComponentEntry[] = [
     href: "/projects",
     code: "C06",
     label: "projects",
+    plain: "My projects",
     blurb: "the maker",
     spec: "small systems, academic, work",
     status: "live",

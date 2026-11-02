@@ -124,7 +124,7 @@ function run(command: string): Line[] {
   }
 
   return [
-    { text: `ERROR 404: page missing from manual — "${command.trim()}"`, muted: false },
+    { text: "unknown command. the manual does not cover this. yet.", muted: false },
     { text: 'type "help" for the command list.', muted: true },
   ];
 }

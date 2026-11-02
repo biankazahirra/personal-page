@@ -52,6 +52,7 @@ export function SchematicBoard() {
                   href={item.href}
                   data-active={isActive}
                   data-code={item.code}
+                  aria-label={`${item.code} ${item.label} — ${item.plain}`}
                   aria-controls="socket-preview"
                   onMouseEnter={() => setProbed(item.code)}
                   onMouseLeave={() => setProbed(null)}
@@ -78,7 +79,7 @@ export function SchematicBoard() {
           id="socket-preview"
           className="socket-preview"
           role="region"
-          aria-label={`Socket preview: ${active.label}`}
+          aria-label={`Socket preview: ${active.label} — ${active.plain}`}
           aria-live="polite"
           aria-atomic="true"
         >
@@ -88,6 +89,7 @@ export function SchematicBoard() {
           <h3 className="display mt-2 text-[clamp(1.5rem,3vw,2.25rem)]">
             {active.label}
           </h3>
+          <p className="eyebrow mt-1 text-accent">{active.plain}</p>
           <p className="mt-2 text-sm text-ink-muted">{active.blurb}</p>
 
           <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-ink/25 pt-3 text-sm">

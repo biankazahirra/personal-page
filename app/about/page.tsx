@@ -112,6 +112,7 @@ export default function AboutPage() {
       <PageHeader
         code="C02"
         name="about"
+        plain="About me"
         title="The person behind the tabs."
         lede="Still learning, in public. Not a finished product, and not trying to look like one."
       />

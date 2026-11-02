@@ -29,6 +29,7 @@ export function IndexTabs() {
                 href={item.href}
                 prefetch={false}
                 aria-current={active ? "page" : undefined}
+                aria-label={`${item.code} ${item.label} — ${item.plain}`}
                 className={`flex h-14 flex-col items-start justify-center border-r border-ink/20 px-3 transition-colors md:px-4 ${
                   active
                     ? "-mt-1 h-[3.75rem] border-t-4 border-t-mustard bg-paper text-ink"
@@ -50,6 +51,7 @@ export function IndexTabs() {
           <Link
             href="/contact"
             prefetch={false}
+            aria-label="C07 contact — Say hi / contact"
             className={`flex h-14 flex-col items-start justify-center border-l border-ink/20 px-4 transition-colors ${
               pathname.startsWith("/contact")
                 ? "-mt-1 h-[3.75rem] border-t-4 border-t-mustard bg-paper text-ink"

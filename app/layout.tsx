@@ -53,27 +53,29 @@ const courier = Courier_Prime({
   variable: "--font-courier",
 });
 
+const plainDescription =
+  "Bianka Zahirra: notes on AI agents and small systems, films, songs on repeat, projects, and a ukulele still being learned.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: `${site.name} — service manual`,
-    template: `%s — ${site.name}`,
+    default: `${site.name} - notes, films, projects, life`,
+    template: `%s - ${site.name}`,
   },
-  description:
-    "A personal service manual: notes on AI agents and small systems, a film journal, songs on repeat, and an ukulele still being learned.",
+  description: plainDescription,
   alternates: { canonical: "/" },
   openGraph: {
-    title: `${site.name} — service manual`,
-    description: site.tagline,
+    title: `${site.name} - notes, films, projects, life`,
+    description: plainDescription,
     type: "website",
     url: "/",
-    siteName: `${site.name} — service manual`,
+    siteName: site.name,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — service manual`,
-    description: site.tagline,
+    title: `${site.name} - notes, films, projects, life`,
+    description: plainDescription,
   },
   robots: { index: true, follow: true },
 };

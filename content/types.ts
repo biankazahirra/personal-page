@@ -11,6 +11,10 @@ export type Site = {
   alias?: string;
   tagline: string;
   intro: string[];
+  /** Short intro used in the homepage hero only. */
+  heroLine: string;
+  /** Short homepage preview; the full bio stays on /about. */
+  aboutPreview: string;
   location?: string;
   email?: string;
   /** Full-bleed homepage hero. Falls back to a texture. */

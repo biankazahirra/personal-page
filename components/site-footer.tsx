@@ -20,10 +20,10 @@ export function SiteFooter() {
           <div className="md:col-span-5">
             <p className="eyebrow text-ink-muted">7.0 · Service Request</p>
             <h2 className="display mt-4 text-[clamp(2.25rem,6vw,4.5rem)]">
-              Say hi, <span className="normal-case italic">whenever.</span>
+              Say hi.
             </h2>
             <p className="mt-5 max-w-[38ch] text-ink-muted">
-              No ticket queue, no form required. Plain text is enough.
+              Plain text is enough.
             </p>
 
             <div className="mt-8 border-t border-ink/25 pt-5">
@@ -58,9 +58,6 @@ export function SiteFooter() {
                 ))}
               </ul>
 
-              <p className="mt-4 text-[11px] text-ink-muted">
-                Printed in English · Indonesian edition in translation.
-              </p>
             </div>
           </div>
 

@@ -58,6 +58,9 @@ export function SiteHeader() {
             <span className="label truncate text-sm tracking-[0.08em] md:text-base">
               {section.title}
             </span>
+            <span className="eyebrow shrink-0 text-band-ink/80">
+              · {section.plain}
+            </span>
           </p>
 
           <div className="flex flex-wrap items-center gap-2">

@@ -165,7 +165,6 @@ export function ExplodedHero() {
 
         <div className="mt-8 grid gap-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-5 md:pt-6">
-            <p className="eyebrow text-accent">Model BZ-2026 · unit 0042</p>
             <h1
               id="hero-title"
               tabIndex={-1}
@@ -176,9 +175,7 @@ export function ExplodedHero() {
             <p className="mt-5 max-w-[30ch] text-[clamp(1.35rem,2.6vw,2rem)] leading-tight">
               {site.tagline}
             </p>
-            <p className="mt-5 max-w-[46ch] text-ink-muted">
-              {site.intro[0]}
-            </p>
+            <p className="mt-5 max-w-[46ch] text-ink-muted">{site.heroLine}</p>
 
             <DataPlate className="mt-7 max-w-[30rem]" />
 

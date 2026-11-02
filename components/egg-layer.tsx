@@ -492,7 +492,7 @@ export function EggLayer() {
               {toast.partNo} · {toast.label}
             </span>
             <span className="block font-mono text-[11px] text-ink-muted">
-              field kit {toast.count}/{toast.total} · {eggs.length} hidden parts
+              field kit {toast.count}/{toast.total} · go you.
             </span>
           </span>
           <button

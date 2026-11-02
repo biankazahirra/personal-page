@@ -13,7 +13,6 @@ import { journal, kindLabels } from "@/content/journal";
 import { notes } from "@/content/notes";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
-import { timeline } from "@/content/timeline";
 import { formatDate } from "@/lib/format";
 
 const observerPanels = [
@@ -43,7 +42,6 @@ export default function HomePage() {
   const recentNotes = notes.slice(0, 3);
   const recentJournal = journal.slice(0, 2);
   const featuredProjects = projects.slice(0, 3);
-  const current = timeline.find((item) => item.current);
 
   return (
     <>
@@ -57,13 +55,13 @@ export default function HomePage() {
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-12 md:py-24">
           <div className="grid gap-8 md:grid-cols-12">
             <div className="md:col-span-4">
-              <PartLabel code="C01.1" name="logbook console" />
+              <PartLabel code="C01.1" name="logbook console" plain="Optional terminal" />
               <h2 className="display mt-5 text-[clamp(2rem,4vw,3.25rem)]">
                 Ask the machine.
               </h2>
               <p className="mt-4 max-w-[34ch] text-ink-muted">
-                A small terminal for people who like typing. It answers a few
-                commands and then gets out of the way.
+                A small terminal for people who like typing. Optional, and never
+                the only way in.
               </p>
               <div className="notice mt-6 px-4 py-3">
                 <p className="label text-[10px] text-ink-muted">Warning</p>
@@ -85,7 +83,7 @@ export default function HomePage() {
       <section id="assembly-board" className="bg-paper-2/35">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-12 md:py-24">
           <div className="flex flex-wrap items-baseline justify-between gap-4 border-b-2 border-ink/70 pb-4">
-            <PartLabel code="C01.2" name="assembly board" />
+            <PartLabel code="C01.2" name="assembly board" plain="Explore all sections" />
             <p className="eyebrow text-ink-muted">six sockets · one bus</p>
           </div>
 
@@ -115,18 +113,13 @@ export default function HomePage() {
         <div className="flex items-center overflow-hidden py-20 md:sticky md:top-0 md:h-[100svh] md:py-0">
           <div className="relative mx-auto grid w-full max-w-[1440px] gap-10 px-6 md:grid-cols-12 md:px-12">
             <div className="md:col-span-6">
-              <PartLabel code="C02" name="specifications" />
+              <PartLabel code="C02" name="specifications" plain="About me" />
               <h2 className="display mt-5 text-[clamp(2.5rem,5.5vw,4.5rem)]">
                 A person, not a profile.
               </h2>
-              {site.intro.map((paragraph) => (
-                <p
-                  key={paragraph}
-                  className="mt-5 max-w-[52ch] text-ink-muted [&+p]:mt-4"
-                >
-                  {paragraph}
-                </p>
-              ))}
+              <p className="mt-5 max-w-[52ch] text-ink-muted">
+                {site.aboutPreview}
+              </p>
               <Link
                 href="/about"
                 className="eyebrow mt-8 inline-block border-b border-accent pb-1 hover:text-accent"
@@ -153,7 +146,7 @@ export default function HomePage() {
         <div className="relative mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
           <div className="grid gap-8 md:grid-cols-12">
             <div className="md:col-span-3">
-              <PartLabel code="C03" name="maintenance logbook" />
+              <PartLabel code="C03" name="maintenance logbook" plain="Notes & experiments" />
               <h2 className="display mt-5 text-[clamp(2rem,4vw,3.25rem)]">
                 Notes from the open tabs.
               </h2>
@@ -203,7 +196,7 @@ export default function HomePage() {
         <div className="h-sticky sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
           <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
             <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-paper-on-night/20 pb-4">
-              <PartLabel code="C04" name="inspection photos" tone="night" />
+              <PartLabel code="C04" name="inspection photos" plain="Personal moments" tone="night" />
               <p className="eyebrow text-paper-on-night/60">keep scrolling —</p>
             </div>
           </div>
@@ -252,7 +245,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-12 md:py-24">
           <div className="grid gap-8 md:grid-cols-12">
             <div className="md:col-span-3">
-              <PartLabel code="C05" name="indicator panel" />
+              <PartLabel code="C05" name="indicator panel" plain="Films I've watched" />
             </div>
             <div className="md:col-span-8 md:col-start-5">
               <h2 className="display text-[clamp(2rem,4vw,3.25rem)]">
@@ -278,7 +271,7 @@ export default function HomePage() {
       <section id="chapter-06" className="bg-night text-paper-on-night">
         <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
           <div className="flex flex-wrap items-baseline justify-between gap-4 border-b border-paper-on-night/20 pb-5">
-            <PartLabel code="C06" name="illustrated parts list" tone="night" />
+            <PartLabel code="C06" name="illustrated parts list" plain="My projects" tone="night" />
             <Link href="/projects" className="eyebrow hover:text-accent-warm">
               all projects
             </Link>
@@ -327,55 +320,6 @@ export default function HomePage() {
                 </div>
               </Link>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* the day job */}
-      <section id="the-day-job" className="bg-paper">
-        <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
-          <div className="grid gap-10 md:grid-cols-12">
-            <div className="md:col-span-3">
-              <p className="eyebrow text-ink-muted">the day job</p>
-              <h2 className="display mt-5 text-[clamp(2rem,4vw,3.25rem)]">
-                Small systems, ordinary days.
-              </h2>
-            </div>
-
-            <div className="md:col-span-8 md:col-start-5">
-              <p className="max-w-[54ch] text-[clamp(1.125rem,1.9vw,1.5rem)] leading-relaxed">
-                By day I keep paperwork moving at a property company: requisition
-                forms, records, monthly numbers. The interesting part is the same
-                as here — making a slow process a little shorter.
-              </p>
-
-              {current ? (
-                <p className="eyebrow mt-8 text-ink-muted">
-                  {current.period} · {current.org}
-                </p>
-              ) : null}
-
-              <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-ink/15 pt-6">
-                <Link
-                  href="/about#journey"
-                  className="eyebrow border-b border-accent pb-1 hover:text-accent"
-                >
-                  the timeline
-                </Link>
-                <Link
-                  href="/life"
-                  className="eyebrow border-b border-accent pb-1 hover:text-accent"
-                >
-                  life lately
-                </Link>
-                <Link
-                  href="/films"
-                  className="eyebrow border-b border-accent pb-1 hover:text-accent"
-                >
-                  films
-                </Link>
-              </div>
-            </div>
           </div>
         </div>
       </section>

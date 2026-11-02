@@ -7,6 +7,8 @@ export type ManualSection = {
   section: string;
   /** Printed title in the contents list. */
   title: string;
+  /** Plain meaning, always shown next to the creative title. */
+  plain: string;
   /** Page footer, e.g. "Page 3-1". */
   page: string;
   /** Short line for the contents overlay. */
@@ -26,6 +28,7 @@ export const sections: ManualSection[] = [
   ...components.map((component) => ({
     code: component.code,
     href: component.href,
+    plain: component.plain,
     blurb: component.blurb,
     ...titles[component.code],
   })),
@@ -35,6 +38,7 @@ export const sections: ManualSection[] = [
     section: "7.0",
     page: "Page 7-1",
     title: "Service Request",
+    plain: "Say hi / contact",
     blurb: "contact, plain text",
   },
 ];

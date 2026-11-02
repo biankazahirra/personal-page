@@ -32,6 +32,7 @@ export default function LifePage() {
       <PageHeader
         code="C04"
         name="life"
+        plain="Personal moments"
         title="A journal without a schedule."
         lede="Songs, small moments, practice notes. Not a feed, not a highlight reel — just what happened."
       />

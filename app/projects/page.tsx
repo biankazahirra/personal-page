@@ -16,6 +16,7 @@ export default function ProjectsPage() {
       <PageHeader
         code="C06"
         name="projects"
+        plain="My projects"
         title="Things I made, and what they taught me."
         lede="Not a portfolio. Some are academic, some are for work, some are still half-open in an editor."
       />

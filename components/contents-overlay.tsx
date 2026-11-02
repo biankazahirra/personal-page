@@ -129,7 +129,7 @@ export function ContentsOverlay() {
                             {item.title}
                           </span>
                           <span className="mt-1 block text-sm text-ink-muted">
-                            {item.blurb}
+                            {item.plain}
                           </span>
                         </span>
                         <span className="toc-leader hidden md:block" aria-hidden="true" />

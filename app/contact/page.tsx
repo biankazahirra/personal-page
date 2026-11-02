@@ -4,7 +4,7 @@ import { ServiceForm } from "@/components/service-form";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Service Request",
+  title: "Contact",
   description: "How to reach Bianka: plain text, no ticket queue.",
 };
 
@@ -14,10 +14,9 @@ export default function ContactPage() {
   return (
     <div className="mx-auto max-w-[1440px] px-6 pb-24 pt-12 md:px-12 md:pt-16">
       <p className="eyebrow text-ink-muted">Section 7.0 · Page 7-1</p>
-      <h1 className="display mt-3 text-[clamp(2.5rem,8vw,6rem)]">Service Request</h1>
+      <h1 className="display mt-3 text-[clamp(2.5rem,8vw,6rem)]">Say hi.</h1>
       <p className="mt-5 max-w-[54ch] text-lg">
-        No ticket queue, no account, no automated reply. If something here needs
-        a reply, plain text is enough.
+        Plain text is enough. No ticket queue, no account, no automated reply.
       </p>
 
       <section aria-labelledby="direct-line" className="mt-10">
