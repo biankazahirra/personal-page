@@ -27,6 +27,9 @@
   --font-label: var(--font-narrow), "Arial Narrow", sans-serif;
 
   --ease-editorial: cubic-bezier(0.2, 0.6, 0.2, 1);
+  /* §7.1 motion tokens; retime every matching animation from here. */
+  --t-hero: 600ms;
+  --ease-page: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 /* NIGHT SHIFT: warm charcoal paper, cream ink, accents lifted for AA. */
@@ -737,10 +740,50 @@ html[data-motion="reduce"] .journey-lamp {
   transition: opacity 160ms linear;
 }
 
-.exploded-stage[data-snap="true"] .exploded-part {
+/* Stage 2 of the signature assemble: the parts glide in, then the stamp lands.
+   A press during the glide lands on stage 3 in 160ms instead of waiting. */
+.exploded-stage[data-phase="moving"] .exploded-part,
+.exploded-stage[data-phase="done"] .exploded-part {
   transition:
-    transform 760ms cubic-bezier(0.18, 1.25, 0.35, 1),
+    transform var(--t-hero) var(--ease-page),
     opacity 520ms ease;
+}
+
+.exploded-stage[data-phase="done"] .exploded-part {
+  transition-duration: 160ms, 200ms;
+}
+
+.exploded-stage[data-phase="reset"] .exploded-part {
+  transition:
+    transform 320ms var(--ease-page),
+    opacity 320ms ease;
+}
+
+html:not([data-motion="full"]) .exploded-stage .exploded-part {
+  transition: none;
+}
+
+/* Stage 3's tiny overshoot: the unit settles, 2px each way. */
+@keyframes exploded-snap {
+  0% {
+    transform: translate(-50%, -50%) translateY(-2px);
+  }
+  55% {
+    transform: translate(-50%, -50%) translateY(2px);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+}
+
+html[data-motion="full"] .exploded-stage[data-phase="done"] .exploded-center {
+  animation: exploded-snap 180ms var(--ease-editorial);
+}
+
+/* One entrance for the Lately strip, only after a first assembly. The strip
+   itself is always in the page; this never hides content. */
+html[data-just-assembled] #lately {
+  animation: reveal-up 240ms var(--ease-editorial) both;
 }
 
 .exploded-part::after {

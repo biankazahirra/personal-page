@@ -2,14 +2,21 @@
 
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataPlate } from "@/components/data-plate";
 import { Media } from "@/components/media";
 import { site } from "@/content/site";
-import { markFound } from "@/lib/assembly";
+import { hasFound, markFound } from "@/lib/assembly";
 import { EGG_TOTAL } from "@/lib/eggs";
 import { playStamp } from "@/lib/sound";
+
+/** Stage 2 length, from the §7.1 hero token (--t-hero: 600ms). */
+const GLIDE_MS = 600;
+/** Replay: the parts drift back out before assembling again. */
+const RESET_MS = 320;
+
+type Phase = "idle" | "moving" | "reset" | "done";
 
 type Part = {
   n: number;
@@ -88,15 +95,49 @@ function PartIcon({ n }: { n: number }) {
 
 /**
  * The opening diagram: six parts float apart around the portrait. Scrolling
- * or pressing ASSEMBLE glides them together; the stamp lands when they meet.
- * The exploded state is the default, so the page still reads without JS.
+ * scrubs them together, or pressing Assemble glides them in three stages:
+ * idle, moving (600ms), then the snap, stamp and meter. A second press during
+ * the glide jumps straight to the end. The exploded state is the default, so
+ * the page still reads without JS.
  */
 export function ExplodedHero() {
-  const [assembled, setAssembled] = useState(false);
+  const [phase, setPhase] = useState<Phase>("idle");
   const [scrub, setScrub] = useState(0);
   const [reduced, setReduced] = useState(false);
   const stage = useRef<HTMLDivElement>(null);
-  const stamped = useRef(false);
+  const phaseRef = useRef<Phase>("idle");
+  const glide = useRef<number | null>(null);
+
+  const moveTo = (next: Phase) => {
+    phaseRef.current = next;
+    setPhase(next);
+  };
+
+  const finish = useCallback(() => {
+    if (phaseRef.current === "done") return;
+    if (glide.current !== null) {
+      window.clearTimeout(glide.current);
+      glide.current = null;
+    }
+    // The meter gains +1 only on the first completion in this browser.
+    const firstTime = !hasFound("assemble");
+    moveTo("done");
+    markFound("assemble");
+    playStamp();
+    if (firstTime) {
+      // Lets the Lately strip play its one entrance; never hides content.
+      document.documentElement.dataset.justAssembled = "1";
+      window.setTimeout(() => {
+        delete document.documentElement.dataset.justAssembled;
+      }, 320);
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (glide.current !== null) window.clearTimeout(glide.current);
+    };
+  }, []);
 
   useEffect(() => {
     const read = () =>
@@ -107,7 +148,7 @@ export function ExplodedHero() {
   }, []);
 
   useEffect(() => {
-    if (assembled || reduced) return;
+    if (phase !== "idle" || reduced) return;
 
     let frame = 0;
     const onScroll = () => {
@@ -122,14 +163,7 @@ export function ExplodedHero() {
           Math.max(0, (window.scrollY - start) / distance),
         );
         setScrub(progress);
-        if (progress >= 0.99) {
-          setAssembled(true);
-          markFound("assemble");
-          if (!stamped.current) {
-            stamped.current = true;
-            playStamp();
-          }
-        }
+        if (progress >= 0.99) finish();
       });
     };
 
@@ -141,20 +175,39 @@ export function ExplodedHero() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [assembled, reduced]);
+  }, [phase, reduced, finish]);
 
-  const assemble = () => {
-    if (assembled) return;
-    setAssembled(true);
-    setScrub(1);
-    markFound("assemble");
-    if (!stamped.current) {
-      stamped.current = true;
-      playStamp();
-    }
+  const startGlide = () => {
+    moveTo("moving");
+    glide.current = window.setTimeout(finish, GLIDE_MS);
   };
 
-  const progress = assembled ? 1 : reduced ? 0 : scrub;
+  const assemble = () => {
+    const current = phaseRef.current;
+    if (reduced) {
+      finish();
+      return;
+    }
+    if (current === "moving") {
+      finish();
+      return;
+    }
+    if (current === "done") {
+      // Replay: drift the parts back out, then glide in again. The meter
+      // already has this part, so it does not move.
+      moveTo("reset");
+      setScrub(0);
+      glide.current = window.setTimeout(startGlide, RESET_MS);
+      return;
+    }
+    if (current === "reset") return;
+    startGlide();
+  };
+
+  const assembled = phase === "done";
+  const busy = phase === "moving" || phase === "reset";
+  const progress =
+    phase === "idle" ? (reduced ? 0 : scrub) : phase === "reset" ? 0 : 1;
   const spread = 1 - progress;
 
   return (
@@ -187,15 +240,25 @@ export function ExplodedHero() {
                 type="button"
                 onClick={assemble}
                 aria-pressed={assembled}
-                className="label border-2 border-ink bg-ink px-5 py-3 text-xs text-paper transition-colors hover:border-accent hover:bg-accent disabled:cursor-default disabled:opacity-70"
-                disabled={assembled}
+                aria-busy={busy}
+                className="label border-2 border-ink bg-ink px-5 py-3 text-xs text-paper transition-colors hover:border-accent hover:bg-accent"
               >
-                {assembled ? "Unit assembled" : "Assemble unit"}
+                {assembled
+                  ? "Assembled ✓"
+                  : phase === "moving"
+                    ? "Assembling…"
+                    : phase === "reset"
+                      ? "Resetting…"
+                      : "Assemble unit ▸"}
               </button>
               <p className="eyebrow text-ink-muted">
                 {assembled
-                  ? "inspection stamp applied"
-                  : "or scroll — the parts meet on the way down"}
+                  ? "inspection stamp applied — press again to replay"
+                  : phase === "moving"
+                    ? "parts are meeting — press again to finish"
+                    : phase === "reset"
+                      ? "parts going back out"
+                      : "or scroll — the parts meet on the way down"}
               </p>
             </div>
 
@@ -224,7 +287,7 @@ export function ExplodedHero() {
             <div
               ref={stage}
               className="exploded-stage mx-auto w-full max-w-[36rem]"
-              data-snap={assembled}
+              data-phase={phase}
               style={
                 {
                   "--assembly": progress,
