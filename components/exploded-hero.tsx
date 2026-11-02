@@ -1,22 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import type { CSSProperties, MouseEvent, PointerEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataPlate } from "@/components/data-plate";
 import { Media } from "@/components/media";
 import { site } from "@/content/site";
 import { hasFound, markFound } from "@/lib/assembly";
+import {
+  MOVE_TOLERANCE,
+  gesture,
+  holdProgress,
+} from "@/lib/assemble-gesture";
 import { EGG_TOTAL } from "@/lib/eggs";
 import { playStamp } from "@/lib/sound";
 
 /** Stage 2 length, from the §7.1 hero token (--t-hero: 600ms). */
 const GLIDE_MS = 600;
-/** Replay: the parts drift back out before assembling again. */
+/** Replay, and the drift back after an abandoned hold. */
 const RESET_MS = 320;
 
-type Phase = "idle" | "moving" | "reset" | "done";
+type Phase = "idle" | "holding" | "moving" | "reset" | "done";
 
 type Part = {
   n: number;
@@ -104,9 +109,15 @@ export function ExplodedHero() {
   const [phase, setPhase] = useState<Phase>("idle");
   const [scrub, setScrub] = useState(0);
   const [reduced, setReduced] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [hold, setHold] = useState(0);
   const stage = useRef<HTMLDivElement>(null);
   const phaseRef = useRef<Phase>("idle");
   const glide = useRef<number | null>(null);
+  const resetTimer = useRef<number | null>(null);
+  const holdFrame = useRef<number | null>(null);
+  const press = useRef<{ time: number; y: number } | null>(null);
+  const swallowClick = useRef(false);
 
   const moveTo = (next: Phase) => {
     phaseRef.current = next;
@@ -122,6 +133,7 @@ export function ExplodedHero() {
     // The meter gains +1 only on the first completion in this browser.
     const firstTime = !hasFound("assemble");
     moveTo("done");
+    setHold(1);
     markFound("assemble");
     playStamp();
     if (firstTime) {
@@ -136,7 +148,17 @@ export function ExplodedHero() {
   useEffect(() => {
     return () => {
       if (glide.current !== null) window.clearTimeout(glide.current);
+      if (resetTimer.current !== null) window.clearTimeout(resetTimer.current);
+      if (holdFrame.current !== null) window.cancelAnimationFrame(holdFrame.current);
     };
+  }, []);
+
+  useEffect(() => {
+    const phone = window.matchMedia("(max-width: 767px)");
+    const read = () => setIsMobile(phone.matches);
+    read();
+    phone.addEventListener("change", read);
+    return () => phone.removeEventListener("change", read);
   }, []);
 
   useEffect(() => {
@@ -148,7 +170,7 @@ export function ExplodedHero() {
   }, []);
 
   useEffect(() => {
-    if (phase !== "idle" || reduced) return;
+    if (phase !== "idle" || reduced || isMobile) return;
 
     let frame = 0;
     const onScroll = () => {
@@ -175,7 +197,7 @@ export function ExplodedHero() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [phase, reduced, finish]);
+  }, [phase, reduced, isMobile, finish]);
 
   const startGlide = () => {
     moveTo("moving");
@@ -197,6 +219,7 @@ export function ExplodedHero() {
       // already has this part, so it does not move.
       moveTo("reset");
       setScrub(0);
+      setHold(0);
       glide.current = window.setTimeout(startGlide, RESET_MS);
       return;
     }
@@ -204,11 +227,148 @@ export function ExplodedHero() {
     startGlide();
   };
 
+  /** A phone tap also fires a click right after pointerup; eat just that one. */
+  const swallowNextClick = () => {
+    swallowClick.current = true;
+    window.setTimeout(() => {
+      swallowClick.current = false;
+    }, 400);
+  };
+
+  /** Phones: pressing the button fills the hold; the parts follow the fill. */
+  const beginHold = (event: PointerEvent<HTMLButtonElement>) => {
+    if (!isMobile || reduced || phaseRef.current !== "idle") return;
+    if (event.button !== 0) return;
+
+    press.current = { time: performance.now(), y: event.clientY };
+    moveTo("holding");
+    setHold(0);
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+
+    const tick = () => {
+      const origin = press.current;
+      if (!origin) return;
+      const elapsed = performance.now() - origin.time;
+      const value = holdProgress(elapsed);
+      setHold(value);
+      if (value >= 1) {
+        press.current = null;
+        swallowNextClick();
+        finish();
+        return;
+      }
+      holdFrame.current = window.requestAnimationFrame(tick);
+    };
+    holdFrame.current = window.requestAnimationFrame(tick);
+  };
+
+  const stopHold = () => {
+    if (holdFrame.current !== null) {
+      window.cancelAnimationFrame(holdFrame.current);
+      holdFrame.current = null;
+    }
+    const origin = press.current;
+    press.current = null;
+    return origin;
+  };
+
+  /** Lifting early: the parts drift back and nothing is marked as found. */
+  const driftBack = () => {
+    setHold(0);
+    moveTo("reset");
+    if (resetTimer.current !== null) window.clearTimeout(resetTimer.current);
+    resetTimer.current = window.setTimeout(() => moveTo("idle"), RESET_MS);
+  };
+
+  const releaseHold = (event: PointerEvent<HTMLButtonElement>) => {
+    const origin = press.current;
+    if (!origin) return;
+    stopHold();
+    const outcome = gesture({
+      heldMs: performance.now() - origin.time,
+      movedPx: Math.abs(event.clientY - origin.y),
+      touch: true,
+      reduced,
+    });
+    // A phone tap still fires a click after pointerup; do not assemble twice.
+    swallowNextClick();
+    if (outcome === "instant") {
+      setHold(0);
+      finish();
+      return;
+    }
+    if (outcome === "ignore") driftBack();
+  };
+
+  const cancelHold = () => {
+    if (!press.current) return;
+    stopHold();
+    swallowNextClick();
+    driftBack();
+  };
+
+  const trackHold = (event: PointerEvent<HTMLButtonElement>) => {
+    const origin = press.current;
+    if (!origin) return;
+    if (Math.abs(event.clientY - origin.y) >= MOVE_TOLERANCE) cancelHold();
+  };
+
+  const activate = (event: MouseEvent<HTMLButtonElement>) => {
+    if (swallowClick.current) {
+      swallowClick.current = false;
+      return;
+    }
+    // Keyboard and assistive activation on a phone is the accessible tap.
+    if (isMobile && phaseRef.current !== "done" && event.detail === 0) {
+      finish();
+      return;
+    }
+    assemble();
+  };
+
   const assembled = phase === "done";
-  const busy = phase === "moving" || phase === "reset";
+  const busy = phase === "moving" || phase === "reset" || phase === "holding";
   const progress =
-    phase === "idle" ? (reduced ? 0 : scrub) : phase === "reset" ? 0 : 1;
+    phase === "idle"
+      ? reduced || isMobile
+        ? 0
+        : scrub
+      : phase === "reset"
+        ? 0
+        : phase === "holding"
+          ? hold
+          : 1;
   const spread = 1 - progress;
+
+  const buttonLabel = isMobile
+    ? assembled
+      ? "Assembled ✓"
+      : phase === "holding"
+        ? `Holding… ${Math.round(hold * 100)}%`
+        : phase === "moving"
+          ? "Assembling…"
+          : phase === "reset"
+            ? "Resetting…"
+            : "Hold to assemble"
+    : assembled
+      ? "Assembled ✓"
+      : phase === "moving"
+        ? "Assembling…"
+        : phase === "reset"
+          ? "Resetting…"
+          : "Assemble unit ▸";
+
+  const helper = assembled
+    ? "inspection stamp applied — press again to replay"
+    : phase === "holding"
+      ? "hold — let go and the parts drift back"
+      : phase === "moving"
+        ? "parts are meeting — press again to finish"
+        : phase === "reset"
+          ? "parts going back out"
+          : isMobile
+            ? "tap = instant · hold = slowly"
+            : "or scroll — the parts meet on the way down";
 
   return (
     <section className="relative overflow-hidden bg-paper">
@@ -238,28 +398,19 @@ export function ExplodedHero() {
               <button
                 id="assemble-unit"
                 type="button"
-                onClick={assemble}
+                onClick={activate}
+                onPointerDown={beginHold}
+                onPointerUp={releaseHold}
+                onPointerCancel={cancelHold}
+                onPointerMove={trackHold}
                 aria-pressed={assembled}
                 aria-busy={busy}
-                className="label border-2 border-ink bg-ink px-5 py-3 text-xs text-paper transition-colors hover:border-accent hover:bg-accent"
+                style={{ "--hold": hold } as CSSProperties}
+                className="assemble-btn label touch-pan-y min-h-11 w-full border-2 border-ink bg-ink px-5 py-3 text-xs text-paper transition-colors hover:border-accent hover:bg-accent md:min-h-0 md:w-auto"
               >
-                {assembled
-                  ? "Assembled ✓"
-                  : phase === "moving"
-                    ? "Assembling…"
-                    : phase === "reset"
-                      ? "Resetting…"
-                      : "Assemble unit ▸"}
+                <span className="assemble-btn-label">{buttonLabel}</span>
               </button>
-              <p className="eyebrow text-ink-muted">
-                {assembled
-                  ? "inspection stamp applied — press again to replay"
-                  : phase === "moving"
-                    ? "parts are meeting — press again to finish"
-                    : phase === "reset"
-                      ? "parts going back out"
-                      : "or scroll — the parts meet on the way down"}
-              </p>
+              <p className="eyebrow text-ink-muted">{helper}</p>
             </div>
 
             <p className="mt-4">
@@ -286,7 +437,7 @@ export function ExplodedHero() {
           <div className="md:col-span-6 md:col-start-7">
             <div
               ref={stage}
-              className="exploded-stage mx-auto w-full max-w-[36rem]"
+              className="exploded-stage touch-pan-y mx-auto w-full max-w-[36rem]"
               data-phase={phase}
               style={
                 {

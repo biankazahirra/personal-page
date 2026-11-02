@@ -786,6 +786,35 @@ html[data-just-assembled] #lately {
   animation: reveal-up 240ms var(--ease-editorial) both;
 }
 
+/* Phones: the hold fill runs under the label while the parts follow it. */
+.assemble-btn {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.assemble-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: scaleX(var(--hold, 0));
+  transform-origin: left center;
+  background-color: color-mix(in oklab, var(--color-accent) 55%, transparent);
+  pointer-events: none;
+}
+
+.assemble-btn-label {
+  position: relative;
+}
+
+html:not([data-motion="full"]) .assemble-btn::before {
+  display: none;
+}
+
+.exploded-stage[data-phase="holding"] .exploded-part {
+  transition: none;
+}
+
 .exploded-part::after {
   content: "";
   position: absolute;
