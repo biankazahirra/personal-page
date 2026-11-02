@@ -4,46 +4,25 @@ import { AssemblyExtra } from "@/components/assembly-extra";
 import { ConsoleShell } from "@/components/console-shell";
 import { ExplodedHero } from "@/components/exploded-hero";
 import { LatelyStrip } from "@/components/lately-strip";
+import { Media } from "@/components/media";
 import { PartLabel } from "@/components/part-label";
-import { ProjectsStrip } from "@/components/projects-strip";
+import { PhotoTray } from "@/components/photo-tray";
 import { SchematicBoard } from "@/components/schematic-board";
 import { StartupChecklist } from "@/components/startup-checklist";
-import { Texture } from "@/components/texture";
 import { films } from "@/content/films";
 import { buildLately, excludeLately, latelyPosition } from "@/content/lately";
 import { notes } from "@/content/notes";
+import { photoMoments } from "@/content/photos";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 import { formatDate } from "@/lib/format";
-
-const observerPanels = [
-  {
-    label: "a week that went fast",
-    variant: "grid" as const,
-    note: "The photos that never made it anywhere else.",
-  },
-  {
-    label: "songs, lately",
-    variant: "waves" as const,
-    note: "What ended up on repeat, and for how long.",
-  },
-  {
-    label: "practice, badly",
-    variant: "field" as const,
-    note: "Ukulele progress, recorded at the awkward stage.",
-  },
-  {
-    label: "rooms worth sitting in",
-    variant: "arcs" as const,
-    note: "Places that made me stay a little longer.",
-  },
-];
 
 export default function HomePage() {
   // Anything already in the Lately strip is never repeated in the previews.
   const lately = buildLately();
   const recentNotes = excludeLately(notes, "curiosity", lately).slice(0, 3);
   const featuredProjects = projects.slice(0, 3);
+  const firstProjectImage = featuredProjects.findIndex((project) => project.cover);
 
   return (
     <>
@@ -139,10 +118,83 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 06 — the illustrated parts list */}
-      <section id="chapter-06" className="bg-night text-paper-on-night">
-        <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
-          <ProjectsStrip projects={featuredProjects} />
+      {/* 06 — the illustrated parts list, pinned sideways */}
+      <section
+        id="chapter-06"
+        data-horizontal
+        data-horizontal-focus
+        className="h-section relative h-[220vh] bg-night text-paper-on-night md:h-[200vh]"
+      >
+        <div className="h-sticky sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-24 md:pt-[5.25rem]">
+          <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
+            <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-paper-on-night/20 pb-4">
+              <PartLabel code="C06" name="illustrated parts list" plain="My projects" tone="night" />
+
+              <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2">
+                <p className="eyebrow projects-hint text-paper-on-night/60">keep scrolling —</p>
+                <div className="projects-gauge" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <Link href="/projects" className="eyebrow hover:text-accent-warm">
+                  all projects
+                </Link>
+              </div>
+            </div>
+
+            <h2 className="display mt-4 max-w-[18ch] text-[clamp(2rem,4vw,3.5rem)] md:max-w-[26ch]">
+              Things I have made, with the notes still attached.
+            </h2>
+          </div>
+
+          <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
+            <div className="projects-viewport mt-5 md:mt-6">
+              <ul data-horizontal-track className="h-track projects-track flex gap-5">
+                {featuredProjects.map((project, index) => (
+                  <li key={project.slug} data-project-card className="projects-card">
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="group flex h-full flex-col border border-paper-on-night/20"
+                    >
+                      <Media
+                        image={project.cover}
+                        variant={project.status === "in-progress" ? "grid" : "field"}
+                        tone="night"
+                        className="aspect-[16/9] w-full"
+                        label="screenshot pending"
+                        sizes="(min-width: 768px) 40vw, 85vw"
+                        priority={index === firstProjectImage}
+                      />
+
+                      <div className="flex flex-1 flex-col p-4 md:p-5">
+                        <p className="eyebrow text-paper-on-night/60">
+                          {project.status}
+                          {project.year ? ` · ${project.year}` : ""}
+                        </p>
+                        <h3 className="display mt-2 text-[clamp(1.6rem,2.2vw,2rem)] group-hover:text-accent-warm">
+                          {project.title}
+                        </h3>
+                        <p className="mt-2 text-sm text-paper-on-night/60">{project.summary}</p>
+                        <p className="eyebrow mt-auto pt-4 text-paper-on-night/60">
+                          {project.stack.join(" · ")}
+                        </p>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div
+            aria-hidden="true"
+            className="projects-fade-left pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-night to-transparent md:w-16"
+          />
+          <div
+            aria-hidden="true"
+            className="projects-fade-right pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-night to-transparent md:w-16"
+          />
         </div>
       </section>
 
@@ -192,56 +244,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 04 — the inspection photos, horizontal chapter */}
-      <section
-        id="chapter-04"
-        data-horizontal
-        className="h-section relative h-[320vh] bg-night text-paper-on-night"
-      >
-        <div className="h-sticky sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
-          <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
-            <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-paper-on-night/20 pb-4">
-              <PartLabel code="C04" name="inspection photos" plain="Personal moments" tone="night" />
-              <p className="eyebrow text-paper-on-night/60">keep scrolling —</p>
-            </div>
+      {/* 04 — the inspection photos, a tray of moments */}
+      <section id="chapter-04" className="bg-night text-paper-on-night">
+        <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-12 md:py-28">
+          <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-paper-on-night/20 pb-4">
+            <PartLabel code="C04" name="inspection photos" plain="Personal moments" tone="night" />
           </div>
 
-          <div
-            data-horizontal-track
-            className="h-track mt-8 flex gap-6 pl-6 md:gap-10 md:pl-12"
-          >
-            {observerPanels.map((panel, index) => (
-              <figure
-                key={panel.label}
-                className="h-panel w-[78vw] shrink-0 md:w-[38vw]"
-              >
-                <Texture
-                  variant={panel.variant}
-                  tone="night"
-                  className="aspect-[4/3] w-full"
-                  label="image pending"
-                />
-                <figcaption className="eyebrow mt-4 flex items-baseline gap-3 text-paper-on-night/60">
-                  <span className="text-accent-warm">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  {panel.label}
-                </figcaption>
-                <p className="mt-2 max-w-[34ch] text-sm text-paper-on-night/60">
-                  {panel.note}
-                </p>
-              </figure>
-            ))}
-          </div>
-
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-night to-transparent md:w-16"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-night to-transparent md:w-16"
-          />
+          <PhotoTray moments={photoMoments} />
         </div>
       </section>
 

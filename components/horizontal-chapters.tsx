@@ -30,6 +30,7 @@ export function HorizontalChapters() {
 
         if (!animate) {
           track.style.transform = "";
+          section.style.removeProperty("--h-progress");
           continue;
         }
 
@@ -38,8 +39,10 @@ export function HorizontalChapters() {
         if (scrollable <= 0) continue;
 
         const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
-        const distance = Math.max(0, track.scrollWidth - window.innerWidth);
+        // The track is often narrower than the window, so measure its own box.
+        const distance = Math.max(0, track.scrollWidth - track.clientWidth);
         track.style.transform = `translate3d(${-(progress * distance).toFixed(1)}px, 0, 0)`;
+        section.style.setProperty("--h-progress", progress.toFixed(4));
       }
     };
 
@@ -47,15 +50,38 @@ export function HorizontalChapters() {
       if (frame === 0) frame = requestAnimationFrame(update);
     };
 
+    // Only chapters that opt in: tabbing to a card pulls the pin to it.
+    const onFocusIn = (event: FocusEvent) => {
+      const target = event.target as HTMLElement;
+      const section = target.closest<HTMLElement>("[data-horizontal-focus]");
+      if (!section) return;
+      const track = section.querySelector<HTMLElement>("[data-horizontal-track]");
+      const card = target.closest<HTMLElement>("[data-project-card]");
+      if (!track || !card) return;
+
+      const cards = Array.from(track.querySelectorAll<HTMLElement>("[data-project-card]"));
+      const index = cards.indexOf(card);
+      const rect = section.getBoundingClientRect();
+      const pin = rect.height - window.innerHeight;
+      if (index < 0 || cards.length < 2 || pin <= 0) return;
+
+      const top = window.scrollY + rect.top + (index / (cards.length - 1)) * pin;
+      if (Math.abs(window.scrollY - top) > 8) {
+        window.scrollTo({ top, behavior: "auto" });
+      }
+    };
+
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     window.addEventListener("motionchange", onScroll);
+    document.addEventListener("focusin", onFocusIn);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       window.removeEventListener("motionchange", onScroll);
+      document.removeEventListener("focusin", onFocusIn);
       if (frame) cancelAnimationFrame(frame);
     };
   }, [pathname]);

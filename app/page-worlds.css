@@ -1114,38 +1114,15 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
   }
 }
 
-/* --- C06 homepage strip: keep scrolling ---------------------------------- */
+/* --- C06 homepage: pinned sideways parts list ----------------------------- */
 
 .projects-viewport {
   position: relative;
-  /* Mobile: full-bleed so a 85vw card still leaves the next one peeking. */
-  margin-inline: -1.5rem;
 }
 
 .projects-track {
-  display: flex;
-  gap: 1.25rem;
-  align-items: stretch;
   margin: 0;
-  padding-block: 0;
-  padding-inline: 1.5rem;
-  scroll-padding-inline: 1.5rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
   list-style: none;
-  scrollbar-width: none;
-}
-
-.projects-track::-webkit-scrollbar {
-  display: none;
-}
-
-.projects-track:focus-visible {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 4px;
 }
 
 .projects-card {
@@ -1155,71 +1132,207 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
   scroll-snap-align: start;
 }
 
-.projects-fade {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 3rem;
-  pointer-events: none;
-  transition: opacity var(--t-toggle) var(--ease-page);
+/* Short laptops: cap the cover so the pinned block fits one screen. */
+.projects-card a > :first-child {
+  max-height: 34svh;
 }
 
-.projects-fade-left {
-  left: 0;
-  background: linear-gradient(to right, var(--color-night), transparent);
-}
+@media (min-width: 768px) and (max-height: 780px) {
+  #chapter-06 .h-sticky h2 {
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+  }
 
-.projects-fade-right {
-  right: 0;
-  background: linear-gradient(to left, var(--color-night), transparent);
-}
-
-.projects-viewport[data-start="true"] .projects-fade-left,
-.projects-viewport[data-end="true"] .projects-fade-right {
-  opacity: 0;
+  .projects-card a > :first-child {
+    max-height: 26svh;
+  }
 }
 
 .projects-hint {
-  transition: opacity var(--t-tab) var(--ease-page);
+  opacity: calc(1 - var(--h-progress, 0) * 12);
+  transition: opacity var(--t-toggle) var(--ease-page);
 }
 
-.projects-hint[data-scrolled="true"] {
-  opacity: 0;
+.projects-gauge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.projects-dot {
-  display: grid;
-  place-items: center;
-  min-width: 44px;
-  min-height: 44px;
+.projects-gauge > span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background-color: var(--color-accent-warm);
+  opacity: 0.2;
+  transition: opacity var(--t-toggle) var(--ease-page);
+}
+
+.projects-gauge > span:first-child {
+  opacity: 1;
+}
+
+.projects-gauge > span:nth-child(2) {
+  opacity: clamp(0.2, calc((var(--h-progress, 0) - 0.2) * 12), 1);
+}
+
+.projects-gauge > span:nth-child(3) {
+  opacity: clamp(0.2, calc((var(--h-progress, 0) - 0.55) * 12), 1);
+}
+
+@media (min-width: 768px) {
+  .projects-card {
+    width: clamp(26rem, 40vw, 34rem);
+  }
+}
+
+/* The left fade only appears once the strip has travelled. */
+.projects-fade-left {
+  opacity: clamp(0, calc(var(--h-progress, 0) * 8), 1);
+}
+
+/* No JavaScript: unpack the section and let the strip scroll sideways. */
+html:not([data-motion]) #chapter-06 {
+  height: auto !important;
+}
+
+html:not([data-motion]) #chapter-06 .h-sticky {
+  position: static !important;
+  height: auto !important;
+  padding-block: 4rem;
+}
+
+html:not([data-motion]) #chapter-06 .h-track {
+  transform: none !important;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+html:not([data-motion]) .projects-gauge {
+  display: none;
+}
+
+html:not([data-motion]) .projects-hint {
+  opacity: 1;
+}
+
+/* Reduced motion: same unpinned strip, no gauge. */
+html[data-motion="reduce"] #chapter-06 .h-sticky {
+  padding-block: 4rem;
+}
+
+html[data-motion="reduce"] .projects-gauge {
+  display: none;
+}
+
+html[data-motion="reduce"] .projects-hint {
+  opacity: 1;
+}
+
+/* --- C04 photo tray ------------------------------------------------------- */
+
+.photo-tray-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.photo-tray {
+  /* Swipes flip the stack; vertical scrolling stays with the page. */
+  touch-action: pan-y;
+  border-radius: 2px;
+}
+
+.photo-stage {
+  position: relative;
+  width: min(78vw, 18.75rem);
+  aspect-ratio: 270 / 230;
+  margin-inline: auto;
+}
+
+.photo-layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
   padding: 0;
-  border: 0;
-  background: none;
+  border: 1px solid color-mix(in oklab, var(--color-paper-on-night) 40%, transparent);
+  background-color: var(--color-night-soft);
+  transform-origin: 50% 80%;
+  transition: transform calc(var(--t-tab) + 120ms) var(--ease-page);
+}
+
+.photo-layer[data-layer="1"] {
+  transform: translate(-6px, 6px) rotate(-4deg);
+}
+
+.photo-layer[data-layer="2"] {
+  transform: translate(7px, 10px) rotate(3deg);
+}
+
+.photo-layer-top {
+  z-index: 3;
   cursor: pointer;
 }
 
-.projects-dot > span {
-  width: 0.625rem;
-  height: 0.625rem;
-  border: 1.5px solid color-mix(in oklab, var(--color-paper-on-night) 45%, transparent);
-  border-radius: 999px;
-  transition:
-    background-color var(--t-toggle) var(--ease-page),
-    border-color var(--t-toggle) var(--ease-page);
+.photo-layer-top[data-leaving="1"] {
+  animation: photo-out-next var(--t-tab) var(--ease-page) forwards;
 }
 
-.projects-dot:hover > span {
-  border-color: var(--color-accent-warm);
+.photo-layer-top[data-leaving="-1"] {
+  animation: photo-out-prev var(--t-tab) var(--ease-page) forwards;
 }
 
-.projects-dot[aria-current="true"] > span {
-  border-color: var(--color-accent-warm);
-  background-color: var(--color-accent-warm);
+.photo-layer-top::before,
+.photo-layer-top::after {
+  content: "";
+  position: absolute;
+  width: 1.125rem;
+  height: 1.125rem;
+  background-color: var(--color-accent);
+  pointer-events: none;
 }
 
-.projects-arrow {
-  display: grid;
-  place-items: center;
+.photo-layer-top::before {
+  top: -1px;
+  left: -1px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.photo-layer-top::after {
+  right: -1px;
+  bottom: -1px;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+@keyframes photo-out-next {
+  to {
+    transform: translate(38%, -6%) rotate(7deg);
+    opacity: 0;
+  }
+}
+
+@keyframes photo-out-prev {
+  to {
+    transform: translate(-38%, -6%) rotate(-7deg);
+    opacity: 0;
+  }
+}
+
+.photo-meta {
+  margin-top: 2.25rem;
+}
+
+.photo-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.photo-arrow {
   min-width: 44px;
   min-height: 44px;
   border: 1px solid color-mix(in oklab, var(--color-paper-on-night) 25%, transparent);
@@ -1228,41 +1341,46 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
   font-size: 0.875rem;
   line-height: 1;
   cursor: pointer;
-  transition:
-    border-color var(--t-toggle) var(--ease-page),
-    color var(--t-toggle) var(--ease-page);
 }
 
-.projects-arrow:hover {
+.photo-arrow:hover {
   border-color: var(--color-accent-warm);
   color: var(--color-accent-warm);
 }
 
-.projects-arrow[aria-disabled="true"] {
-  opacity: 0.35;
-  cursor: default;
+.photo-list {
+  display: none;
 }
 
-.projects-arrow[aria-disabled="true"]:hover {
-  border-color: color-mix(in oklab, var(--color-paper-on-night) 25%, transparent);
-  color: inherit;
+html:not([data-motion]) .photo-tray-ui {
+  display: none;
+}
+
+html:not([data-motion]) .photo-list {
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+  max-width: 40rem;
+  margin-top: 2.5rem;
+  padding: 0;
+  list-style: none;
+  text-align: left;
 }
 
 @media (min-width: 768px) {
-  .projects-viewport {
-    margin-inline: 0;
-  }
-
-  .projects-track {
-    padding-inline: 0;
-    scroll-padding-inline: 0;
-  }
-
-  .projects-card {
-    width: clamp(22rem, 32vw, 27.5rem);
+  .photo-stage {
+    width: 270px;
   }
 }
 
-html[data-motion="reduce"] .projects-track {
-  scroll-behavior: auto;
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .photo-layer {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+html[data-motion="reduce"] .photo-layer {
+  animation: none !important;
+  transition: none !important;
 }

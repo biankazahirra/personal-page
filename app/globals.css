@@ -445,10 +445,6 @@ html[data-motion="full"] .fallback-reveal.is-in {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
   }
-
-  html:not([data-motion="full"]) .h-panel {
-    scroll-snap-align: center;
-  }
 }
 
 html[data-motion="reduce"] .h-section {
@@ -464,10 +460,6 @@ html[data-motion="reduce"] .h-track {
   transform: none !important;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-}
-
-html[data-motion="reduce"] .h-panel {
-  scroll-snap-align: center;
 }
 
 /* Page transition: panel empties upwards after client-side navigation. */
