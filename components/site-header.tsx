@@ -29,11 +29,14 @@ export function SiteHeader() {
               href="/"
               data-egg="logo"
               className="eyebrow border-b border-transparent hover:border-band-ink"
-              aria-label="Service Manual — home"
+              aria-label="Service Manual - home"
             >
               Service Manual
             </Link>
-            <span className="eyebrow text-band-ink/85">Model {manual.model}</span>
+            <span className="eyebrow text-band-ink/85">
+              <span className="hidden md:inline">Model </span>
+              {manual.model}
+            </span>
             <span className="eyebrow hidden text-band-ink/85 lg:inline">
               {manual.printedRev}
             </span>
@@ -53,8 +56,8 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-2">
-          <p className="flex min-w-0 items-baseline gap-2">
+        <div className="flex flex-wrap items-center justify-end gap-x-6 gap-y-2 py-2 md:justify-between">
+          <p className="hidden min-w-0 items-baseline gap-2 md:flex">
             <span className="label shrink-0 text-xs text-band-ink/85">
               {section.section}
             </span>

@@ -49,9 +49,11 @@ export function SiteFooter() {
                       href={link.href}
                       rel="noreferrer noopener"
                       target="_blank"
-                      className="border-b border-ink/30 pb-0.5 hover:border-accent hover:text-accent"
+                      className="group inline-flex min-h-[44px] items-center hover:text-accent md:min-h-0"
                     >
-                      {link.label}
+                      <span className="border-b border-ink/30 pb-0.5 group-hover:border-accent">
+                        {link.label}
+                      </span>
                     </a>
                   </li>
                 ))}

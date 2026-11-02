@@ -59,6 +59,9 @@ export function SchematicBoard() {
                     {item.code}
                   </span>
                   <span className="label text-xs">{item.label}</span>
+                  <span className="socket-tab-plain eyebrow text-[9px] text-ink-muted md:hidden">
+                    {item.plain}
+                  </span>
                   <span className="eyebrow ml-auto text-[9px] text-ink-muted">
                     {item.status}
                   </span>

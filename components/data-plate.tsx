@@ -34,7 +34,7 @@ export function DataPlate({ className = "", compact = false }: DataPlateProps) {
 
   return (
     <div className={`data-plate ${className}`}>
-      <dl className="grid grid-cols-2 gap-x-5 gap-y-2 p-3 sm:grid-cols-4 sm:p-4">
+      <dl className="grid grid-cols-2 gap-x-5 gap-y-2 p-3 sm:grid-cols-2 sm:p-4 lg:grid-cols-4">
         <div>
           <dt className="label text-[9px] opacity-70">Model</dt>
           <dd className="label mt-0.5 text-xs">{manual.model}</dd>

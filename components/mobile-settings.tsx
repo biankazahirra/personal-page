@@ -122,7 +122,7 @@ export function MobileSettings() {
         aria-expanded={open}
         aria-controls="mobile-settings"
         onClick={() => setOpen((value) => !value)}
-        className="band-control relative inline-flex items-center justify-center px-2 after:absolute after:-inset-x-2 after:-inset-y-2.5 after:content-['']"
+        className="band-control inline-flex min-w-[44px] items-center justify-center"
       >
         <SlidersIcon />
       </button>
@@ -140,7 +140,7 @@ export function MobileSettings() {
             ref={panel}
             role="dialog"
             aria-label="Settings"
-            className="absolute right-0 top-[calc(100%+0.5rem)] z-[60] w-[17.5rem] border-2 border-ink bg-paper p-4 text-ink shadow-[6px_6px_0_rgba(43,38,32,0.28)]"
+            className="fixed inset-x-4 top-[7rem] z-[60] max-h-[calc(100svh-8rem)] overflow-y-auto border-2 border-ink bg-paper p-4 text-ink shadow-[6px_6px_0_rgba(43,38,32,0.28)]"
           >
             <p className="label text-[10px] text-ink-muted">settings</p>
             <div className="mt-2">

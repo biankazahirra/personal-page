@@ -69,10 +69,15 @@ export default function HomePage() {
                 Six sockets. Probe one.
               </h2>
               <p className="mt-4 max-w-[34ch] text-ink-muted">
-                Hover or focus a tab to trace it. The preview follows the probe;
-                the tab opens the section.
+                <span className="md:hidden">
+                  Swipe the rack, tap a socket to open it.
+                </span>
+                <span className="hidden md:inline">
+                  Hover or focus a tab to trace it. The preview follows the
+                  probe; the tab opens the section.
+                </span>
               </p>
-              <p className="eyebrow mt-6 text-ink-muted">
+              <p className="eyebrow mt-6 hidden text-ink-muted md:block">
                 keyboard: tab through the rack
               </p>
             </div>
@@ -306,6 +311,27 @@ export default function HomePage() {
                   ? "No entries yet. The first ones go up when they are worth writing down."
                   : `${films.length} films so far, with what stayed after the credits.`}
               </p>
+
+              {films.length > 0 ? (
+                <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                  {films.slice(0, 4).map((film) => (
+                    <li key={film.title}>
+                      <Link
+                        href="/films"
+                        className="lamp-mini flex min-h-[44px] items-center gap-2 border border-ink/35 bg-paper-2/50 px-2.5 py-2 hover:border-accent hover:text-accent"
+                      >
+                        <span className="lamp-bezel" aria-hidden="true">
+                          <span className="lamp-lens" />
+                        </span>
+                        <span className="label text-[10px] leading-tight">
+                          {film.title}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+
               <Link
                 href="/films"
                 className="eyebrow mt-6 inline-block border-b border-accent pb-1 hover:text-accent"

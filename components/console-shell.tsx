@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const LogbookConsole = dynamic(
   () => import("@/components/logbook-console").then((module) => module.LogbookConsole),
@@ -23,6 +23,15 @@ const LogbookConsole = dynamic(
 export function ConsoleShell() {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <div>
       <div className="flex flex-wrap items-center gap-4">
@@ -41,9 +50,26 @@ export function ConsoleShell() {
       </div>
 
       {open ? (
-        <div id="logbook-console" className="mt-5">
-          <LogbookConsole />
-        </div>
+        <>
+          <div
+            className="console-backdrop md:hidden"
+            aria-hidden="true"
+            onClick={() => setOpen(false)}
+          />
+          <div id="logbook-console" className="console-sheet mt-5">
+            <div className="console-sheet-head items-center justify-between gap-3 px-4 py-2">
+              <p className="eyebrow text-paper-on-night/60">logbook console</p>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="eyebrow min-h-[44px] px-2 text-paper-on-night/75 hover:text-accent-warm"
+              >
+                close
+              </button>
+            </div>
+            <LogbookConsole />
+          </div>
+        </>
       ) : (
         <div className="mt-5">
           <p className="max-w-[52ch] border border-dashed border-ink/35 px-4 py-4 text-sm text-ink-muted">

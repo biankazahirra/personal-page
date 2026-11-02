@@ -865,6 +865,18 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
     box-shadow 220ms ease;
 }
 
+/* Four small lamps on the homepage; the full panel stays on /films. */
+.lamp-mini .lamp-bezel {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0.16rem;
+  border-width: 1px;
+}
+
+.lamp-mini:hover .lamp-lens {
+  background: radial-gradient(circle at 40% 35%, #ffe9a8, var(--color-mustard) 58%, #b57b1e);
+}
+
 .lamp-panel[open] .lamp-lens {
   background: radial-gradient(circle at 40% 35%, #ffe9a8, var(--color-mustard) 58%, #b57b1e);
   box-shadow: 0 0 16px color-mix(in oklab, var(--color-mustard) 70%, transparent);

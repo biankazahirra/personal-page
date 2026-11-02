@@ -195,6 +195,16 @@ html[data-shift="night"] {
   color: var(--color-band);
 }
 
+/* Touch controls get a real 44px height; the band drops to two rows on phones. */
+@media (max-width: 767px) {
+  .band-control {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 /* Riveted metal data plate. */
 .data-plate {
   position: relative;
@@ -785,18 +795,20 @@ html[data-motion="reduce"] .journey-lamp {
   line-height: 1;
 }
 
-@media (max-width: 640px) {
+/* Phones and small tablets: bubbles only. The legend carries the names, so a
+   360px stage never shows a truncated label over the portrait. */
+@media (max-width: 767px) {
   .exploded-stage {
-    --unit: 0.62;
-    min-height: 23rem;
+    --unit: 0.76;
+    min-height: 24rem;
   }
 
   .exploded-center {
-    width: 52%;
+    width: 46%;
   }
 
   .exploded-part {
-    width: 5.6rem;
+    width: auto;
     padding: 0.3rem 0.35rem;
   }
 
@@ -806,7 +818,7 @@ html[data-motion="reduce"] .journey-lamp {
   }
 
   .exploded-part-label {
-    font-size: 0.5rem;
+    display: none;
   }
 
   .exploded-part::after {
@@ -817,6 +829,24 @@ html[data-motion="reduce"] .journey-lamp {
     width: 1.1rem;
     height: 1.1rem;
     font-size: 0.55rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .exploded-stage {
+    --unit: 0.78;
+  }
+
+  .exploded-center {
+    width: 46%;
+  }
+
+  .exploded-part {
+    width: auto;
+  }
+
+  .exploded-part-label {
+    display: none;
   }
 }
 
@@ -842,7 +872,7 @@ html[data-motion="reduce"] .journey-lamp {
   gap: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .socket-board-body {
     grid-template-columns: 1.05fr 1fr;
   }
@@ -909,6 +939,48 @@ html[data-motion="reduce"] .journey-lamp {
   .socket-tab-spur {
     display: none;
   }
+
+  /* The rack turns sideways: native scroll-snap, tap to open. */
+  .socket-tabs {
+    flex-direction: row;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0.6rem;
+    scrollbar-width: none;
+  }
+
+  .socket-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .socket-tabs > li {
+    flex: none;
+    scroll-snap-align: start;
+  }
+
+  .socket-tab {
+    min-width: 9.5rem;
+    min-height: 44px;
+    flex-wrap: wrap;
+    margin-top: 0;
+  }
+
+  .socket-tab[data-active="true"] {
+    transform: none;
+    border-top-width: 1px;
+    border-left: 3px solid var(--color-mustard);
+  }
+
+  /* Every tab carries its plain subtitle, so the preview can stay off a phone. */
+  .socket-tab-plain {
+    order: 3;
+    width: 100%;
+  }
+
+  .socket-preview {
+    display: none;
+  }
 }
 
 .socket-preview {
@@ -916,7 +988,7 @@ html[data-motion="reduce"] .journey-lamp {
   padding: 1rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .socket-preview {
     border-top: 0;
     border-left: 2px solid color-mix(in oklab, var(--color-ink) 45%, transparent);
@@ -931,6 +1003,49 @@ html[data-motion="reduce"] .journey-lamp {
   background-color: var(--color-night);
   color: var(--color-paper-on-night);
   box-shadow: 6px 6px 0 color-mix(in oklab, var(--color-ink) 16%, transparent);
+}
+
+/* Phone: the console becomes a bottom sheet instead of pushing the page. */
+.console-backdrop,
+.console-sheet-head {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .console-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 65;
+    display: block;
+    background-color: color-mix(in oklab, var(--color-night) 45%, transparent);
+  }
+
+  .console-sheet {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 70;
+    margin: 0;
+    max-height: 82svh;
+    overflow-y: auto;
+    padding-bottom: env(safe-area-inset-bottom);
+    background-color: var(--color-night);
+    border-top: 2px solid
+      color-mix(in oklab, var(--color-paper-on-night) 40%, transparent);
+  }
+
+  .console-sheet .console {
+    border: 0;
+    box-shadow: none;
+  }
+
+  .console-sheet-head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    background-color: var(--color-night);
+  }
 }
 
 .console-head {
