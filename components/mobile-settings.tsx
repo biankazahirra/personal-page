@@ -13,7 +13,7 @@ function SlidersIcon() {
       viewBox="0 0 24 24"
       aria-hidden="true"
       focusable="false"
-      className="h-4 w-4"
+      className="h-3 w-3"
       fill="none"
       stroke="currentColor"
       strokeWidth={1.6}
@@ -122,7 +122,7 @@ export function MobileSettings() {
         aria-expanded={open}
         aria-controls="mobile-settings"
         onClick={() => setOpen((value) => !value)}
-        className="band-control inline-flex min-h-[44px] min-w-[44px] items-center justify-center"
+        className="band-control relative inline-flex items-center justify-center px-2 after:absolute after:-inset-x-2 after:-inset-y-2.5 after:content-['']"
       >
         <SlidersIcon />
       </button>
