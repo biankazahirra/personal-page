@@ -1,8 +1,8 @@
 # Copy review — Stage 1A
 
-Scope: copy only, following `REVISION BRIEF` §2–3. No layout redesign. Stage 1B
-still owns homepage hierarchy, the Lately strip, and the no-repeat rule; Stage 1D
-still owns `/colophon` and the footer relocations.
+Scope: copy only in 1A, following `REVISION BRIEF` §2–3. No layout redesign there.
+Stage 1B adds the homepage hierarchy, the Lately strip and the no-repeat rule;
+Stage 1D still owns `/colophon` and the footer relocations.
 
 ## Word count
 
@@ -55,6 +55,28 @@ removed is larger than the net figure above.
 | `app/layout.tsx` — OG/Twitter | Title "… — service manual", description = tagline | Plain title and plain description | Plain SEO names. |
 | `components/contents-overlay.tsx` — subtitle | Creative blurb ("the entrance", "the person", …) | Plain meaning ("Explore all sections", "About me", …) | §3: plain subtitle always visible. |
 
+## Stage 1B — homepage hierarchy
+
+Stage 1B is structural, so it changes few strings. Order now follows §4:
+hero → Lately → Assembly Board → console (optional) → About → Projects →
+Curiosity → Life → Films → footer.
+
+| Location | Before | After | Reason |
+|---|---|---|---|
+| `components/lately-strip.tsx` — heading | — (buried "recently" list at the bottom) | "lately" | §4 / §4.5: the most personal updates move up, as three compact rows (category · title · link). |
+| `components/exploded-hero.tsx` — secondary link | — | "see my projects" | §4.2: Projects reachable from the hero in one interaction, without the console. |
+| `app/page.tsx` — bottom "recently" block | "recently" + two journal rows with dates | Removed; the same two entries now appear in Lately | Duplicate of the strip above; §4.4 forbids repeating an item. |
+
+Word count after 1B, same method and production build:
+
+| Measure | After 1A | After 1B | Change |
+|---|---:|---:|---:|
+| Homepage `<main>` | 581 | 580 | −1 |
+| Whole page `<body>` | 716 | 715 | −1 |
+
+1B trades a hidden 18-word block for a visible 20-word strip; the copy target is
+still met by the Stage 1D relocations, not by deleting features.
+
 ## Plain subtitles added
 
 Single source: `content/components.ts`; `content/manual.ts` reuses it, so each
@@ -93,12 +115,23 @@ It would replace the current hero line; the hero would stay 2–3 short sentence
 2. "By day I keep forms in order; by night I keep a ukulele out of tune."
 3. "The day job is forms and small systems. The rest is films, songs and four slow chords."
 
+## Hero hook — proposals only (§4.5)
+
+Not implemented. Waiting for Bianka's choice.
+
+1. **Contrast line** — three options above; one would replace the current hero line.
+2. **Hidden-parts teaser** — one small line next to the Assemble button, not in the
+   header: "7 hidden parts, location unknown." Details stay on `/colophon` (Stage 1D).
+3. **Assemble reward** — already approved (§12.4): INSPECTED stamp, meter +1, Lately
+   slides in. Builds in R2 with the signature feature.
+
 ## Flagged for later stages
 
 - Indonesian edition: no ID copy written. The removed footer line was English-only;
   the translation note still lives in the header print-editions popover.
 - `/colophon` relocation of the revision table, field kit, diagnostics and language
   note is Stage 1D.
-- Duplicate portrait and the remaining section merge are Stage 1B.
-- Word-count target is expected to land after those relocations; Stage 1A does not
-  delete features to hit a percentage.
+- "Films & Life preview: compact" (§4 item 8) is left as the existing Life chapter
+  and Films panel. Recomposing them is the R1/R2 responsive work, not a copy change.
+- Word-count target is expected to land after the Stage 1D relocations; no stage
+  deletes features to hit a percentage.

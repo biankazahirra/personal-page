@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
 
@@ -196,6 +197,15 @@ export function ExplodedHero() {
                   : "or scroll — the parts meet on the way down"}
               </p>
             </div>
+
+            <p className="mt-4">
+              <Link
+                href="/projects"
+                className="eyebrow border-b border-accent pb-0.5 text-ink-muted hover:text-accent"
+              >
+                see my projects
+              </Link>
+            </p>
 
             <noscript>
               <p className="mt-4 max-w-[46ch] border-l-2 border-accent px-3 py-2 text-sm text-ink-muted">
