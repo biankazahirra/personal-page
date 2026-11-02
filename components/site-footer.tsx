@@ -1,12 +1,11 @@
 import Link from "next/link";
 
-import { EggMeter } from "@/components/egg-meter";
-import { manual, revisions } from "@/content/manual";
+import { manual } from "@/content/manual";
 import { site } from "@/content/site";
 
 /**
- * Closing page: service request details in plain text, then the printed
- * revision history. Contact is never hidden behind an interaction.
+ * Closing page: service request details in plain text, then one compact row.
+ * The revision table, print editions and hidden parts live on /colophon.
  */
 export function SiteFooter() {
   const available = site.links.filter((link) => link.href);
@@ -61,42 +60,10 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="md:col-span-6 md:col-start-7">
-            <div className="border border-ink/45 bg-paper-2/60">
-              <div className="flex items-baseline justify-between gap-4 border-b border-ink/35 px-4 py-2.5">
-                <p className="label text-xs">Revision history</p>
-                <p className="eyebrow text-ink-muted">{manual.printedRev}</p>
-              </div>
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="border-b border-ink/30">
-                    <th scope="col" className="label px-4 py-2 text-[10px] text-ink-muted">
-                      Rev
-                    </th>
-                    <th scope="col" className="label px-4 py-2 text-[10px] text-ink-muted">
-                      Date
-                    </th>
-                    <th scope="col" className="label px-4 py-2 text-[10px] text-ink-muted">
-                      Note
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {revisions.map((revision) => (
-                    <tr key={revision.rev} className="border-b border-ink/20 last:border-0">
-                      <td className="px-4 py-2.5 text-sm">{revision.rev}</td>
-                      <td className="px-4 py-2.5 text-sm text-ink-muted">{revision.date}</td>
-                      <td className="px-4 py-2.5 text-sm">{revision.note}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          <div className="flex flex-col justify-end md:col-span-6 md:col-start-7">
+            <p className="text-sm text-ink-muted">{manual.closing}</p>
 
-            <EggMeter />
-
-            <div className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-ink/25 pt-4 text-sm">
-              <p className="text-ink-muted">{manual.closing}</p>
+            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-ink/25 pt-4 text-sm">
               <Link href="/" className="eyebrow border-b border-ink/40 pb-0.5 hover:text-accent">
                 ← back to the index
               </Link>
@@ -109,13 +76,16 @@ export function SiteFooter() {
               >
                 email
               </a>
+              <span aria-hidden="true" className="text-ink-muted">
+                ·
+              </span>
+              <Link
+                href="/colophon"
+                className="eyebrow border-b border-ink/40 pb-0.5 hover:text-accent"
+              >
+                colophon
+              </Link>
             </div>
-            <p className="maintenance-only mt-3 font-mono text-[11px] text-ink-muted">
-              hidden part no. BZ-99-00 · the manual itself · inspection copy
-            </p>
-            <p className="maintenance-only mt-2 border-l-2 border-accent pl-2 font-mono text-[11px] text-ink-muted">
-              margin note: do not laminate the revision table.
-            </p>
           </div>
         </div>
       </div>

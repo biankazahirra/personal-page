@@ -9,7 +9,6 @@ import { journal } from "@/content/journal";
 import { notes } from "@/content/notes";
 import { projects } from "@/content/projects";
 import { timeline } from "@/content/timeline";
-import { formatDate } from "@/lib/format";
 
 const counts: Record<string, string> = {
   C01: `${components.length} sockets`,
@@ -19,11 +18,6 @@ const counts: Record<string, string> = {
   C05: films.length === 0 ? "no entries yet" : `${films.length} films`,
   C06: `${projects.length} projects`,
 };
-
-const revisions = [...notes.map((note) => note.date), ...journal.map((entry) => entry.date)]
-  .filter((date): date is string => Boolean(date))
-  .sort();
-const lastRevision = revisions.at(-1);
 
 /**
  * The six sockets as a rack of index tabs. Probing one draws its connector,
@@ -117,29 +111,6 @@ export function SchematicBoard() {
           >
             open section →
           </Link>
-
-          <details className="mt-5 border-t border-ink/25 pt-3">
-            <summary className="eyebrow cursor-pointer list-none text-ink-muted hover:text-accent [&::-webkit-details-marker]:hidden">
-              ? diagnostics
-            </summary>
-            <dl className="eyebrow mt-2 grid grid-cols-[5.5rem_1fr] gap-y-1 text-ink-muted">
-              <dt>model</dt>
-              <dd className="text-ink">BZ-2026</dd>
-              <dt>sockets</dt>
-              <dd className="text-ink">
-                {components.length} ·{" "}
-                {components.filter((item) => item.status === "live").length} populated
-              </dd>
-              <dt>entries</dt>
-              <dd className="text-ink">
-                {notes.length} notes · {journal.length} journal · {projects.length} projects
-              </dd>
-              <dt>last revision</dt>
-              <dd className="text-ink">
-                {lastRevision ? formatDate(lastRevision) : "unknown"}
-              </dd>
-            </dl>
-          </details>
         </div>
       </div>
     </div>

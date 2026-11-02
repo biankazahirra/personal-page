@@ -90,6 +90,36 @@ still met by the Stage 1D relocations, not by deleting features.
 | `app/layout.tsx` — bottom strip | Fixed seven-link strip, C01–C07, on every page | Removed | §4.2: one navigation system. The links live in Contents; the Assembly Board keeps the index-tab look. |
 | `components/lang-switch.tsx` | Edition list inline | Same list, now `components/lang-editions.tsx` | One source for the wording, shared with the settings popover. |
 
+## Stage 1D — end matter
+
+Nothing was deleted: every row below moved off the homepage to `/colophon`, where
+it can be read on purpose. The brief keeps the `do not laminate the revision table.`
+line once; it now sits under the table itself.
+
+| Location | Before | After | Reason |
+|---|---|---|---|
+| `components/site-footer.tsx` — revision table | Rev A–C table, printed at the bottom of every page | Removed from the footer; table lives under "Revision history" on `/colophon` | §4.2: the footer keeps contact only. The table gains a Rev D row ("next print · fewer words", dashed) and a `current` stamp on Rev C. |
+| `components/site-footer.tsx` — field kit | "Field kit · hidden parts 0/7" with seven numbered slots | Removed; same component (`EggMeter`) under "Field kit" on `/colophon` | §4.2 relocation. Counter and slots are unchanged, so the hidden-parts hunt still has a visible scoreboard. |
+| `components/schematic-board.tsx` — diagnostics | `? diagnostics` details panel (model, sockets, entries, last revision) | Removed; rebuilt as a live riveted plate under "Diagnostics" on `/colophon` | §4.3: the homepage must not show diagnostics. The plate reads the same data at render time. |
+| `components/site-footer.tsx` — hidden part line | "hidden part no. BZ-99-00 · the manual itself · inspection copy" (visible only in maintenance mode) | Same line, visible on `/colophon` beside the INSPECTION COPY stamp | §4.4: the joke is worth reading, not hiding. Maintenance mode keeps everything else. |
+| `components/site-footer.tsx` — closing rows | "Printed Rev 2026 — assembled slowly, revised occasionally." + "back to the index" | Closing line stays in the footer; the compact row gains `colophon` | §4.2: one row, three links: index, email, colophon. |
+| `app/colophon/page.tsx` — headings | — | "End matter.", "Revision history", "Print editions", "Field kit", "Diagnostics", "Credits" | Plain names, same voice as the rest of the manual. |
+| `app/colophon/page.tsx` — credits | — | "[ typefaces, tools — fill in ]" in a dashed box | Visible placeholder; the brief allows placeholders rather than invented facts. |
+| `content/manual.ts` — band | — | Section `9.0` · Page `9-1` · "End matter / About this website" | The band reads the route, so `/colophon` never shows a socket it does not have. |
+
+Word count after 1D, same method and production build:
+
+| Measure | After 1B | After 1D | Change |
+|---|---:|---:|---:|
+| Homepage `<main>` | 586 | 584 | −2 |
+| Whole page `<body>` | 710 | 648 | −62 |
+
+Against the original site (669 / 799): `<main>` **−85 (−12.7%)**, `<body>`
+**−151 (−18.9%)**. The −25–35% target is still not met. What remains on the
+homepage is the copy the brief protects: identity, Lately, the board legend, the
+console, the six section intros and the closing. Reaching −25% from here means
+cutting kept lines, so it needs a decision, not another relocation.
+
 ## Plain subtitles added
 
 Single source: `content/components.ts`; `content/manual.ts` reuses it, so each
@@ -114,19 +144,15 @@ board preview, section labels, detail-page headers, and tab `aria-label`s.
 - "Plain text is enough."
 - "I led the team that built it."
 - "May cause excessive curiosity. Do not remove the lid without snacks." (once)
-- "do not laminate the revision table." (left for the `/colophon` move)
+- "do not laminate the revision table." (now printed under the table on `/colophon`)
 - "assembled slowly, revised occasionally."
 - Developer-voice lines: "or scroll — the parts meet on the way down", "keyboard: tab through the rack", "Hover or focus a tab to trace it…", "Nothing here is required to read the manual.", "optional · lazy-loaded · sound off by default".
 - All placeholders ("sample", "image pending", "screenshot pending", counters).
 
-## Hero contrast line — proposals only
+## Hero contrast line — applied (§4.5)
 
-Not implemented. Each is one sentence, built only from facts already on the site.
-It would replace the current hero line; the hero would stay 2–3 short sentences.
-
-1. "Forms and spreadsheets by day; films, songs on repeat and a half-learned ukulele by night."
-2. "By day I keep forms in order; by night I keep a ukulele out of tune."
-3. "The day job is forms and small systems. The rest is films, songs and four slow chords."
+Option 1 chosen by Bianka: "Forms and spreadsheets by day; films, songs on repeat
+and a half-learned ukulele by night." The other two options were not used.
 
 ## Hero hook — decided (§4.5)
 
@@ -139,10 +165,10 @@ It would replace the current hero line; the hero would stay 2–3 short sentence
 ## Flagged for later stages
 
 - Indonesian edition: no ID copy written. The removed footer line was English-only;
-  the translation note still lives in the header print-editions popover.
-- `/colophon` relocation of the revision table, field kit, diagnostics and language
-  note is Stage 1D.
+  the translation note still lives in the header print-editions popover and on
+  `/colophon` under "Print editions".
 - "Films & Life preview: compact" (§4 item 8) is left as the existing Life chapter
   and Films panel. Recomposing them is the R1/R2 responsive work, not a copy change.
-- Word-count target is expected to land after the Stage 1D relocations; no stage
-  deletes features to hit a percentage.
+- Word-count target: `<body>` is at −18.9% after the 1D relocations. The remaining
+  −6 to −16 points would have to come out of kept copy, so it is a decision, not a
+  task. No stage deletes features to hit a percentage.

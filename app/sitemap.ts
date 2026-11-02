@@ -9,7 +9,7 @@ export const dynamic = "force-static";
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://biankazahirra.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/about", "/curiosity", "/life", "/films", "/projects", "/contact"];
+  const staticRoutes = ["", "/about", "/curiosity", "/life", "/films", "/projects", "/contact", "/colophon"];
 
   return [
     ...staticRoutes.map((route) => ({

@@ -43,12 +43,24 @@ export const sections: ManualSection[] = [
   },
 ];
 
-/** Layout for the printed revision table in the footer. */
+/** Layout for the printed revision table on the colophon page. */
 export const revisions = [
   { rev: "A", date: "2025-05", note: "first assembly" },
   { rev: "B", date: "2026-10", note: "contents expanded" },
-  { rev: "C", date: "2026-10", note: "manual reprint" },
+  { rev: "C", date: "2026-10", note: "manual reprint", current: true },
+  { rev: "D", date: "next print", note: "fewer words", pending: true },
 ];
+
+/** End matter is not a socket, so it never appears in the Contents list. */
+export const endMatter: ManualSection = {
+  code: "9.0",
+  href: "/colophon",
+  section: "9.0",
+  page: "Page 9-1",
+  title: "End matter",
+  plain: "About this website",
+  blurb: "revisions, editions, hidden parts",
+};
 
 export const manual = {
   model: "BZ-2026",
@@ -71,6 +83,8 @@ export const bootLines = [
 
 /** Longest matching route, so detail pages keep their section in the band. */
 export function sectionForPath(pathname: string): ManualSection {
+  if (pathname === endMatter.href) return endMatter;
+
   const match = [...sections]
     .sort((a, b) => b.href.length - a.href.length)
     .find((item) => item.href === "/" ? pathname === "/" : pathname.startsWith(item.href));
