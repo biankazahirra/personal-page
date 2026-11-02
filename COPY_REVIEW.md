@@ -15,18 +15,17 @@ document.querySelector("main").innerText
 
 | Measure | Before | After | Change |
 |---|---:|---:|---:|
-| Homepage `<main>` | 669 | 536 | −133 (−19.9%) |
-| Whole page `<body>` | 800 | 667 | −133 (−16.6%) |
+| Homepage `<main>` | 669 | 581 | −88 (−13.2%) |
+| Whole page `<body>` | 799 | 716 | −83 (−10.4%) |
 
-The brief targets −25–35% on the homepage. Stage 1A reaches −19.9% because the
+The brief targets −25–35% on the homepage. Stage 1A reaches −13.2% because the
 remaining cuts are **relocations owned by later stages**: the revision table,
 field kit, diagnostics and repeated language note move to `/colophon` in Stage 1D,
 and the duplicate portrait / section merge lands in Stage 1B. Copy was not cut
 into the developer-voice jokes or the visible placeholders.
 
-The 669 baseline was re-measured against the live `main` build and matched. The
-start-up self-test is excluded from both counts (it is a transient overlay, not
-page copy).
+Both numbers were measured on the production build. The start-up self-test is
+excluded from both counts (it is a transient overlay, not page copy).
 
 About 40 words were *added* as always-visible plain subtitles, so the gross copy
 removed is larger than the net figure above.
