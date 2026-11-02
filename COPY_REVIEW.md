@@ -65,6 +65,8 @@ Curiosity → Life → Films → footer.
 |---|---|---|---|
 | `components/lately-strip.tsx` — heading | — (buried "recently" list at the bottom) | "lately" | §4 / §4.5: the most personal updates move up, as three compact rows (category · title · link). |
 | `components/exploded-hero.tsx` — secondary link | — | "see my projects" | §4.2: Projects reachable from the hero in one interaction, without the console. |
+| `content/site.ts` — hero line (chosen contrast line 1) | "Forms and spreadsheets by day. Films, songs on repeat, a ukulele still learning me." | "Forms and spreadsheets by day; films, songs on repeat and a half-learned ukulele by night." | §4.5.1, option 1 chosen by Bianka. Same facts, both sides in one sentence. |
+| `components/exploded-hero.tsx` — hidden-parts teaser | — | "{count} hidden parts, location unknown." (count read from `EGG_TOTAL`) | §4.5.3, approved by Bianka. Sits near Assemble, not in the header; details stay on `/colophon`. |
 | `app/page.tsx` — bottom "recently" block | "recently" + two journal rows with dates | Removed; the same two entries now appear in Lately | Duplicate of the strip above; §4.4 forbids repeating an item. |
 
 Word count after 1B, same method and production build:
@@ -115,13 +117,11 @@ It would replace the current hero line; the hero would stay 2–3 short sentence
 2. "By day I keep forms in order; by night I keep a ukulele out of tune."
 3. "The day job is forms and small systems. The rest is films, songs and four slow chords."
 
-## Hero hook — proposals only (§4.5)
+## Hero hook — decided (§4.5)
 
-Not implemented. Waiting for Bianka's choice.
-
-1. **Contrast line** — three options above; one would replace the current hero line.
-2. **Hidden-parts teaser** — one small line next to the Assemble button, not in the
-   header: "7 hidden parts, location unknown." Details stay on `/colophon` (Stage 1D).
+1. **Contrast line** — option 1 chosen and applied (row in the table above).
+2. **Hidden-parts teaser** — approved and applied: "{count} hidden parts, location
+   unknown." next to the Assemble button. Details stay on `/colophon` (Stage 1D).
 3. **Assemble reward** — already approved (§12.4): INSPECTED stamp, meter +1, Lately
    slides in. Builds in R2 with the signature feature.
 

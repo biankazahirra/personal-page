@@ -9,7 +9,7 @@ export const site: Site = {
     "Most of what lives here is unfinished on purpose: notes on AI agents, films I keep turning over, songs on repeat, a ukulele I am still slow at.",
   ],
   heroLine:
-    "Forms and spreadsheets by day. Films, songs on repeat, a ukulele still learning me.",
+    "Forms and spreadsheets by day; films, songs on repeat and a half-learned ukulele by night.",
   aboutPreview:
     "I keep forms and records in order for a living. The ukulele keeps me humble after hours.",
   email: "biankaazahirra@gmail.com",

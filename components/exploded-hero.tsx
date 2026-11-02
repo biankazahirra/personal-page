@@ -8,6 +8,7 @@ import { DataPlate } from "@/components/data-plate";
 import { Media } from "@/components/media";
 import { site } from "@/content/site";
 import { markFound } from "@/lib/assembly";
+import { EGG_TOTAL } from "@/lib/eggs";
 import { playStamp } from "@/lib/sound";
 
 type Part = {
@@ -205,6 +206,10 @@ export function ExplodedHero() {
               >
                 see my projects
               </Link>
+            </p>
+
+            <p className="eyebrow mt-4 text-ink-muted">
+              {EGG_TOTAL} hidden parts, location unknown.
             </p>
 
             <noscript>
