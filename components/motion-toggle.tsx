@@ -2,11 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const STORAGE_KEY = "motion";
-
-function current(): "full" | "reduce" {
-  return document.documentElement.dataset.motion === "full" ? "full" : "reduce";
-}
+import { currentMotion, setMotionMode } from "@/lib/motion";
 
 /**
  * The page animates by default only when the device does not ask for reduced
@@ -21,19 +17,13 @@ export function MotionToggle({
   const [mode, setMode] = useState<"full" | "reduce" | null>(null);
 
   useEffect(() => {
-    setMode(current());
+    setMode(currentMotion());
   }, []);
 
   const toggle = () => {
-    const next = current() === "full" ? "reduce" : "full";
-    document.documentElement.dataset.motion = next;
-    try {
-      localStorage.setItem(STORAGE_KEY, next);
-    } catch {
-      // Private mode: the choice lasts for this page only.
-    }
+    const next = currentMotion() === "full" ? "reduce" : "full";
+    setMotionMode(next);
     setMode(next);
-    window.dispatchEvent(new Event("motionchange"));
   };
 
   return (

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AssemblyMeter } from "@/components/assembly-meter";
 import { ContentsOverlay } from "@/components/contents-overlay";
 import { LangSwitch } from "@/components/lang-switch";
+import { MobileSettings } from "@/components/mobile-settings";
 import { MotionToggle } from "@/components/motion-toggle";
 import { SoundToggle } from "@/components/sound-toggle";
 import { ThemeShift } from "@/components/theme-shift";
@@ -46,7 +47,9 @@ export function SiteHeader() {
             <div className="eyebrow hidden text-band-ink/85 xl:block">
               <LangSwitch />
             </div>
-            <SoundToggle />
+            <span className="hidden md:inline-flex">
+              <SoundToggle />
+            </span>
           </div>
         </div>
 
@@ -65,8 +68,11 @@ export function SiteHeader() {
 
           <div className="flex flex-wrap items-center gap-2">
             <ThemeShift />
-            <MotionToggle className="band-control eyebrow" />
+            <span className="hidden md:inline-flex">
+              <MotionToggle className="band-control eyebrow" />
+            </span>
             <ContentsOverlay />
+            <MobileSettings />
           </div>
         </div>
       </div>

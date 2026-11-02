@@ -79,6 +79,17 @@ Word count after 1B, same method and production build:
 1B trades a hidden 18-word block for a visible 20-word strip; the copy target is
 still met by the Stage 1D relocations, not by deleting features.
 
+## Stage 1C — navigation
+
+| Location | Before | After | Reason |
+|---|---|---|---|
+| `components/site-header.tsx` — mobile band | MOTION and SOUND printed in the band at every width | One "Settings" button (sliders icon) on phones; the two controls stay in the band on desktop | §4.1: mobile-only settings popover. The desktop header is unchanged. |
+| `components/mobile-settings.tsx` — popover heading | — | "settings" | Groups motion, sound and print editions. The trigger's accessible name stays "Settings". |
+| `components/mobile-settings.tsx` — switches | "motion: on" / "sound off" | "on" / "off" beside the label | §4.1 asks for on/off switches; wording of the editions list is unchanged. |
+| `components/site-footer.tsx` — closing row | "Printed Rev 2026 — …" + "back to the index" | "Printed Rev 2026 — …" + "← back to the index · email" | §4.2 compact row. "colophon" joins the row in Stage 1D, when the page exists, so no link is broken now. |
+| `app/layout.tsx` — bottom strip | Fixed seven-link strip, C01–C07, on every page | Removed | §4.2: one navigation system. The links live in Contents; the Assembly Board keeps the index-tab look. |
+| `components/lang-switch.tsx` | Edition list inline | Same list, now `components/lang-editions.tsx` | One source for the wording, shared with the settings popover. |
+
 ## Plain subtitles added
 
 Single source: `content/components.ts`; `content/manual.ts` reuses it, so each

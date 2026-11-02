@@ -8,7 +8,6 @@ import { EggLayerMount } from "@/components/egg-layer-mount";
 import { RouteAnnouncer } from "@/components/route-announcer";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { IndexTabs } from "@/components/index-tabs";
 import { PageWipe } from "@/components/page-wipe";
 import { HorizontalChapters } from "@/components/horizontal-chapters";
 import { RevealFallback } from "@/components/reveal-fallback";
@@ -114,10 +113,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <RevealFallback />
         <main id="main">{children}</main>
         <SiteFooter />
-        <IndexTabs />
         <EggLayerMount />
         <AssemblyComplete />
       </body>
     </html>
   );
 }
+

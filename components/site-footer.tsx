@@ -95,11 +95,20 @@ export function SiteFooter() {
 
             <EggMeter />
 
-            <div className="mt-6 flex flex-wrap items-baseline justify-between gap-3 border-t border-ink/25 pt-4">
-              <p className="text-sm text-ink-muted">{manual.closing}</p>
+            <div className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-ink/25 pt-4 text-sm">
+              <p className="text-ink-muted">{manual.closing}</p>
               <Link href="/" className="eyebrow border-b border-ink/40 pb-0.5 hover:text-accent">
-                back to the index
+                ← back to the index
               </Link>
+              <span aria-hidden="true" className="text-ink-muted">
+                ·
+              </span>
+              <a
+                href={`mailto:${site.email}`}
+                className="eyebrow border-b border-ink/40 pb-0.5 hover:text-accent"
+              >
+                email
+              </a>
             </div>
             <p className="maintenance-only mt-3 font-mono text-[11px] text-ink-muted">
               hidden part no. BZ-99-00 · the manual itself · inspection copy

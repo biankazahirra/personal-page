@@ -68,7 +68,6 @@ html[data-shift="night"] {
     color: var(--color-ink);
     font-family: var(--font-sans);
     line-height: 1.65;
-    padding-bottom: calc(3.5rem + env(safe-area-inset-bottom));
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }

@@ -59,7 +59,7 @@ html:not([data-motion]) .egg-dock {
   position: fixed;
   z-index: 30;
   right: 0.5rem;
-  bottom: calc(4.4rem + env(safe-area-inset-bottom));
+  bottom: calc(0.9rem + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -134,7 +134,7 @@ html:not([data-motion]) .egg-dock {
   position: fixed;
   z-index: 55;
   right: 0.5rem;
-  bottom: calc(11.25rem + env(safe-area-inset-bottom));
+  bottom: calc(7.75rem + env(safe-area-inset-bottom));
   max-width: min(20rem, calc(100vw - 1rem));
   border: 1px solid var(--color-ink);
   background-color: var(--color-paper);
@@ -188,7 +188,7 @@ html[data-inking="on"] summary {
   position: fixed;
   z-index: 60;
   left: 50%;
-  bottom: calc(16rem + env(safe-area-inset-bottom));
+  bottom: calc(12.5rem + env(safe-area-inset-bottom));
   display: flex;
   align-items: center;
   gap: 0.7rem;
@@ -225,7 +225,7 @@ html[data-inking="on"] summary {
 
 @media (max-width: 480px) {
   .egg-toast {
-    bottom: calc(16.5rem + env(safe-area-inset-bottom));
+    bottom: calc(13rem + env(safe-area-inset-bottom));
   }
 }
 
@@ -539,3 +539,4 @@ html[data-maintenance="on"] body::after {
     display: none !important;
   }
 }
+
