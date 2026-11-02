@@ -4,8 +4,8 @@ import { AssemblyExtra } from "@/components/assembly-extra";
 import { ConsoleShell } from "@/components/console-shell";
 import { ExplodedHero } from "@/components/exploded-hero";
 import { LatelyStrip } from "@/components/lately-strip";
-import { Media } from "@/components/media";
 import { PartLabel } from "@/components/part-label";
+import { ProjectsStrip } from "@/components/projects-strip";
 import { SchematicBoard } from "@/components/schematic-board";
 import { StartupChecklist } from "@/components/startup-checklist";
 import { Texture } from "@/components/texture";
@@ -142,57 +142,7 @@ export default function HomePage() {
       {/* 06 — the illustrated parts list */}
       <section id="chapter-06" className="bg-night text-paper-on-night">
         <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
-          <div className="flex flex-wrap items-baseline justify-between gap-4 border-b border-paper-on-night/20 pb-5">
-            <PartLabel code="C06" name="illustrated parts list" plain="My projects" tone="night" />
-            <Link href="/projects" className="eyebrow hover:text-accent-warm">
-              all projects
-            </Link>
-          </div>
-
-          <h2 className="display mt-8 max-w-[18ch] text-[clamp(2rem,4vw,3.5rem)]">
-            Things I have made, with the notes still attached.
-          </h2>
-
-          <div className="mt-14 flex flex-col gap-20 md:gap-28">
-            {featuredProjects.map((project, index) => (
-              <Link
-                key={project.slug}
-                href={`/projects/${project.slug}`}
-                className="group grid items-end gap-6 md:grid-cols-12 md:gap-10"
-              >
-                <div
-                  className={`md:col-span-8 ${index % 2 === 1 ? "md:order-2 md:col-start-5" : ""}`}
-                >
-                  <Media
-                    image={project.cover}
-                    variant={project.status === "in-progress" ? "grid" : "field"}
-                    tone="night"
-                    className="clip-reveal aspect-[16/9] w-full transition-transform duration-700 ease-[cubic-bezier(.2,.6,.2,1)] group-hover:scale-[1.02]"
-                    label="screenshot pending"
-                    sizes="(min-width: 768px) 66vw, 100vw"
-                  />
-                </div>
-
-                <div
-                  className={`md:col-span-4 ${index % 2 === 1 ? "md:order-1 md:col-start-1 md:row-start-1" : ""}`}
-                >
-                  <p className="eyebrow text-paper-on-night/60">
-                    {project.status}
-                    {project.year ? ` · ${project.year}` : ""}
-                  </p>
-                  <h3 className="display mt-3 text-[clamp(2rem,4vw,3.5rem)] group-hover:text-accent-warm">
-                    {project.title}
-                  </h3>
-                  <p className="mt-3 max-w-[40ch] text-paper-on-night/60">
-                    {project.summary}
-                  </p>
-                  <p className="eyebrow mt-5 text-paper-on-night/60">
-                    {project.stack.join(" · ")}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <ProjectsStrip projects={featuredProjects} />
         </div>
       </section>
 

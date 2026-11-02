@@ -1113,3 +1113,156 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
     padding-bottom: 8px;
   }
 }
+
+/* --- C06 homepage strip: keep scrolling ---------------------------------- */
+
+.projects-viewport {
+  position: relative;
+  /* Mobile: full-bleed so a 85vw card still leaves the next one peeking. */
+  margin-inline: -1.5rem;
+}
+
+.projects-track {
+  display: flex;
+  gap: 1.25rem;
+  align-items: stretch;
+  margin: 0;
+  padding-block: 0;
+  padding-inline: 1.5rem;
+  scroll-padding-inline: 1.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.projects-track::-webkit-scrollbar {
+  display: none;
+}
+
+.projects-track:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.projects-card {
+  display: flex;
+  flex: 0 0 auto;
+  width: min(85vw, 18.75rem);
+  scroll-snap-align: start;
+}
+
+.projects-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3rem;
+  pointer-events: none;
+  transition: opacity var(--t-toggle) var(--ease-page);
+}
+
+.projects-fade-left {
+  left: 0;
+  background: linear-gradient(to right, var(--color-night), transparent);
+}
+
+.projects-fade-right {
+  right: 0;
+  background: linear-gradient(to left, var(--color-night), transparent);
+}
+
+.projects-viewport[data-start="true"] .projects-fade-left,
+.projects-viewport[data-end="true"] .projects-fade-right {
+  opacity: 0;
+}
+
+.projects-hint {
+  transition: opacity var(--t-tab) var(--ease-page);
+}
+
+.projects-hint[data-scrolled="true"] {
+  opacity: 0;
+}
+
+.projects-dot {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.projects-dot > span {
+  width: 0.625rem;
+  height: 0.625rem;
+  border: 1.5px solid color-mix(in oklab, var(--color-paper-on-night) 45%, transparent);
+  border-radius: 999px;
+  transition:
+    background-color var(--t-toggle) var(--ease-page),
+    border-color var(--t-toggle) var(--ease-page);
+}
+
+.projects-dot:hover > span {
+  border-color: var(--color-accent-warm);
+}
+
+.projects-dot[aria-current="true"] > span {
+  border-color: var(--color-accent-warm);
+  background-color: var(--color-accent-warm);
+}
+
+.projects-arrow {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid color-mix(in oklab, var(--color-paper-on-night) 25%, transparent);
+  background: none;
+  color: inherit;
+  font-size: 0.875rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color var(--t-toggle) var(--ease-page),
+    color var(--t-toggle) var(--ease-page);
+}
+
+.projects-arrow:hover {
+  border-color: var(--color-accent-warm);
+  color: var(--color-accent-warm);
+}
+
+.projects-arrow[aria-disabled="true"] {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.projects-arrow[aria-disabled="true"]:hover {
+  border-color: color-mix(in oklab, var(--color-paper-on-night) 25%, transparent);
+  color: inherit;
+}
+
+@media (min-width: 768px) {
+  .projects-viewport {
+    margin-inline: 0;
+  }
+
+  .projects-track {
+    padding-inline: 0;
+    scroll-padding-inline: 0;
+  }
+
+  .projects-card {
+    width: clamp(22rem, 32vw, 27.5rem);
+  }
+}
+
+html[data-motion="reduce"] .projects-track {
+  scroll-behavior: auto;
+}
