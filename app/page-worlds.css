@@ -1246,7 +1246,10 @@ html[data-motion="reduce"] .projects-hint {
 
 .photo-stage {
   position: relative;
-  width: min(78vw, 18.75rem);
+  /* Narrow enough to clear the 24px page padding on a 360px phone, so the stack
+     never sits closer to one edge than the other. */
+  width: 100%;
+  max-width: 21.5rem;
   aspect-ratio: 270 / 230;
   margin-inline: auto;
 }
@@ -1285,6 +1288,8 @@ html[data-motion="reduce"] .projects-hint {
   animation: photo-out-prev var(--t-tab) var(--ease-page) forwards;
 }
 
+/* Corner marks are clipped to the frame, so the top-left one cannot sit under
+   the page's own "ready" stamp on the homepage while it is still mounted. */
 .photo-layer-top::before,
 .photo-layer-top::after {
   content: "";
@@ -1293,6 +1298,11 @@ html[data-motion="reduce"] .projects-hint {
   height: 1.125rem;
   background-color: var(--color-accent);
   pointer-events: none;
+  z-index: 4;
+}
+
+.photo-stage {
+  overflow: hidden;
 }
 
 .photo-layer-top::before {
