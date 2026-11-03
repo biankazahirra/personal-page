@@ -2,7 +2,7 @@
 
 Plan: `docs/superpowers/plans/2026-11-03-stage-2-ux-pass.md`
 Design: `docs/superpowers/specs/2026-11-03-stage-2-ux-pass-design.md`
-Branch: `rev/revision-brief` (worktree `brave-comet`). Code range `f17668a..456dbf8`, plus this report. A commit cannot name itself, so the range ends at the last code commit.
+Branch: `rev/revision-brief` (worktree `brave-comet`). Code range `f17668a..456dbf8`, plus this report. A commit cannot name itself, so the range ends at the last code commit. Row 12 below is a later change that removes the View Transitions path described in rows 3 and 4.
 
 ## What changed
 
@@ -19,6 +19,7 @@ Branch: `rev/revision-brief` (worktree `brave-comet`). Code range `f17668a..456d
 | 9 | Final-review fix wave: the fallback wipe uncovers the heading first and finishes inside `--t-content-ready`; scroll restore moved to a layout effect; a below-8 px offset was made to delete the stored entry | `4fae06b` |
 | 10 | Focus moved to the same phase as the restore so focus lands first, and leaving the homepage writes no key | `bd56798` |
 | 11 | Two changes from row 9 reverted after measurement disproved them: the restore is a passive effect again, and a below-8 px observation no longer deletes a stored offset | `f2d0ece`, `456dbf8` |
+| 12 | Rows 3 and 4 removed after production measurement: the View Transitions path never ran, and it suppressed the wipe as well. `experimental.viewTransition`, `data-vt`, every `view-transition-*` rule and the `sheet-*` keyframes are deleted; the wipe is the only transition path | this commit |
 
 Two plan corrections were made before execution: `f17668a` (fade at `--t-content-ready`, no dead stagger rule, step numbering) and `8879705` (root cross-fade freeze).
 
@@ -59,30 +60,31 @@ Two behaviours worth stating plainly, because they are the plan's rules and not 
 - **The listener is what stores offsets, not the exit capture.** Next.js resets the document scroll on a push navigation, so by the time the capture runs `window.scrollY` is already 0 and the plan's "skip writes below 8 px" rule makes it write nothing. Offsets therefore only exist once the reader has scrolled after hydration; a scroll made before hydration is not remembered.
 - **The top of a page does not clear its entry.** The plan specifies skipping writes below 8 px, so a reader who returns to the top of `/life` and then navigates away can be put back at the old offset on a return. Clearing the entry instead was tried and reverted — see "Decisions taken during the build".
 
-## Transition paths
+## Transition path
+
+One path, for every browser:
 
 | Path | Evidence |
 |---|---|
-| Native (`data-vt="native"`) | `.page-wipe` absent after navigation; `document.startViewTransition` present |
-| Fallback (`data-vt="fallback"` forced) | `.page-wipe` present, computed `animation-duration: 500ms` = `var(--t-content-ready)`, `transform-origin: bottom` |
+| Wipe | `.page-wipe` in the DOM after a client navigation, computed `animation-duration: 0.5s` = `var(--t-content-ready)`, `transform-origin` resolving to the bottom edge, panel height `605 → 0` between 104 ms and 604 ms |
+
+The View Transitions path was removed because it never ran. `experimental.viewTransition` in Next 15.5.28 only switches the build to React's experimental runtime; that runtime calls `document.startViewTransition` inside a branch guarded by the `vt-name` / `vt-enter` / `vt-share` / `vt-exit` / `vt-update` markers that React `<ViewTransition>` boundaries emit, and this app renders none. On the deployed build, instrumenting `document.startViewTransition` and clicking a nav link recorded **0 calls**, and sampling `document.getAnimations({ subtree: true })` every frame for 700 ms recorded **0 animations**, while the route did change. The pre-paint script reported `data-vt="native"`, so `components/page-wipe.tsx` returned `null` and `html[data-vt="native"] .page-wipe` hid the panel: both paths were dead, on desktop and on mobile.
 
 The wipe used to run for `var(--t-page-turn)` (1200 ms) from the top, which left the heading behind an opaque panel for about a second. It now shrinks towards the bottom edge, so the top of the sheet — where the heading is — is uncovered first, and the whole reveal ends inside the 500 ms budget.
 
 ## Timing
 
-Measured on the production build at `localhost`, desktop viewport, **unthrottled**: a click on the footer "colophon" link (or the entry link) from `/life`, sampled every animation frame from inside the page. Three runs each; the table gives the worst of the three.
+Measured on the production build at `localhost`, desktop viewport, **unthrottled**: a click on the footer "colophon" link from `/life`, sampled every animation frame from inside the page.
 
 - **in DOM** — the destination `<main> h1` exists.
-- **unoccluded** — the heading's box no longer overlaps the fallback panel, so the heading is readable, not merely present.
+- **unoccluded** — the wipe panel's box no longer overlaps the heading, so the heading is readable, not merely present.
 - **focused** — `document.activeElement === document.querySelector("main h1")`.
 
 | Path | heading in DOM | unoccluded | focused | CLS |
 |---|---|---|---|---|
-| native | ≤149 ms | ≤149 ms | **≤149 ms** | 0.001 |
-| fallback (panel running) | ≤184 ms | **≤200 ms** | **≤184 ms** | 0.0004 |
-| native, `/life` → `/life/im-with-you` | ≤160 ms | ≤160 ms | **≤160 ms** | not measured separately; same path as "native" |
+| wipe (panel running) | ≤4 ms | **≤186 ms** | **≤73 ms** | 0 |
 
-The panel is fully off-screen at 500 ms (its own duration); the heading is clear well before that. Both paths land inside the 500 ms budget with room to spare. Focus is observed in the same frame the heading appears, because it is applied in a layout effect. CLS during a navigation that actually restores an offset is 0.0002 (native) and 0.0004 (fallback), and 0.0005 for a buffered first load — two orders of magnitude below the 0.1 bar.
+The panel is fully off-screen at 500 ms (its own duration); the heading is clear well before that, at ~186 ms. Focus is observed in the same frame the heading appears, because it is applied in a layout effect. Earlier runs, on the two-path build, measured the same budget with one order of magnitude more slack for CLS (0.0004) — the current build records no layout-shift entries at all during the navigation.
 
 **Limitation, stated plainly:** these numbers are *not* the D3 profile. The in-app browser exposes no CPU throttling, no network throttling, and no viewport emulation, so 4× CPU / Slow 3G at 390×844 could not be applied. The measurement is therefore an upper-bound-free best case: it proves the architecture (focus and visibility are not gated on the 1200 ms decorative settle) but it does not prove the budget under a mid-range phone. To reproduce the D3 trace: Chrome DevTools → Performance, 4× CPU + Slow 3G, device 390×844, record a click on a nav link, read the time to the new heading and to `document.activeElement === document.querySelector("main h1")`.
 
@@ -127,7 +129,8 @@ Fetched the server HTML for eight routes; every one renders its `<h1>` with `tab
 
 ## Decisions taken during the build
 
-- The root pseudo-elements lost the default cross-fade; without it the band, tab strip and footer fade with the content.
+- **The View Transitions path was deleted, not fixed.** Reviving it means adopting React's `unstable_ViewTransition` boundary inside the sheet — an unstable API — for a turn the wipe already performs inside the same budget. Measured after the deletion: heading in the DOM at 4 ms, focused at 73 ms, unoccluded at 186 ms, panel gone at 604 ms.
+- **The root pseudo-elements lost the default cross-fade; without it the band, tab strip and footer fade with the content.** This applied to the View Transitions path and went with it.
 - The per-child content stagger was dropped: a view transition snapshots the new DOM, so child animations never run on the native path. The sheet settle carries the motion.
 - `writeScroll` removes the key at offset 0 rather than storing `"0"`. The plan's own test asserts that; the component still never writes 0, because the plan's Task 6 says to skip writes below 8 px.
 - The homepage heading is focused on arrival like any other route; "homepage excluded" meant it needed no extra attribute, not that focus must skip it.

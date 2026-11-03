@@ -6,7 +6,6 @@ const staticExport = process.env.NEXT_EXPORT === "1";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  experimental: { viewTransition: true },
   ...(staticExport
     ? { output: "export" as const, images: { unoptimized: true }, trailingSlash: true }
     : {}),
