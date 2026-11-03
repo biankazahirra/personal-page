@@ -470,7 +470,7 @@ html[data-motion="reduce"] .h-track {
   scroll-snap-type: x mandatory;
 }
 
-/* Page transition: panel empties upwards after client-side navigation. */
+/* Page transition: panel shrinks toward the bottom, so the page is revealed from the top down. */
 main.page-sheet {
   view-transition-name: content;
 }
@@ -495,18 +495,14 @@ body > footer {
   inset: 0;
   z-index: 45;
   pointer-events: none;
-  transform-origin: top;
+  transform-origin: bottom;
   background-color: var(--color-band);
-  animation: page-wipe var(--t-page-turn) var(--ease-editorial) forwards;
+  animation: page-wipe var(--t-content-ready) var(--ease-editorial) forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html:not([data-motion="full"]) .page-wipe {
     display: none;
-  }
-
-  html:not([data-motion="full"]) .page-wipe {
-    animation: none !important;
   }
 }
 

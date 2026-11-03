@@ -2,7 +2,7 @@
 
 Plan: `docs/superpowers/plans/2026-11-03-stage-2-ux-pass.md`
 Design: `docs/superpowers/specs/2026-11-03-stage-2-ux-pass-design.md`
-Branch: `rev/revision-brief` (worktree `brave-comet`), commits `f17668a..6afe983`.
+Branch: `rev/revision-brief` (worktree `brave-comet`), commits `f17668a..HEAD` (HEAD is this fix-wave commit; a commit cannot name itself).
 
 ## What changed
 
@@ -105,6 +105,7 @@ Fetched the server HTML for eight routes; every one renders its `<h1>` with `tab
 
 - The root pseudo-elements lost the default cross-fade; without it the band, tab strip and footer fade with the content.
 - The per-child content stagger was dropped: a view transition snapshots the new DOM, so child animations never run on the native path. The sheet settle carries the motion.
+- `writeScroll` removes the key at offset 0 rather than storing `"0"`, which is how a return to the top clears the entry (the plan described it as a no-op instead).
 - The homepage heading is focused on arrival like any other route; "homepage excluded" meant it needed no extra attribute, not that focus must skip it.
 
 ## Pre-existing, unchanged

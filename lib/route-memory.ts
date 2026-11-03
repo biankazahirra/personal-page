@@ -27,7 +27,8 @@ export function readScroll(storage: Storage, pathname: string): number | null {
   const value = storage.getItem(key(pathname));
   if (value === null) return null;
   const offset = Number.parseInt(value, 10);
-  return Number.isNaN(offset) ? null : offset;
+  if (Number.isNaN(offset) || offset < 0) return null;
+  return offset;
 }
 
 /** Remember an offset for a path; the top of the page clears the entry. */

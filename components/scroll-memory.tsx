@@ -1,9 +1,12 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 import { clampScroll, readScroll, shouldRestoreScroll, writeScroll } from "@/lib/route-memory";
+
+/** Layout effects warn during server render; use them only on the client. */
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /** Safari private mode throws on storage; memory is optional, the page is not. */
 function readStored(pathname: string): number | null {
@@ -33,7 +36,7 @@ export function ScrollMemory() {
   const restoring = useRef(false);
   const restoreFrame = useRef(0);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (firstPath.current === null) {
       firstPath.current = pathname;
       writePath.current = pathname;
@@ -44,8 +47,11 @@ export function ScrollMemory() {
     if (writePath.current === pathname) return;
 
     // Capture the outgoing offset in case the throttled scroll frame never ran.
+    // A top-of-page offset clears the stored entry instead of leaving a stale one.
     if (window.scrollY >= 8) {
       writeStored(writePath.current, Math.round(window.scrollY));
+    } else {
+      writeStored(writePath.current, 0);
     }
 
     if (shouldRestoreScroll(pathname)) {
@@ -84,8 +90,15 @@ export function ScrollMemory() {
       frame = window.requestAnimationFrame(() => {
         frame = 0;
         if (restoring.current || !writePath.current) return;
+        // The homepage never reads scroll:/ back; skip the write entirely.
+        if (writePath.current === "/") return;
         const offset = Math.round(window.scrollY);
-        if (offset >= 8) writeStored(writePath.current, offset);
+        // A top-of-page offset clears the stored entry instead of leaving a stale one.
+        if (offset >= 8) {
+          writeStored(writePath.current, offset);
+        } else {
+          writeStored(writePath.current, 0);
+        }
       });
     };
 

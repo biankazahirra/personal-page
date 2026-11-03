@@ -111,6 +111,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <AssemblyTracker />
         <PageWipe />
         <RouteAnnouncer />
+        {/* RouteFocus must precede ScrollMemory: focus must land before the scroll restore runs. */}
         <RouteFocus />
         <ScrollMemory />
         <HorizontalChapters />

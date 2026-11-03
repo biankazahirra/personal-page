@@ -62,3 +62,9 @@ test("corrupt storage reads as no offset", () => {
   storage.setItem("scroll:/life", "not-a-number");
   assert.equal(readScroll(storage, "/life"), null);
 });
+
+test("a negative stored offset reads as no offset", () => {
+  const storage = fakeStorage();
+  storage.setItem("scroll:/life", "-50");
+  assert.equal(readScroll(storage, "/life"), null);
+});
