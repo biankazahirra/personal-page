@@ -89,6 +89,8 @@ export function SchematicBoard() {
           <p className="eyebrow mt-1 text-accent">{active.plain}</p>
           <p className="mt-2 text-sm text-ink-muted">{active.blurb}</p>
 
+          {/* Only the two facts the tab cannot show. Status and the section
+              number restate the tab's own code and status chip. */}
           <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-ink/25 pt-3 text-sm">
             <div>
               <dt className="label text-[9px] text-ink-muted">Spec</dt>
@@ -97,14 +99,6 @@ export function SchematicBoard() {
             <div>
               <dt className="label text-[9px] text-ink-muted">Holds</dt>
               <dd className="mt-0.5">{counts[active.code] ?? "—"}</dd>
-            </div>
-            <div>
-              <dt className="label text-[9px] text-ink-muted">Status</dt>
-              <dd className="mt-0.5">{active.status}</dd>
-            </div>
-            <div>
-              <dt className="label text-[9px] text-ink-muted">Section</dt>
-              <dd className="mt-0.5">{active.code.replace("C0", "")}.0</dd>
             </div>
           </dl>
 

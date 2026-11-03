@@ -131,11 +131,8 @@ export function PhotoTray({ moments }: { moments: PhotoMoment[] }) {
       </p>
 
       <div className="photo-meta">
-        <p className="eyebrow text-paper-on-night/60">
-          <span className="text-accent-warm">{String(top + 1).padStart(2, "0")}</span>
-          {" · "}
-          {moments[top]?.label}
-        </p>
+        {/* The counter below already prints the position, so the label stands alone. */}
+        <p className="eyebrow text-paper-on-night/60">{moments[top]?.label}</p>
         <p className="mt-2 max-w-[34ch] text-sm text-paper-on-night/60">
           {moments[top]?.note}
         </p>

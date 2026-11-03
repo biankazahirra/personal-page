@@ -21,6 +21,12 @@ export default function HomePage() {
   // Anything already in the Lately strip is never repeated in the previews.
   const lately = buildLately();
   const recentNotes = excludeLately(notes, "curiosity", lately).slice(0, 3);
+  // Film entries carry no slug; lately keys them by title, exactly as buildLately does.
+  const recentFilms = excludeLately(
+    films.map((film) => ({ ...film, slug: film.title })),
+    "films",
+    lately,
+  ).slice(0, 4);
   const featuredProjects = projects.slice(0, 3);
   const firstProjectImage = featuredProjects.findIndex((project) => project.cover);
 
@@ -272,9 +278,9 @@ export default function HomePage() {
                   : `${films.length} films so far, with what stayed after the credits.`}
               </p>
 
-              {films.length > 0 ? (
+              {recentFilms.length > 0 ? (
                 <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  {films.slice(0, 4).map((film) => (
+                  {recentFilms.map((film) => (
                     <li key={film.title}>
                       <Link
                         href="/films"
