@@ -20,6 +20,7 @@ export function PageWipe() {
     setWipeKey(pathname);
   }, [pathname]);
 
+  if (typeof document !== "undefined" && document.documentElement.dataset.vt === "native") return null;
   if (!wipeKey) return null;
 
   return <div key={wipeKey} aria-hidden="true" className="page-wipe" />;

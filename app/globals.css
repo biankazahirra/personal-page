@@ -466,6 +466,16 @@ html[data-motion="reduce"] .h-track {
 }
 
 /* Page transition: panel empties upwards after client-side navigation. */
+main.page-sheet {
+  view-transition-name: content;
+}
+
+.manual-band,
+.socket-tabs,
+body > footer {
+  view-transition-name: none;
+}
+
 @keyframes page-wipe {
   from {
     transform: scaleY(1);

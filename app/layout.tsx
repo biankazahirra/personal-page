@@ -92,7 +92,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           // Runs before first paint: theme and motion choices never flash.
           dangerouslySetInnerHTML={{
             __html:
-              'try{var s=localStorage.getItem("shift");document.documentElement.dataset.shift=(s==="day"||s==="night")?s:(matchMedia("(prefers-color-scheme: dark)").matches?"night":"day");var m=localStorage.getItem("motion");document.documentElement.dataset.motion=(m?m==="full":!matchMedia("(prefers-reduced-motion: reduce)").matches)?"full":"reduce"}catch(e){document.documentElement.dataset.shift="day";document.documentElement.dataset.motion="full"}',
+              'try{document.documentElement.dataset.vt = typeof document.startViewTransition === "function" ? "native" : "fallback";var s=localStorage.getItem("shift");document.documentElement.dataset.shift=(s==="day"||s==="night")?s:(matchMedia("(prefers-color-scheme: dark)").matches?"night":"day");var m=localStorage.getItem("motion");document.documentElement.dataset.motion=(m?m==="full":!matchMedia("(prefers-reduced-motion: reduce)").matches)?"full":"reduce"}catch(e){document.documentElement.dataset.vt="fallback";document.documentElement.dataset.shift="day";document.documentElement.dataset.motion="full"}',
           }}
         />
         <a
@@ -111,7 +111,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <RouteAnnouncer />
         <HorizontalChapters />
         <RevealFallback />
-        <main id="main">{children}</main>
+        <main id="main" className="page-sheet">{children}</main>
         <SiteFooter />
         <EggLayerMount />
         <AssemblyComplete />
