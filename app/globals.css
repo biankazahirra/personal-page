@@ -505,7 +505,7 @@ body > footer {
     display: none;
   }
 
-  .page-wipe {
+  html:not([data-motion="full"]) .page-wipe {
     animation: none !important;
   }
 }
@@ -667,11 +667,11 @@ html[data-vt="native"] .page-wipe {
     animation: none;
   }
 
-  .overlay-panel {
+  html:not([data-motion="full"]) .overlay-panel {
     animation: none !important;
   }
 
-  .journey-carriage {
+  html:not([data-motion="full"]) .journey-carriage {
     transition: none !important;
   }
 }

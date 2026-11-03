@@ -1379,11 +1379,11 @@ html:not([data-motion]) .photo-list {
     transition: none !important;
   }
 
-  .projects-hint {
+  html:not([data-motion="full"]) .projects-hint {
     transition: none !important;
   }
 
-  .projects-gauge > span {
+  html:not([data-motion="full"]) .projects-gauge > span {
     transition: none !important;
   }
 }

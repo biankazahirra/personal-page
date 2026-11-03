@@ -543,10 +543,10 @@ html[data-maintenance="on"] body::after {
 /* --- print: the field kit does not exist --------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .egg-mark,
-  .egg-toast,
-  .egg-ukulele-card,
-  .egg-logo-hit {
+  html:not([data-motion="full"]) .egg-mark,
+  html:not([data-motion="full"]) .egg-toast,
+  html:not([data-motion="full"]) .egg-ukulele-card,
+  html:not([data-motion="full"]) .egg-logo-hit {
     animation: none !important;
   }
 }
