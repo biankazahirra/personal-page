@@ -23,7 +23,7 @@ export function SiteHeader() {
   return (
     <header className="manual-band sticky top-0 z-50">
       <div className="mx-auto max-w-[1440px] px-4 md:px-8">
-        <div className="band-rule flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b py-2">
+        <div className="band-rule flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b py-1.5 md:gap-x-6 md:py-2">
           <div className="flex items-baseline gap-x-3 gap-y-1">
             <Link
               href="/"
@@ -56,20 +56,20 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-end gap-x-6 gap-y-2 py-2 md:justify-between">
-          <p className="hidden min-w-0 items-baseline gap-2 md:flex">
+        <div className="flex flex-nowrap items-center justify-between gap-x-6 gap-y-2 py-1.5 md:flex-wrap md:py-2">
+          <p className="flex min-w-0 items-baseline gap-2">
             <span className="label shrink-0 text-xs text-band-ink/85">
               {section.section}
             </span>
-            <span className="label truncate text-sm tracking-[0.08em] md:text-base">
+            <span className="label hidden truncate text-sm tracking-[0.08em] md:inline md:text-base">
               {section.title}
             </span>
-            <span className="eyebrow shrink-0 text-band-ink/80">
+            <span className="eyebrow min-w-0 truncate text-band-ink/80 md:shrink-0">
               · {section.plain}
             </span>
           </p>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-nowrap items-center gap-2 md:flex-wrap">
             <ThemeShift />
             <span className="hidden md:inline-flex">
               <MotionToggle className="band-control eyebrow" />

@@ -208,13 +208,30 @@ html[data-shift="night"] {
   color: var(--color-band);
 }
 
-/* Touch controls get a real 44px height; the band drops to two rows on phones. */
+/* Phones keep the desktop control box (23px tall, 1px border) and take the 44px
+   tap target from an invisible panel inside the band, so the border does not
+   grow. The panel reaches up only: downwards it would leave the band and steal
+   taps from the page below. */
 @media (max-width: 767px) {
   .band-control {
-    display: inline-flex;
-    min-height: 44px;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+  }
+
+  .band-control::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 44px;
+  }
+
+  /* The icon button is the last control, so its panel may spread sideways into
+     the free space. It stops 4px short of the Contents button and uses the outer
+     padding on the right. */
+  .band-icon::after {
+    left: -4px;
+    right: -10px;
   }
 }
 
