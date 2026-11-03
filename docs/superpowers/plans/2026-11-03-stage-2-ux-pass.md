@@ -267,11 +267,10 @@ git commit -m "feat(nav): scope the page turn to the content sheet with a wipe f
 
 **Files:**
 - Modify: `app/globals.css` (new `::view-transition-*` block; reduced-motion guard)
-- Modify: `app/layout.tsx` (add the `page-stagger` class to `<main>`)
 
 **Interfaces:**
 - Consumes: `--t-content-ready`, `--t-page-turn`, `--ease-page` (Task 1); `view-transition-name: content` (Task 3).
-- Produces: `.page-stagger` class applied once on `<main id="main">`.
+- Produces: nothing other tasks use.
 
 - [ ] **Step 1: Write the turn**
 
@@ -303,39 +302,40 @@ git commit -m "feat(nav): scope the page turn to the content sheet with a wipe f
 
 The new sheet is fully opaque at `--t-content-ready`; only the transform keeps moving until `--t-page-turn`, so nothing readable waits on the decorative settle.
 
-- [ ] **Step 2: Add the stagger hook**
+- [ ] **Step 2: Freeze the root cross-fade**
 
 ```css
-.page-stagger > * {
-  animation: sheet-stagger 420ms var(--ease-page) both;
-}
-
-@keyframes sheet-stagger {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: none; }
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
 }
 ```
 
-Apply it once, as `className="page-sheet page-stagger"` on `<main id="main">` in `app/layout.tsx`. No per-child delay, so every staggered element is opaque inside the 500ms budget. Do not sweep the class across page components.
+Everything outside `main.page-sheet` lives in the root snapshot. The default root animation is a cross-fade, which would fade the band, tab strip and footer during the turn. Disabling it means they are painted from the new snapshot immediately; they never appear to move.
+
+- [ ] **Step 2b: Do not add the per-child stagger**
+
+The design's "content stagger" is carried by the sheet settle above, not by per-child animations. A view transition captures the new DOM as a static snapshot, so animations on children of `<main>` would not run on the native path — the rule would be dead CSS there and would only fire on the fallback. Do not add `.page-stagger`, and do not add the class to `<main>`. Note this in your report.
 
 - [ ] **Step 3: Guard reduced motion and script-free**
 
 ```css
-html[data-motion="reduce"] ::view-transition-old(content),
-html[data-motion="reduce"] ::view-transition-new(content),
-html[data-motion="reduce"] .page-stagger > * {
+html[data-motion="reduce"]::view-transition-group(*),
+html[data-motion="reduce"]::view-transition-old(*),
+html[data-motion="reduce"]::view-transition-new(*) {
   animation: none !important;
 }
 
-html:not([data-motion]) .page-wipe,
 html[data-vt="native"] .page-wipe {
   display: none;
 }
 ```
 
+The wildcard guard collapses the whole turn to an instant swap when the toggle is set to reduce. `.page-wipe` is decoration (`aria-hidden`), so hiding it on the native path is allowed; real content is never hidden.
+
 - [ ] **Step 4: Verify visually at 1440 and 360, Day and Night**
 
-Capture the frame at ~200ms and ~1200ms after a click on a nav link; confirm the band, tab strip and footer are pixel-identical between the two frames, and that the heading is readable at 200ms. If the stagger fights the sheet transition (double movement, jank), delete the `.page-stagger` rule and its class and note the reason in your report.
+Capture the frame at ~200ms and ~1200ms after a click on a nav link; confirm the band, tab strip and footer are pixel-identical between the two frames, and that the heading is readable at 200ms.
 
 - [ ] **Step 5: Verify build**
 
@@ -345,7 +345,7 @@ Expected: all pass.
 - [ ] **Step 6: Commit**
 
 ```bash
-git add app/globals.css app/layout.tsx
+git add app/globals.css
 git commit -m "feat(motion): page-turn choreography with a content-ready first half"
 ```
 
