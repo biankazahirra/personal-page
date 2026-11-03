@@ -2,7 +2,7 @@
 
 Plan: `docs/superpowers/plans/2026-11-03-stage-2-ux-pass.md`
 Design: `docs/superpowers/specs/2026-11-03-stage-2-ux-pass-design.md`
-Branch: `rev/revision-brief` (worktree `brave-comet`). Code range `f17668a..4fae06b`, plus this report. A commit cannot name itself, so the range ends at the last code commit.
+Branch: `rev/revision-brief` (worktree `brave-comet`). Code range `f17668a..456dbf8`, plus this report. A commit cannot name itself, so the range ends at the last code commit.
 
 ## What changed
 
@@ -16,7 +16,9 @@ Branch: `rev/revision-brief` (worktree `brave-comet`). Code range `f17668a..4fae
 | 6 | `ScrollMemory` stores and restores `scrollY` per pathname in `sessionStorage` | `d44abf2` |
 | 7 | Index tab strip named so it can be measured (component is unused today) | `2ae6187` |
 | 8 | Reduced-motion guards for the audited selectors, keyed so an explicit full-motion choice still animates | `14c60c0`, `6afe983` |
-| 9 | Fix wave from the branch review: the fallback wipe uncovers the heading first and finishes inside `--t-content-ready`; scroll restore moved to a layout effect and now clears its entry at the top | `4fae06b` |
+| 9 | Final-review fix wave: the fallback wipe uncovers the heading first and finishes inside `--t-content-ready`; scroll restore moved to a layout effect; a below-8 px offset was made to delete the stored entry | `4fae06b` |
+| 10 | Focus moved to the same phase as the restore so focus lands first, and leaving the homepage writes no key | `bd56798` |
+| 11 | Two changes from row 9 reverted after measurement disproved them: the restore is a passive effect again, and a below-8 px observation no longer deletes a stored offset | `f2d0ece`, `456dbf8` |
 
 Two plan corrections were made before execution: `f17668a` (fade at `--t-content-ready`, no dead stagger rule, step numbering) and `8879705` (root cross-fade freeze).
 
@@ -40,15 +42,22 @@ Two plan corrections were made before execution: `f17668a` (fade at `--t-content
 
 ## Scroll memory
 
-Re-checked against the fixed build (all on the production server):
+Re-checked against the final build (all on the production server, at build `456dbf8`):
 
 | Run | Result |
 |---|---|
+| `/colophon` at 500 → `/` → `/colophon` (forward navigation) | `scrollY` **500**, focus on the `/colophon` heading, `scroll:/colophon` still stored |
 | `/life` at 900 → `/colophon` → Back | `scrollY` **900**, focus on the `/life` heading |
-| `/life` at 900 → back to the top → `/colophon` → Back | `scrollY` **0** — the top clears the stored entry |
-| `/life` at 900 → `/colophon`, then a cold load of `/life` (entry `scroll:/life` still in `sessionStorage`) | `scrollY` **0** — the first load never restores |
+| `/life` at 900 → `/colophon`, then a cold load of `/life` | `scrollY` **0** — the first load never restores |
+| `/` at 400 → `/about` | no `scroll:/` key is written |
+| hash-only (`location.hash = "#contact"` on `/life`) | focus stays on `BODY`, no restore attempt |
 
-The restore is instant (the `data-restoring` override of `scroll-behavior: smooth`), it runs in a layout effect so the restored page never paints at the top first, and a shorter destination clamps to its own height rather than overscrolling.
+Focus and the restore run in that order, and that is measured, not assumed: instrumenting `HTMLElement.prototype.focus` and `window.scrollTo` during a forward navigation records `focus:H1` first, then `scrollTo(0, 500)`. The restore is instant (the `data-restoring` override of `scroll-behavior: smooth`), and a shorter destination clamps to its own height rather than overscrolling.
+
+Two behaviours worth stating plainly, because they are the plan's rules and not accidents:
+
+- **The listener is what stores offsets, not the exit capture.** Next.js resets the document scroll on a push navigation, so by the time the capture runs `window.scrollY` is already 0 and the plan's "skip writes below 8 px" rule makes it write nothing. Offsets therefore only exist once the reader has scrolled after hydration; a scroll made before hydration is not remembered.
+- **The top of a page does not clear its entry.** The plan specifies skipping writes below 8 px, so a reader who returns to the top of `/life` and then navigates away can be put back at the old offset on a return. Clearing the entry instead was tried and reverted — see "Decisions taken during the build".
 
 ## Transition paths
 
@@ -69,11 +78,11 @@ Measured on the production build at `localhost`, desktop viewport, **unthrottled
 
 | Path | heading in DOM | unoccluded | focused | CLS |
 |---|---|---|---|---|
-| native | ≤177 ms | ≤177 ms | **≤188 ms** | 0.001 |
-| fallback (panel running) | ≤140 ms | **≤248 ms** | **≤150 ms** | 0.0005 |
-| native, `/life` → `/life/im-with-you` | ≤126 ms | ≤126 ms | **≤142 ms** | not measured separately; same path as "native" |
+| native | ≤149 ms | ≤149 ms | **≤149 ms** | 0.001 |
+| fallback (panel running) | ≤184 ms | **≤200 ms** | **≤184 ms** | 0.0004 |
+| native, `/life` → `/life/im-with-you` | ≤160 ms | ≤160 ms | **≤160 ms** | not measured separately; same path as "native" |
 
-The panel is fully off-screen at 500 ms (its own duration); the heading is clear well before that. Both paths land inside the 500 ms budget with room to spare. CLS for these navigations (and 0.0005 for a buffered first load) stays two orders of magnitude below the 0.1 bar.
+The panel is fully off-screen at 500 ms (its own duration); the heading is clear well before that. Both paths land inside the 500 ms budget with room to spare. Focus is observed in the same frame the heading appears, because it is applied in a layout effect. CLS during a navigation that actually restores an offset is 0.0002 (native) and 0.0004 (fallback), and 0.0005 for a buffered first load — two orders of magnitude below the 0.1 bar.
 
 **Limitation, stated plainly:** these numbers are *not* the D3 profile. The in-app browser exposes no CPU throttling, no network throttling, and no viewport emulation, so 4× CPU / Slow 3G at 390×844 could not be applied. The measurement is therefore an upper-bound-free best case: it proves the architecture (focus and visibility are not gated on the 1200 ms decorative settle) but it does not prove the budget under a mid-range phone. To reproduce the D3 trace: Chrome DevTools → Performance, 4× CPU + Slow 3G, device 390×844, record a click on a nav link, read the time to the new heading and to `document.activeElement === document.querySelector("main h1")`.
 
@@ -120,8 +129,10 @@ Fetched the server HTML for eight routes; every one renders its `<h1>` with `tab
 
 - The root pseudo-elements lost the default cross-fade; without it the band, tab strip and footer fade with the content.
 - The per-child content stagger was dropped: a view transition snapshots the new DOM, so child animations never run on the native path. The sheet settle carries the motion.
-- `writeScroll` removes the key at offset 0 rather than storing `"0"`, which is how a return to the top clears the entry (the plan described it as a no-op instead).
+- `writeScroll` removes the key at offset 0 rather than storing `"0"`. The plan's own test asserts that; the component still never writes 0, because the plan's Task 6 says to skip writes below 8 px.
 - The homepage heading is focused on arrival like any other route; "homepage excluded" meant it needed no extra attribute, not that focus must skip it.
+- **The scroll restore stays a passive effect.** A review asked for a layout effect, so a restored page could not paint at the top first. Measured: with the layout effect the restore is silently discarded (Next.js resets the document scroll after layout effects run), so a forward navigation to a remembered path landed at `scrollY` 0 and the resulting 0 then deleted the stored entry. The design's D7 already says the restore runs after the router settles, so the layout effect was reverted.
+- **A below-8 px offset no longer deletes the stored entry.** That change came from the same review. Measured: the exit capture reads `window.scrollY` after the router has reset it, so the rule deleted the outgoing page's offset on every navigation. The plan's Task 6 wording (skip the write) was restored.
 
 ## Pre-existing, unchanged
 
