@@ -3,7 +3,8 @@
 import type { KeyboardEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { Texture } from "@/components/texture";
+import { Media } from "@/components/media";
+import type { JournalEntry } from "@/content/types";
 import type { PhotoMoment } from "@/content/photos";
 import { currentMotion } from "@/lib/motion";
 import { flipOrder, photoLabel } from "@/lib/photo-tray";
@@ -15,7 +16,13 @@ const FLIP_MS = 380;
  * swipe or keyboard. The stack is the enhancement; a plain list of all four
  * moments renders when JavaScript never runs.
  */
-export function PhotoTray({ moments }: { moments: PhotoMoment[] }) {
+export function PhotoTray({
+  moments,
+  entries,
+}: {
+  moments: PhotoMoment[];
+  entries: JournalEntry[];
+}) {
   const [order, setOrder] = useState(() => moments.map((_, index) => index));
   const [leaving, setLeaving] = useState<{ index: number; direction: 1 | -1 } | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -48,6 +55,13 @@ export function PhotoTray({ moments }: { moments: PhotoMoment[] }) {
 
   const top = order[0];
   const total = moments.length;
+
+  /**
+   * The photo for a slot is the journal entry it points at, exactly as C04
+   * shows it, so the tray and the section can never disagree.
+   */
+  const imageFor = (moment: PhotoMoment | undefined) =>
+    entries.find((entry) => entry.slug === moment?.entrySlug)?.images?.[0];
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const onControl = (event.target as HTMLElement).closest("button");
@@ -94,7 +108,8 @@ export function PhotoTray({ moments }: { moments: PhotoMoment[] }) {
             if (!isTop) {
               return (
                 <div key={momentIndex} className="photo-layer" data-layer={layer} aria-hidden="true">
-                  <Texture
+                  <Media
+                    image={imageFor(moment)}
                     variant={moment.variant}
                     tone="night"
                     className="h-full w-full"
@@ -114,7 +129,8 @@ export function PhotoTray({ moments }: { moments: PhotoMoment[] }) {
                 aria-label={`Next photo: ${moment.label}`}
                 onClick={() => flip(1)}
               >
-                <Texture
+                <Media
+                  image={imageFor(moment)}
                   variant={moment.variant}
                   tone="night"
                   className="h-full w-full"
@@ -156,11 +172,10 @@ export function PhotoTray({ moments }: { moments: PhotoMoment[] }) {
       <ul className="photo-list">
         {moments.map((moment, index) => (
           <li key={moment.label}>
-            <Texture variant={moment.variant} tone="night" className="aspect-[4/3] w-full" label="image pending" />
+            <Media image={imageFor(moment)} variant={moment.variant} tone="night" className="aspect-[4/3] w-full" label="image pending" />
             <p className="eyebrow mt-3 text-paper-on-night/60">
               <span className="text-accent-warm">{String(index + 1).padStart(2, "0")}</span> · {moment.label}
             </p>
-            <p className="mt-1 text-sm text-paper-on-night/60">{moment.note}</p>
           </li>
         ))}
       </ul>

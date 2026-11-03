@@ -3,6 +3,8 @@ export type PhotoMoment = {
   label: string;
   variant: "grid" | "waves" | "field" | "arcs";
   note: string;
+  /** The journal entry this moment stands for, so the two never drift apart. */
+  entrySlug?: string;
 };
 
 export const photoMoments: PhotoMoment[] = [
@@ -15,11 +17,13 @@ export const photoMoments: PhotoMoment[] = [
     label: "songs, lately",
     variant: "waves",
     note: "What ended up on repeat, and for how long.",
+    entrySlug: "im-with-you",
   },
   {
     label: "practice, badly",
     variant: "field",
     note: "Ukulele progress, recorded at the awkward stage.",
+    entrySlug: "sample-four-chords",
   },
   {
     label: "rooms worth sitting in",

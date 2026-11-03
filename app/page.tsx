@@ -11,6 +11,7 @@ import { SchematicBoard } from "@/components/schematic-board";
 import { StartupChecklist } from "@/components/startup-checklist";
 import { films } from "@/content/films";
 import { buildLately, excludeLately, latelyPosition } from "@/content/lately";
+import { journal } from "@/content/journal";
 import { notes } from "@/content/notes";
 import { photoMoments } from "@/content/photos";
 import { projects } from "@/content/projects";
@@ -257,7 +258,7 @@ export default function HomePage() {
             <PartLabel code="C04" name="inspection photos" plain="Personal moments" tone="night" />
           </div>
 
-          <PhotoTray moments={photoMoments} />
+          <PhotoTray moments={photoMoments} entries={journal} />
         </div>
       </section>
 

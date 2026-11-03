@@ -6,8 +6,11 @@ import type { ImageRef } from "@/content/types";
 
 type MediaProps = {
   image?: ImageRef;
-  /** Shown when no image exists yet. */
-  label: string;
+  /**
+   * A texture takes a label only when there is no photo yet; with a photo, the
+   * badge would sit over the picture and the image's alt text carries it.
+   */
+  label?: string;
   variant: ComponentProps<typeof Texture>["variant"];
   tone?: ComponentProps<typeof Texture>["tone"];
   className?: string;
