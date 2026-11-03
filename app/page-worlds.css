@@ -1328,6 +1328,7 @@ html[data-motion="reduce"] .projects-hint {
 .photo-controls {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   margin-top: 1rem;
 }
