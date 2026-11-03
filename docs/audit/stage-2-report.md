@@ -74,19 +74,26 @@ The wipe used to run for `var(--t-page-turn)` (1200 ms) from the top, which left
 
 ## Timing
 
-Measured on the production build at `localhost`, desktop viewport, **unthrottled**: a click on the footer "colophon" link from `/life`, sampled every animation frame from inside the page.
+Measured on the deployed build (`26d8228`, Vercel), desktop viewport, **unthrottled**. Each run is preceded by a full document load of the origin route, so the client navigation is cache-warm. Sampled every animation frame from inside the page.
 
-- **in DOM** — the destination `<main> h1` exists.
-- **unoccluded** — the wipe panel's box no longer overlaps the heading, so the heading is readable, not merely present.
+- **painted** — the destination `<main> h1` text is in the DOM. The detector waits for the heading *text* to change; matching on the element alone reports the outgoing heading and reads ~0 ms.
 - **focused** — `document.activeElement === document.querySelector("main h1")`.
+- **panel mounted** — `.page-wipe` is in the DOM. It mounts after the route commits, so it never covers the wait for the route.
+- **heading clear** — the panel's box no longer overlaps the heading, so the heading is readable, not merely present.
+- **occlusion** — heading clear minus panel mounted: the panel's own cost.
 
-| Path | heading in DOM | unoccluded | focused | CLS |
-|---|---|---|---|---|
-| wipe (panel running) | ≤4 ms | **≤186 ms** | **≤73 ms** | 0 |
+| Path | painted | focused | panel mounted | heading clear | occlusion |
+|---|---|---|---|---|---|
+| `/life` → `/colophon` | 97 ms | **97 ms** | 110 ms | 222 ms | 112 ms |
+| `/about` → `/life` | 105 ms | **105 ms** | 118 ms | 267 ms | 149 ms |
+| `/life` → `/colophon` (repeat) | 86 ms | **86 ms** | 99 ms | 195 ms | 96 ms |
+| local `next start`, `/life` → `/colophon` | — | 73 ms | ~104 ms | 186 ms | ~82 ms |
 
-The panel is fully off-screen at 500 ms (its own duration); the heading is clear well before that, at ~186 ms. Focus is observed in the same frame the heading appears, because it is applied in a layout effect. Earlier runs, on the two-path build, measured the same budget with one order of magnitude more slack for CLS (0.0004) — the current build records no layout-shift entries at all during the navigation.
+Focus lands in the same frame the heading paints, because it is applied in a layout effect. The panel is fully off-screen at 500 ms (its own duration); the heading is clear at 195–267 ms. No layout-shift entries were recorded during any run.
 
-**Limitation, stated plainly:** these numbers are *not* the D3 profile. The in-app browser exposes no CPU throttling, no network throttling, and no viewport emulation, so 4× CPU / Slow 3G at 390×844 could not be applied. The measurement is therefore an upper-bound-free best case: it proves the architecture (focus and visibility are not gated on the 1200 ms decorative settle) but it does not prove the budget under a mid-range phone. To reproduce the D3 trace: Chrome DevTools → Performance, 4× CPU + Slow 3G, device 390×844, record a click on a nav link, read the time to the new heading and to `document.activeElement === document.querySelector("main h1")`.
+The worst case observed does not fit the 500 ms budget, and it is not the transition: on the first client navigation after a cold document load, the route itself took ~580 ms to commit (a Vercel cold start behind the RSC request). The panel only mounts after that commit, so it adds nothing to the wait — but a reader on a cold function waits ~580 ms before any transition can start. No page-turn design can hide a route fetch.
+
+**Limitation, stated plainly:** these numbers are *not* the D3 profile. The in-app browser exposes no CPU throttling, no network throttling, and no viewport emulation, so 4× CPU / Slow 3G at 390×844 could not be applied. The measurement is therefore a best case: it proves the architecture (focus and visibility are not gated on the decorative panel) but it does not prove the budget under a mid-range phone. To reproduce the D3 trace: Chrome DevTools → Performance, 4× CPU + Slow 3G, device 390×844, record a click on a nav link, read the time to the new heading and to `document.activeElement === document.querySelector("main h1")`.
 
 ## Horizontal strips (Task 7)
 
@@ -129,7 +136,7 @@ Fetched the server HTML for eight routes; every one renders its `<h1>` with `tab
 
 ## Decisions taken during the build
 
-- **The View Transitions path was deleted, not fixed.** Reviving it means adopting React's `unstable_ViewTransition` boundary inside the sheet — an unstable API — for a turn the wipe already performs inside the same budget. Measured after the deletion: heading in the DOM at 4 ms, focused at 73 ms, unoccluded at 186 ms, panel gone at 604 ms.
+- **The View Transitions path was deleted, not fixed.** Reviving it means adopting React's `unstable_ViewTransition` boundary inside the sheet — an unstable API — for a turn the wipe already performs inside the same budget. Measured on the deployed build after the deletion: heading painted and focused in the same frame at 86–105 ms, panel clear of the heading at 195–267 ms.
 - **The root pseudo-elements lost the default cross-fade; without it the band, tab strip and footer fade with the content.** This applied to the View Transitions path and went with it.
 - The per-child content stagger was dropped: a view transition snapshots the new DOM, so child animations never run on the native path. The sheet settle carries the motion.
 - `writeScroll` removes the key at offset 0 rather than storing `"0"`. The plan's own test asserts that; the component still never writes 0, because the plan's Task 6 says to skip writes below 8 px.
