@@ -16,8 +16,8 @@ export const site: Site = {
   portrait: {
     src: "/images/portraits/portrait.jpg",
     alt: "Bianka in a black hijab and a batik shirt, smiling at the camera",
-    width: 1200,
-    height: 1500,
+    width: 1049,
+    height: 1058,
   },
   links: [
     { label: "GitHub", href: "https://github.com/biankazahirra" },

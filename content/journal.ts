@@ -24,6 +24,14 @@ export const journal: JournalEntry[] = [
     kind: "music",
     loops: 77,
     excerpt: "Avril Lavigne — I'm With You. 77 plays in one month.",
+    images: [
+      {
+        src: "/images/life/im_with_you.jpg",
+        alt: "Phone screenshot of the Spotify lyrics screen for I'm With You by Avril Lavigne",
+        width: 720,
+        height: 1600,
+      },
+    ],
     body: [
       "The loop counter is real this time: 77 plays of I'm With You by Avril Lavigne in October 2026.",
       "Why it stayed on repeat is still unwritten. [ note pending ]",
@@ -36,6 +44,14 @@ export const journal: JournalEntry[] = [
     kind: "ukulele",
     excerpt:
       "Sample entry for uke progress: what changed hands this week, what still buzzes.",
+    images: [
+      {
+        src: "/images/life/ukulele.jpeg",
+        alt: "A pink ukulele covered in stickers, lying on a desk",
+        width: 1600,
+        height: 936,
+      },
+    ],
     body: [
       "A learning journal is more useful when it records the awkward stage, not the finished song.",
       "Try: what I practised, what sounded wrong, what finally clicked.",

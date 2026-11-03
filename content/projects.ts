@@ -11,6 +11,12 @@ export const projects: Project[] = [
     role: "Interface design and front-end build",
     stack: ["HTML", "JavaScript", "Tailwind CSS", "PHP", "MySQL", "Figma"],
     status: "shipped",
+    cover: {
+      src: "/images/projects/hallistic.jpeg",
+      alt: "Hallistic: a hotel booking page with a green navigation bar, a room photo gallery and a Book Now button",
+      width: 982,
+      height: 729,
+    },
     body: [
       "Hallistic is an information website for booking buildings. It started as an academic project: design the interface, then make it real.",
       "The visual work happened in Figma first, then moved into HTML, Tailwind CSS and JavaScript, with PHP and MySQL behind it.",
@@ -57,6 +63,12 @@ export const projects: Project[] = [
     role: "Team lead, backend",
     stack: ["Java", "MySQL"],
     status: "shipped",
+    cover: {
+      src: "/images/projects/proplan.jpeg",
+      alt: "PROPLAN sign-in screen: the PROPLAN title beside a grey wrench illustration, with a blue login panel",
+      width: 1069,
+      height: 690,
+    },
     body: [
       "PROPLAN keeps project plans in one place instead of scattered across documents.",
       "I led the team and worked on the system itself: Java for the application, MySQL for the data.",
@@ -134,6 +146,12 @@ export const projects: Project[] = [
     role: "Sole builder",
     stack: ["Microsoft Access"],
     status: "in-progress",
+    cover: {
+      src: "/images/projects/lhstp_workflow.PNG",
+      alt: "LHSTP form: identity, letter, contract and payment sections laid out as labelled field groups",
+      width: 1211,
+      height: 648,
+    },
     body: [
       "The LHSTP paperwork is the next thing to move off paper.",
       "This one is unfinished: the forms work, the workflow around them is still being shaped.",
@@ -167,6 +185,12 @@ export const projects: Project[] = [
     role: "Design and build",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     status: "in-progress",
+    cover: {
+      src: "/images/projects/this_site.PNG",
+      alt: "This site's homepage: the red service-manual band, the name in large serif type and the exploded portrait diagram",
+      width: 1289,
+      height: 751,
+    },
     body: [
       "This page is a place to keep things that do not belong in a CV: notes, films, songs, half-finished experiments.",
       "The structure is deliberately boring. Content lives in plain TypeScript files, so adding a note never means touching a layout.",
