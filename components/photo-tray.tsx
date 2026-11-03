@@ -19,9 +19,12 @@ const FLIP_MS = 380;
 export function PhotoTray({
   moments,
   entries,
+  tone = "night",
 }: {
   moments: PhotoMoment[];
   entries: JournalEntry[];
+  /** `paper` when the tray sits on a light section instead of the dark one. */
+  tone?: "night" | "paper";
 }) {
   const [order, setOrder] = useState(() => moments.map((_, index) => index));
   const [leaving, setLeaving] = useState<{ index: number; direction: 1 | -1 } | null>(null);
@@ -55,6 +58,10 @@ export function PhotoTray({
 
   const top = order[0];
   const total = moments.length;
+
+  /** Ink that stays readable on whichever section the tray is mounted in. */
+  const ink = tone === "paper" ? "text-ink" : "text-paper-on-night/60";
+  const inkSoft = tone === "paper" ? "text-ink-muted" : "text-paper-on-night/50";
 
   /**
    * The photo for a slot is the journal entry it points at, exactly as C04
@@ -148,8 +155,8 @@ export function PhotoTray({
 
       <div className="photo-meta">
         {/* The counter below already prints the position, so the label stands alone. */}
-        <p className="eyebrow text-paper-on-night/60">{moments[top]?.label}</p>
-        <p className="mt-2 max-w-[34ch] text-sm text-paper-on-night/60">
+        <p className={`eyebrow ${ink}`}>{moments[top]?.label}</p>
+        <p className={`mt-2 max-w-[34ch] text-sm ${ink}`}>
           {moments[top]?.note}
         </p>
       </div>
@@ -158,7 +165,7 @@ export function PhotoTray({
         <button type="button" className="photo-arrow" aria-label="Previous photo" onClick={() => flip(-1)}>
           ◂
         </button>
-        <span className="eyebrow text-paper-on-night/60">
+        <span className={`eyebrow ${ink}`}>
           {String(top + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </span>
         <button type="button" className="photo-arrow" aria-label="Next photo" onClick={() => flip(1)}>
@@ -166,15 +173,15 @@ export function PhotoTray({
         </button>
       </div>
 
-      <p className="eyebrow mt-4 text-paper-on-night/50">tap to flip to the next ▸</p>
+      <p className={`eyebrow mt-4 ${inkSoft}`}>tap to flip to the next ▸</p>
       </div>
 
       <ul className="photo-list">
         {moments.map((moment, index) => (
           <li key={moment.label}>
             <Media image={imageFor(moment)} variant={moment.variant} tone="night" className="aspect-[4/3] w-full" label="image pending" />
-            <p className="eyebrow mt-3 text-paper-on-night/60">
-              <span className="text-accent-warm">{String(index + 1).padStart(2, "0")}</span> · {moment.label}
+            <p className={`eyebrow mt-3 ${ink}`}>
+              <span className={tone === "paper" ? "text-accent" : "text-accent-warm"}>{String(index + 1).padStart(2, "0")}</span> · {moment.label}
             </p>
           </li>
         ))}

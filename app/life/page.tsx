@@ -31,7 +31,10 @@ export default function LifePage() {
       <section className="border-y border-ink/15 bg-paper-2/45">
         <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-12 md:py-16">
           <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
-            <h2 className="display text-[clamp(1.6rem,3vw,2.25rem)]">Film strip</h2>
+            <h2 className="display text-[clamp(1.6rem,3vw,2.25rem)]">
+              <span className="hidden md:inline">Film strip</span>
+              <span className="md:hidden">Photo tray</span>
+            </h2>
             <p className="eyebrow text-ink-muted">Fig. 4-1 · recent frames</p>
           </div>
 
@@ -39,8 +42,10 @@ export default function LifePage() {
             <FilmStrip entries={entries} />
           </div>
 
+          {/* The tray prints its caption in paper-on-night, nearly the same cream
+              as this section, so it is handed the paper tone instead. */}
           <div className="md:hidden">
-            <PhotoTray moments={photoMoments} entries={entries} />
+            <PhotoTray moments={photoMoments} entries={entries} tone="paper" />
           </div>
         </div>
       </section>
