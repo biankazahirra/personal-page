@@ -18,7 +18,7 @@ export function IndexTabs() {
       className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-ink/70 bg-paper"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
-      <ol className="mx-auto flex max-w-[1440px] snap-x snap-mandatory overflow-x-auto">
+      <ol className="index-tabs mx-auto flex max-w-[1440px] snap-x snap-mandatory overflow-x-auto">
         {components.map((item) => {
           const active =
             item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
