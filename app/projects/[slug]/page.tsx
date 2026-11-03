@@ -64,7 +64,9 @@ export default async function ProjectPage({ params }: Params) {
           {statusLabel[project.status]}
           {project.year ? ` · ${project.year}` : ""}
         </p>
-        <h1 className="display mt-4 text-[clamp(2.5rem,7vw,5.5rem)]">{project.title}</h1>
+        <h1 tabIndex={-1} className="display mt-4 text-[clamp(2.5rem,7vw,5.5rem)]">
+          {project.title}
+        </h1>
         <p className="mt-6 max-w-[46ch] text-lg text-ink-muted">{project.summary}</p>
       </header>
 

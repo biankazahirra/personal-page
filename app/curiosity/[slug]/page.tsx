@@ -60,7 +60,9 @@ export default async function NotePage({ params }: Params) {
             </span>
           ) : null}
         </p>
-        <h1 className="display mt-4 text-[clamp(2.5rem,7vw,5rem)]">{note.title}</h1>
+        <h1 tabIndex={-1} className="display mt-4 text-[clamp(2.5rem,7vw,5rem)]">
+          {note.title}
+        </h1>
       </header>
 
       <div className="mt-14 grid gap-10 md:grid-cols-12 md:gap-8">

@@ -14,7 +14,9 @@ export default function ContactPage() {
   return (
     <div className="mx-auto max-w-[1440px] px-6 pb-24 pt-12 md:px-12 md:pt-16">
       <p className="eyebrow text-ink-muted">Section 7.0 · Page 7-1</p>
-      <h1 className="display mt-3 text-[clamp(2.5rem,8vw,6rem)]">Say hi.</h1>
+      <h1 tabIndex={-1} className="display mt-3 text-[clamp(2.5rem,8vw,6rem)]">
+        Say hi.
+      </h1>
       <p className="mt-5 max-w-[54ch] text-lg">
         Plain text is enough. No ticket queue, no account, no automated reply.
       </p>
