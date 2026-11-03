@@ -4,14 +4,12 @@ import { AssemblyExtra } from "@/components/assembly-extra";
 import { ConsoleShell } from "@/components/console-shell";
 import { ExplodedHero } from "@/components/exploded-hero";
 import { FilmStrip } from "@/components/film-strip";
-import { LatelyStrip } from "@/components/lately-strip";
 import { Media } from "@/components/media";
 import { PartLabel } from "@/components/part-label";
 import { PhotoTray } from "@/components/photo-tray";
 import { SchematicBoard } from "@/components/schematic-board";
 import { StartupChecklist } from "@/components/startup-checklist";
 import { films } from "@/content/films";
-import { buildLately, excludeLately, latelyPosition } from "@/content/lately";
 import { journal } from "@/content/journal";
 import { notes } from "@/content/notes";
 import { photoMoments } from "@/content/photos";
@@ -20,15 +18,8 @@ import { site } from "@/content/site";
 import { formatDate } from "@/lib/format";
 
 export default function HomePage() {
-  // Anything already in the Lately strip is never repeated in the previews.
-  const lately = buildLately();
-  const recentNotes = excludeLately(notes, "curiosity", lately).slice(0, 3);
-  // Film entries carry no slug; lately keys them by title, exactly as buildLately does.
-  const recentFilms = excludeLately(
-    films.map((film) => ({ ...film, slug: film.title })),
-    "films",
-    lately,
-  ).slice(0, 4);
+  const recentNotes = notes.slice(0, 3);
+  const recentFilms = films.slice(0, 4);
   const featuredProjects = projects.slice(0, 3);
   const firstProjectImage = featuredProjects.findIndex((project) => project.cover);
 
@@ -39,8 +30,34 @@ export default function HomePage() {
       {/* 01 — identification, as an exploded view */}
       <ExplodedHero />
 
-      {/* lately — three latest updates, never a full section */}
-      {latelyPosition === "after-hero" ? <LatelyStrip items={lately} /> : null}
+      {/* 01.1 — the logbook console, optional */}
+      <section id="console" className="bg-paper">
+        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-12 md:py-24">
+          <div className="grid gap-8 md:grid-cols-12">
+            <div className="md:col-span-4">
+              <PartLabel code="C01.1" name="logbook console" plain="Optional terminal" />
+              <h2 className="display mt-5 text-[clamp(2rem,4vw,3.25rem)]">
+                Ask the machine.
+              </h2>
+              <p className="mt-4 max-w-[34ch] text-ink-muted">
+                A small terminal for people who like typing. Optional, and never
+                the only way in.
+              </p>
+              <div className="notice mt-6 px-4 py-3">
+                <p className="label text-[10px] text-ink-muted">Warning</p>
+                <p className="mt-1 max-w-[34ch] text-sm">
+                  May cause excessive curiosity. Do not remove the lid without
+                  snacks.
+                </p>
+              </div>
+            </div>
+
+            <div className="md:col-span-7 md:col-start-6">
+              <ConsoleShell />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* 01.2 — the socket board, first stop after the hero */}
       <section id="assembly-board" className="bg-paper-2/35">
@@ -76,37 +93,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {latelyPosition === "after-board" ? <LatelyStrip items={lately} /> : null}
-
-      {/* 01.1 — the logbook console, optional */}
-      <section id="console" className="bg-paper">
-        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-12 md:py-24">
-          <div className="grid gap-8 md:grid-cols-12">
-            <div className="md:col-span-4">
-              <PartLabel code="C01.1" name="logbook console" plain="Optional terminal" />
-              <h2 className="display mt-5 text-[clamp(2rem,4vw,3.25rem)]">
-                Ask the machine.
-              </h2>
-              <p className="mt-4 max-w-[34ch] text-ink-muted">
-                A small terminal for people who like typing. Optional, and never
-                the only way in.
-              </p>
-              <div className="notice mt-6 px-4 py-3">
-                <p className="label text-[10px] text-ink-muted">Warning</p>
-                <p className="mt-1 max-w-[34ch] text-sm">
-                  May cause excessive curiosity. Do not remove the lid without
-                  snacks.
-                </p>
-              </div>
-            </div>
-
-            <div className="md:col-span-7 md:col-start-6">
-              <ConsoleShell />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 02 — the person */}
       <section id="chapter-02" className="bg-paper">
         <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
@@ -123,86 +109,6 @@ export default function HomePage() {
               read the whole section
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* 06 — the illustrated parts list, pinned sideways */}
-      <section
-        id="chapter-06"
-        data-horizontal
-        data-horizontal-focus
-        className="h-section relative h-[220vh] bg-night text-paper-on-night md:h-[200vh]"
-      >
-        <div className="h-sticky sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-24 md:pt-[5.25rem]">
-          <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
-            <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-paper-on-night/20 pb-4">
-              <PartLabel code="C06" name="illustrated parts list" plain="My projects" tone="night" />
-
-              <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2">
-                <p className="eyebrow projects-hint text-paper-on-night/60">keep scrolling —</p>
-                <div className="projects-gauge" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                </div>
-                <Link href="/projects" className="eyebrow hover:text-accent-warm">
-                  all projects
-                </Link>
-              </div>
-            </div>
-
-            <h2 className="display mt-4 max-w-[18ch] text-[clamp(2rem,4vw,3.5rem)] md:max-w-[26ch]">
-              Things I have made, with the notes still attached.
-            </h2>
-          </div>
-
-          <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
-            <div className="projects-viewport mt-5 md:mt-6">
-              <ul data-horizontal-track className="h-track projects-track flex gap-5">
-                {featuredProjects.map((project, index) => (
-                  <li key={project.slug} data-project-card className="projects-card">
-                    <Link
-                      href={`/projects/${project.slug}`}
-                      className="group flex h-full flex-col border border-paper-on-night/20"
-                    >
-                      <Media
-                        image={project.cover}
-                        variant={project.status === "in-progress" ? "grid" : "field"}
-                        tone="night"
-                        className="aspect-[16/9] w-full"
-                        label="screenshot pending"
-                        sizes="(min-width: 768px) 40vw, 85vw"
-                        priority={index === firstProjectImage}
-                      />
-
-                      <div className="flex flex-1 flex-col p-4 md:p-5">
-                        <p className="eyebrow text-paper-on-night/60">
-                          {project.status}
-                          {project.year ? ` · ${project.year}` : ""}
-                        </p>
-                        <h3 className="display mt-2 text-[clamp(1.6rem,2.2vw,2rem)] group-hover:text-accent-warm">
-                          {project.title}
-                        </h3>
-                        <p className="mt-2 text-sm text-paper-on-night/60">{project.summary}</p>
-                        <p className="eyebrow mt-auto pt-4 text-paper-on-night/60">
-                          {project.stack.join(" · ")}
-                        </p>
-                      </div>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div
-            aria-hidden="true"
-            className="projects-fade-left pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-night to-transparent md:w-16"
-          />
-          <div
-            aria-hidden="true"
-            className="projects-fade-right pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-night to-transparent md:w-16"
-          />
         </div>
       </section>
 
@@ -313,6 +219,86 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* 06 — the illustrated parts list, pinned sideways */}
+      <section
+        id="chapter-06"
+        data-horizontal
+        data-horizontal-focus
+        className="h-section relative h-[220vh] bg-night text-paper-on-night md:h-[200vh]"
+      >
+        <div className="h-sticky sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-24 md:pt-[5.25rem]">
+          <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
+            <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-paper-on-night/20 pb-4">
+              <PartLabel code="C06" name="illustrated parts list" plain="My projects" tone="night" />
+
+              <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2">
+                <p className="eyebrow projects-hint text-paper-on-night/60">keep scrolling —</p>
+                <div className="projects-gauge" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <Link href="/projects" className="eyebrow hover:text-accent-warm">
+                  all projects
+                </Link>
+              </div>
+            </div>
+
+            <h2 className="display mt-4 max-w-[18ch] text-[clamp(2rem,4vw,3.5rem)] md:max-w-[26ch]">
+              Things I have made, with the notes still attached.
+            </h2>
+          </div>
+
+          <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
+            <div className="projects-viewport mt-5 md:mt-6">
+              <ul data-horizontal-track className="h-track projects-track flex gap-5">
+                {featuredProjects.map((project, index) => (
+                  <li key={project.slug} data-project-card className="projects-card">
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="group flex h-full flex-col border border-paper-on-night/20"
+                    >
+                      <Media
+                        image={project.cover}
+                        variant={project.status === "in-progress" ? "grid" : "field"}
+                        tone="night"
+                        className="aspect-[16/9] w-full"
+                        label="screenshot pending"
+                        sizes="(min-width: 768px) 40vw, 85vw"
+                        priority={index === firstProjectImage}
+                      />
+
+                      <div className="flex flex-1 flex-col p-4 md:p-5">
+                        <p className="eyebrow text-paper-on-night/60">
+                          {project.status}
+                          {project.year ? ` · ${project.year}` : ""}
+                        </p>
+                        <h3 className="display mt-2 text-[clamp(1.6rem,2.2vw,2rem)] group-hover:text-accent-warm">
+                          {project.title}
+                        </h3>
+                        <p className="mt-2 text-sm text-paper-on-night/60">{project.summary}</p>
+                        <p className="eyebrow mt-auto pt-4 text-paper-on-night/60">
+                          {project.stack.join(" · ")}
+                        </p>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div
+            aria-hidden="true"
+            className="projects-fade-left pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-night to-transparent md:w-16"
+          />
+          <div
+            aria-hidden="true"
+            className="projects-fade-right pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-night to-transparent md:w-16"
+          />
         </div>
       </section>
 
