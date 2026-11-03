@@ -3,8 +3,10 @@ import type { Metadata } from "next";
 import { FilmStrip } from "@/components/film-strip";
 import { LoopCounter } from "@/components/loop-counter";
 import { PageHeader } from "@/components/page-header";
+import { PhotoTray } from "@/components/photo-tray";
 import { UkuleleTuner } from "@/components/ukulele-tuner";
 import { journal } from "@/content/journal";
+import { photoMoments } from "@/content/photos";
 
 export const metadata: Metadata = {
   title: "Life lately",
@@ -32,7 +34,14 @@ export default function LifePage() {
             <h2 className="display text-[clamp(1.6rem,3vw,2.25rem)]">Film strip</h2>
             <p className="eyebrow text-ink-muted">Fig. 4-1 · recent frames</p>
           </div>
-          <FilmStrip entries={entries} />
+
+          <div className="hidden md:block">
+            <FilmStrip entries={entries} />
+          </div>
+
+          <div className="md:hidden">
+            <PhotoTray moments={photoMoments} entries={entries} />
+          </div>
         </div>
       </section>
 

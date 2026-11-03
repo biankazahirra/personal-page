@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AssemblyExtra } from "@/components/assembly-extra";
 import { ConsoleShell } from "@/components/console-shell";
 import { ExplodedHero } from "@/components/exploded-hero";
+import { FilmStrip } from "@/components/film-strip";
 import { LatelyStrip } from "@/components/lately-strip";
 import { Media } from "@/components/media";
 import { PartLabel } from "@/components/part-label";
@@ -258,7 +259,12 @@ export default function HomePage() {
             <PartLabel code="C04" name="inspection photos" plain="Personal moments" tone="night" />
           </div>
 
-          <PhotoTray moments={photoMoments} entries={journal} />
+          <div className="mt-6 hidden md:block">
+            <FilmStrip entries={journal} />
+          </div>
+          <div className="md:hidden">
+            <PhotoTray moments={photoMoments} entries={journal} />
+          </div>
         </div>
       </section>
 
