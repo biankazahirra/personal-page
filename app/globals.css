@@ -33,6 +33,7 @@
   --t-tab: 380ms;
   --t-hover: 180ms;
   --t-content-ready: 500ms;
+  --t-page-turn: 900ms;
   --ease-page: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
@@ -486,7 +487,7 @@ html[data-motion="reduce"] .h-track {
   pointer-events: none;
   transform-origin: bottom;
   background-color: var(--color-band);
-  animation: page-wipe var(--t-content-ready) var(--ease-editorial) forwards;
+  animation: page-wipe var(--t-page-turn) var(--ease-editorial) forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
