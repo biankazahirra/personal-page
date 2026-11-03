@@ -4,8 +4,9 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Dark panel that empties upwards on client-side navigation. Skipped on first
- * paint so a direct page load (and its LCP) is never covered.
+ * Dark panel that shrinks towards the bottom edge on client-side navigation,
+ * revealing the page from the top. Skipped on first paint so a direct page
+ * load (and its LCP) is never covered.
  */
 export function PageWipe() {
   const pathname = usePathname();

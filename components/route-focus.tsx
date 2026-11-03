@@ -1,9 +1,12 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 import { focusTarget, shouldMoveFocus } from "@/lib/route-memory";
+
+/** Layout effects warn during server render; use them only on the client. */
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /**
  * Client-side navigation keeps keyboard focus where the link was. Move it to
@@ -13,7 +16,7 @@ export function RouteFocus() {
   const pathname = usePathname();
   const previous = useRef<string | null>(null);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const heading = focusTarget(document);
     if (heading && shouldMoveFocus(previous.current, pathname)) {
       heading.focus({ preventScroll: true });
