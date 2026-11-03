@@ -47,11 +47,8 @@ export function ScrollMemory() {
     // Capture the outgoing offset in case the throttled scroll frame never ran.
     // The homepage never reads scroll:/ back; skip the write entirely.
     if (writePath.current !== "/") {
-      // A top-of-page offset clears the stored entry instead of leaving a stale one.
       if (window.scrollY >= 8) {
         writeStored(writePath.current, Math.round(window.scrollY));
-      } else {
-        writeStored(writePath.current, 0);
       }
     }
 
@@ -94,11 +91,8 @@ export function ScrollMemory() {
         // The homepage never reads scroll:/ back; skip the write entirely.
         if (writePath.current === "/") return;
         const offset = Math.round(window.scrollY);
-        // A top-of-page offset clears the stored entry instead of leaving a stale one.
         if (offset >= 8) {
           writeStored(writePath.current, offset);
-        } else {
-          writeStored(writePath.current, 0);
         }
       });
     };
