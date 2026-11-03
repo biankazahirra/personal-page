@@ -504,6 +504,10 @@ body > footer {
   html:not([data-motion="full"]) .page-wipe {
     display: none;
   }
+
+  .page-wipe {
+    animation: none !important;
+  }
 }
 
 html[data-motion="reduce"] .page-wipe {
@@ -661,6 +665,14 @@ html[data-vt="native"] .page-wipe {
   html:not([data-motion="full"]) .status-led,
   html:not([data-motion="full"]) .journey-lamp {
     animation: none;
+  }
+
+  .overlay-panel {
+    animation: none !important;
+  }
+
+  .journey-carriage {
+    transition: none !important;
   }
 }
 

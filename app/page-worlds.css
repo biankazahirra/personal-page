@@ -1378,6 +1378,14 @@ html:not([data-motion]) .photo-list {
     animation: none !important;
     transition: none !important;
   }
+
+  .projects-hint {
+    transition: none !important;
+  }
+
+  .projects-gauge > span {
+    transition: none !important;
+  }
 }
 
 html[data-motion="reduce"] .photo-layer {
