@@ -7,6 +7,7 @@ import { AssemblyTracker } from "@/components/assembly-tracker";
 import { EggLayerMount } from "@/components/egg-layer-mount";
 import { RouteAnnouncer } from "@/components/route-announcer";
 import { RouteFocus } from "@/components/route-focus";
+import { ScrollMemory } from "@/components/scroll-memory";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { PageWipe } from "@/components/page-wipe";
@@ -111,6 +112,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <PageWipe />
         <RouteAnnouncer />
         <RouteFocus />
+        <ScrollMemory />
         <HorizontalChapters />
         <RevealFallback />
         <main id="main" className="page-sheet">{children}</main>
