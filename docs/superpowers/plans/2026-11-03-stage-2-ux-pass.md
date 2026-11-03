@@ -54,7 +54,7 @@ Keep the existing `--ease-page` and the existing comment about retiming.
 
 - [ ] **Step 2: Retime `.page-wipe` from the token**
 
-Replace the hard-coded `640ms` with `var(--t-page-turn)`, and split the origin so the wipe leaves from the top edge:
+Replace the hard-coded `640ms` with `var(--t-page-turn)`. Leave the wipe's direction alone: it is already set by the `page-wipe` keyframes at `app/globals.css:466`.
 
 ```css
   animation: page-wipe var(--t-page-turn) var(--ease-editorial) forwards;
@@ -267,10 +267,11 @@ git commit -m "feat(nav): scope the page turn to the content sheet with a wipe f
 
 **Files:**
 - Modify: `app/globals.css` (new `::view-transition-*` block; reduced-motion guard)
+- Modify: `app/layout.tsx` (add the `page-stagger` class to `<main>`)
 
 **Interfaces:**
 - Consumes: `--t-content-ready`, `--t-page-turn`, `--ease-page` (Task 1); `view-transition-name: content` (Task 3).
-- Produces: `.page-stagger` class used by Task 5.
+- Produces: `.page-stagger` class applied once on `<main id="main">`.
 
 - [ ] **Step 1: Write the turn**
 
@@ -280,20 +281,27 @@ git commit -m "feat(nav): scope the page turn to the content sheet with a wipe f
 }
 
 ::view-transition-new(content) {
-  animation: sheet-in var(--t-page-turn) var(--ease-page) both;
+  animation:
+    sheet-fade var(--t-content-ready) var(--ease-page) both,
+    sheet-settle var(--t-page-turn) var(--ease-page) both;
 }
 
 @keyframes sheet-out {
   to { opacity: 0; transform: translateY(-8px) rotate(-0.4deg); }
 }
 
-@keyframes sheet-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
+@keyframes sheet-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sheet-settle {
+  from { transform: translateY(10px); }
+  to { transform: none; }
 }
 ```
 
-New content reaches full opacity at `--t-content-ready`; the remaining time is the decorative settle.
+The new sheet is fully opaque at `--t-content-ready`; only the transform keeps moving until `--t-page-turn`, so nothing readable waits on the decorative settle.
 
 - [ ] **Step 2: Add the stagger hook**
 
@@ -307,6 +315,8 @@ New content reaches full opacity at `--t-content-ready`; the remaining time is t
   to { opacity: 1; transform: none; }
 }
 ```
+
+Apply it once, as `className="page-sheet page-stagger"` on `<main id="main">` in `app/layout.tsx`. No per-child delay, so every staggered element is opaque inside the 500ms budget. Do not sweep the class across page components.
 
 - [ ] **Step 3: Guard reduced motion and script-free**
 
@@ -325,7 +335,7 @@ html[data-vt="native"] .page-wipe {
 
 - [ ] **Step 4: Verify visually at 1440 and 360, Day and Night**
 
-Capture the frame at ~200ms and ~1200ms after a click on a nav link; confirm the band, tab strip and footer are pixel-identical between the two frames, and that the heading is readable at 200ms.
+Capture the frame at ~200ms and ~1200ms after a click on a nav link; confirm the band, tab strip and footer are pixel-identical between the two frames, and that the heading is readable at 200ms. If the stagger fights the sheet transition (double movement, jank), delete the `.page-stagger` rule and its class and note the reason in your report.
 
 - [ ] **Step 5: Verify build**
 
@@ -335,7 +345,7 @@ Expected: all pass.
 - [ ] **Step 6: Commit**
 
 ```bash
-git add app/globals.css
+git add app/globals.css app/layout.tsx
 git commit -m "feat(motion): page-turn choreography with a content-ready first half"
 ```
 
@@ -404,9 +414,9 @@ git commit -m "feat(a11y): move focus to the new page heading after client navig
 
 Client component, no render output:
 
-- On mount and on `pathname` change: read `sessionStorage`, clamp to `document.documentElement.scrollHeight - innerHeight`, and if `shouldRestoreScroll(pathname)` and the offset is `> 0`, set `document.documentElement.dataset.restoring = "1"`, call `window.scrollTo(0, offset)`, then remove the attribute on the next frame.
+- On a `pathname` change only: read `sessionStorage`, clamp to `document.documentElement.scrollHeight - innerHeight`, and if `shouldRestoreScroll(pathname)` and the offset is `> 0`, set `document.documentElement.dataset.restoring = "1"`, call `window.scrollTo(0, offset)`, then remove the attribute on the next frame. A ref holds the first pathname so the first render never restores.
 - While not restoring: write `scrollY` through `requestAnimationFrame` on `scroll`, skipping writes below `8px`.
-- Never restore on first load.
+- First load never restores.
 
 - [ ] **Step 2: Kill the smooth-scroll fight**
 
@@ -452,7 +462,7 @@ git commit -m "feat(nav): remember scroll position per path"
 
 On a 390×844 touch profile, dispatch a vertical pointer drag starting inside each strip (`index-tabs`, `film-strip`, `socket-tabs`) and record `scrollY` before/after. A strip passes when the page scrolls.
 
-- [ ] **Step 2: Fix only the failures**
+- [ ] **Step 3: Fix only the failures**
 
 For each failing selector add:
 
@@ -463,16 +473,16 @@ For each failing selector add:
 
 No other strip changes.
 
-- [ ] **Step 3: Re-measure and record which strips needed the fix**
+- [ ] **Step 4: Re-measure and record which strips needed the fix**
 
 Repeat Step 2; every strip must now scroll the page. Note the list in the stage report.
 
-- [ ] **Step 4: Verify build**
+- [ ] **Step 5: Verify build**
 
 Run: `npx tsc --noEmit && npm run lint && npm test && npm run build`
 Expected: all pass.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
 git add app/globals.css app/page-worlds.css components/index-tabs.tsx
