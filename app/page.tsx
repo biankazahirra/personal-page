@@ -31,7 +31,7 @@ export default function HomePage() {
       <ExplodedHero />
 
       {/* 01.1 — the logbook console, optional */}
-      <section id="console" className="bg-paper">
+      <section id="console" className="bg-drawing">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-12 md:py-24">
           <div className="grid gap-8 md:grid-cols-12">
             <div className="md:col-span-4">
@@ -60,7 +60,7 @@ export default function HomePage() {
       </section>
 
       {/* 01.2 — the socket board, first stop after the hero */}
-      <section id="assembly-board" className="bg-paper-2/35">
+      <section id="assembly-board" className="bg-drawing">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-12 md:py-24">
           <div className="flex flex-wrap items-baseline justify-between gap-4 border-b-2 border-ink/70 pb-4">
             <PartLabel code="C01.2" name="assembly board" plain="Explore all sections" />
