@@ -1,0 +1,174 @@
+/* ============================================================
+   SECTION BACKDROPS
+   One definition per backdrop, shared by the homepage section and
+   the section own page so the two cannot drift.
+
+   Backdrop colours are variables with literal fallbacks, not the
+   existing --color-paper family: the bases in the brief are slightly
+   lighter than the current paper, and some section text is
+   hardcoded, so a remap of --color-paper alone would move the
+   text/background pair the wrong way.
+
+   Class selectors only (0,1,0), so utilities still win.
+   No images, no parallax, no background-attachment, no blend modes.
+   ============================================================ */
+
+:root {
+  --line-rgb: 43 38 32; /* pattern ink */
+
+  --bd-drawing: #efe6d0;
+  --bd-form: #f2ebd9;
+  --bd-sheet: #efe6d0;
+  --bd-ledger: #e9ddbe;
+  --bd-desk: #d8d0b9;
+  --bd-panel: #231f1a;
+  --bd-plate: #bdb7a7;
+
+  --bd-red-rgb: 184 58 34; /* margin rules on form and ledger */
+  --bd-hazard: #d9a441;
+}
+
+/* Night shift: warm dark paper, cream pattern ink, same structure. */
+html[data-shift="night"] {
+  --line-rgb: 239 230 208;
+
+  --bd-drawing: #1e1b17;
+  --bd-form: #211d18;
+  --bd-sheet: #1e1b17;
+  --bd-ledger: #231e17;
+  --bd-desk: #191612;
+  --bd-panel: #14110e;
+  --bd-plate: #2a2620;
+
+  --bd-red-rgb: 190 110 80;
+  --bd-hazard: #e3b45c;
+}
+
+/* --- index tab ----------------------------------------------------------- */
+
+/*
+ * Folder tab on the top-left edge of a section. Applied to the first
+ * <p> or <h2> of the section (never the <section>), positioned per page with
+ * top and left utilities, and pulled up so it hangs over the edge.
+ *
+ * The tab is taller than the eyebrow line it replaces. The negative bottom
+ * margin equals its own vertical padding plus border, so the row keeps the
+ * height it had and no section grows.
+ */
+.index-tab {
+  position: relative;
+  display: inline-block;
+  align-self: flex-start;
+  transform: translateY(-0.85rem);
+  margin-bottom: calc(-0.65rem - 1px);
+  border: 1px solid color-mix(in oklab, var(--color-ink) 55%, transparent);
+  border-bottom: 0;
+  border-radius: 3px 3px 0 0;
+  background-color: color-mix(in oklab, var(--color-paper-2) 92%, transparent);
+  padding: 0.3rem 0.7rem 0.35rem;
+  color: var(--color-ink);
+  box-shadow: 0 -1px 0 color-mix(in oklab, #ffffff 25%, transparent) inset;
+}
+
+.index-tab::before {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  transform: translateY(-50%);
+  border-radius: 9999px;
+  background-color: var(--color-accent);
+}
+
+/* Panel is the only dark section; its tab inverts. */
+.bg-panel .index-tab,
+.index-tab[data-tone="night"] {
+  border-color: color-mix(in oklab, var(--color-paper-on-night) 45%, transparent);
+  background-color: color-mix(in oklab, var(--color-night-soft) 92%, transparent);
+  color: var(--color-paper-on-night);
+  box-shadow: 0 -1px 0 color-mix(in oklab, #ffffff 8%, transparent) inset;
+}
+
+/* --- drawing: drafting paper (homepage hero) ----------------------------- */
+
+.bg-drawing {
+  position: relative;
+  background-color: var(--bd-drawing, #efe6d0);
+  background-image:
+    linear-gradient(rgb(var(--line-rgb) / 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--line-rgb) / 0.08) 1px, transparent 1px),
+    linear-gradient(rgb(var(--line-rgb) / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--line-rgb) / 0.035) 1px, transparent 1px);
+  background-size:
+    64px 64px,
+    64px 64px,
+    8px 8px,
+    8px 8px;
+}
+
+/*
+ * Registration marks: one 16px cross per corner, inset 22px. Each pseudo is a
+ * 16px tall strip holding the two corners on that edge; inside it, a vertical
+ * bar is full height and a horizontal bar is centred.
+ */
+.bg-drawing::before,
+.bg-drawing::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  height: 16px;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size:
+    1px 16px,
+    16px 1px,
+    1px 16px,
+    16px 1px;
+}
+
+.bg-drawing::before {
+  top: 22px;
+  background-image:
+    linear-gradient(rgb(var(--line-rgb) / 0.5), rgb(var(--line-rgb) / 0.5)),
+    linear-gradient(rgb(var(--line-rgb) / 0.5), rgb(var(--line-rgb) / 0.5)),
+    linear-gradient(rgb(var(--line-rgb) / 0.5), rgb(var(--line-rgb) / 0.5)),
+    linear-gradient(rgb(var(--line-rgb) / 0.5), rgb(var(--line-rgb) / 0.5));
+  background-position:
+    0 0,
+    0 7.5px,
+    100% 0,
+    100% 7.5px;
+}
+
+.bg-drawing::after {
+  bottom: 22px;
+  background-image:
+    linear-gradient(rgb(var(--line-rgb) / 0.5), rgb(var(--line-rgb) / 0.5)),
+    linear-gradient(rgb(var(--line-rgb) / 0.5), rgb(var(--line-rgb) / 0.5)),
+    linear-gradient(rgb(var(--line-rgb) / 0.5), rgb(var(--line-rgb) / 0.5)),
+    linear-gradient(rgb(var(--line-rgb) / 0.5), rgb(var(--line-rgb) / 0.5));
+  background-position:
+    0 0,
+    0 7.5px,
+    100% 0,
+    100% 7.5px;
+}
+
+@media (max-width: 767px) {
+  .bg-drawing {
+    background-size:
+      48px 48px,
+      48px 48px,
+      8px 8px,
+      8px 8px;
+  }
+
+  /* Registration marks dropped on mobile, as the mockup shows. */
+  .bg-drawing::before,
+  .bg-drawing::after {
+    display: none;
+  }
+}
