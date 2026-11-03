@@ -1,12 +1,9 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { clampScroll, readScroll, shouldRestoreScroll, writeScroll } from "@/lib/route-memory";
-
-/** Layout effects warn during server render; use them only on the client. */
-const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /** Safari private mode throws on storage; memory is optional, the page is not. */
 function readStored(pathname: string): number | null {
@@ -36,7 +33,8 @@ export function ScrollMemory() {
   const restoring = useRef(false);
   const restoreFrame = useRef(0);
 
-  useIsomorphicLayoutEffect(() => {
+  // Must stay a passive effect: Next.js resets the document scroll after layout effects run, which would discard the restore.
+  useEffect(() => {
     if (firstPath.current === null) {
       firstPath.current = pathname;
       writePath.current = pathname;
