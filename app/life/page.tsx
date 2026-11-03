@@ -19,7 +19,9 @@ export default function LifePage() {
   const loopCount = entries.find((entry) => typeof entry.loops === "number")?.loops;
 
   return (
-    <>
+    <div className="bg-desk relative">
+      <p className="eyebrow index-tab">C04 · Life</p>
+
       <PageHeader
         code="C04"
         name="life"
@@ -28,7 +30,7 @@ export default function LifePage() {
         lede="Songs, small moments, practice notes. Not a feed, not a highlight reel — just what happened."
       />
 
-      <section className="border-y border-ink/15 bg-paper-2/45">
+      <section className="border-y border-ink/15">
         <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-12 md:py-16">
           <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
             <h2 className="display text-[clamp(1.6rem,3vw,2.25rem)]">
@@ -56,6 +58,6 @@ export default function LifePage() {
           <UkuleleTuner />
         </div>
       </section>
-    </>
+    </div>
   );
 }

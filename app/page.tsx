@@ -161,17 +161,19 @@ export default function HomePage() {
       </section>
 
       {/* 04 — the inspection photos, a tray of moments */}
-      <section id="chapter-04" className="bg-night text-paper-on-night">
+      <section id="chapter-04" className="bg-desk relative">
+        <p className="eyebrow index-tab">C04 · Inspection photos</p>
+
         <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-12 md:py-28">
-          <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-paper-on-night/20 pb-4">
-            <PartLabel code="C04" name="inspection photos" plain="Personal moments" tone="night" />
+          <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-ink/20 pb-4">
+            <PartLabel code="C04" name="inspection photos" plain="Personal moments" />
           </div>
 
           <div className="mt-6 hidden md:block">
             <FilmStrip entries={journal} />
           </div>
           <div className="md:hidden">
-            <PhotoTray moments={photoMoments} entries={journal} />
+            <PhotoTray moments={photoMoments} entries={journal} tone="paper" />
           </div>
         </div>
       </section>

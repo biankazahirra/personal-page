@@ -215,3 +215,99 @@ html[data-shift="night"] {
       );
   }
 }
+
+/* --- desk: inspection desk (C04 photos, /life) ---------------------------- */
+
+/*
+ * A cutting mat: 120px major squares with 24px minor ones inside, plus a row
+ * of ruler ticks along the top edge.
+ *
+ * The mat is darker than the paper, so muted text on a major line drops to
+ * 3.94:1 in Day shift. Body text therefore never sits on the bare mat: the
+ * strip footer and the tray meta carry their own tint (see .bg-desk .desk-ink
+ * and the .bg-desk .photo-arrow overrides below). On the flat mat the same
+ * text measures 5.06:1 Day and 8.31:1 Night.
+ */
+.bg-desk {
+  position: relative;
+  background-color: var(--bd-desk, #d8d0b9);
+  background-image:
+    linear-gradient(rgb(var(--line-rgb) / 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--line-rgb) / 0.14) 1px, transparent 1px),
+    linear-gradient(rgb(var(--line-rgb) / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--line-rgb) / 0.06) 1px, transparent 1px);
+  background-size:
+    120px 120px,
+    120px 120px,
+    24px 24px,
+    24px 24px;
+}
+
+/*
+ * Ruler ticks along the top edge: 1px wide, 12px tall, every 12px. One strip
+ * is enough. A strip only 12px tall cannot hold a repeating vertical bar, so
+ * the strip carries a horizontal gradient instead and the bars fall out of it.
+ */
+.bg-desk::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgb(var(--line-rgb) / 0.35) 0 1px,
+    transparent 1px 12px
+  );
+}
+
+@media (max-width: 767px) {
+  .bg-desk {
+    background-size:
+      96px 96px,
+      96px 96px,
+      24px 24px,
+      24px 24px;
+  }
+}
+
+/*
+ * Text that would otherwise sit on the bare mat. The tray's arrow borders are
+ * drawn in cream, which vanishes on a light mat, so they switch to ink here.
+ */
+.bg-desk .photo-arrow {
+  border-color: color-mix(in oklab, var(--color-ink) 35%, transparent);
+}
+
+.bg-desk .photo-arrow:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/*
+ * Day shift only. Muted ink on an ink-dark major line measures 3.94:1, which
+ * fails AA, and no darker base rescues it. The major line is drawn in cream
+ * here instead, so muted ink reads 5.42:1 on it. The mat keeps its two-tier
+ * grid: on a light mat the cutting lines read as light grooves, not dark
+ * rules. Night keeps the ink line, which already measures 5.78:1.
+ */
+html:not([data-shift="night"]) .bg-desk {
+  background-image:
+    linear-gradient(rgb(239 230 208 / 0.45) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(239 230 208 / 0.45) 1px, transparent 1px),
+    linear-gradient(rgb(var(--line-rgb) / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--line-rgb) / 0.06) 1px, transparent 1px);
+}
+
+/*
+ * The mat is the darkest light surface in the set, so the Day accent drops to
+ * 3.72:1 on it, which fails AA for the 11px part codes. The accent-ink token
+ * measures 5.63:1 here and is the same red family, so the section re-points
+ * --color-accent instead of restyling each label. Night shift already reads
+ * 5.44:1 and is left alone.
+ */
+html:not([data-shift="night"]) .bg-desk {
+  --color-accent: var(--color-accent-ink);
+}
