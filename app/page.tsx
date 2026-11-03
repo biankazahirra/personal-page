@@ -94,7 +94,9 @@ export default function HomePage() {
       </section>
 
       {/* 02 — the person */}
-      <section id="chapter-02" className="bg-paper">
+      <section id="chapter-02" className="bg-form relative">
+        <p className="eyebrow index-tab">C02 · Specifications</p>
+
         <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
           <div className="max-w-[52rem]">
             <PartLabel code="C02" name="specifications" plain="About me" />

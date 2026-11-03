@@ -108,7 +108,9 @@ const revisions = timeline
 
 export default function AboutPage() {
   return (
-    <>
+    <div className="bg-form relative">
+      <p className="eyebrow index-tab">C02 · About</p>
+
       <PageHeader
         code="C02"
         name="about"
@@ -326,6 +328,6 @@ export default function AboutPage() {
           </Link>
         </div>
       </section>
-    </>
+    </div>
   );
 }

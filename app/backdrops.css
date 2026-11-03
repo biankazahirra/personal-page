@@ -47,27 +47,26 @@ html[data-shift="night"] {
 /* --- index tab ----------------------------------------------------------- */
 
 /*
- * Folder tab on the top-left edge of a section. Applied to the first
- * <p> or <h2> of the section (never the <section>), positioned per page with
- * top and left utilities, and pulled up so it hangs over the edge.
+ * Folder tab, pinned to the top-left edge of a section like the tab on a
+ * folder. It sits outside the flow, so it never changes a row height and no
+ * section grows. The section must be `relative`; every backdrop class sets it.
  *
- * The tab is taller than the eyebrow line it replaces. The negative bottom
- * margin equals its own vertical padding plus border, so the row keeps the
- * height it had and no section grows.
+ * Apply it as a direct child of the section, before the content wrapper. Pages
+ * that need it elsewhere set `top`/`left` with utilities.
  */
 .index-tab {
-  position: relative;
-  display: inline-block;
-  align-self: flex-start;
-  transform: translateY(-0.85rem);
-  margin-bottom: calc(-0.65rem - 1px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  margin: 0;
   border: 1px solid color-mix(in oklab, var(--color-ink) 55%, transparent);
-  border-bottom: 0;
-  border-radius: 3px 3px 0 0;
+  border-top: 0;
+  border-radius: 0 0 3px 0;
   background-color: color-mix(in oklab, var(--color-paper-2) 92%, transparent);
-  padding: 0.3rem 0.7rem 0.35rem;
+  padding: 0.3rem 0.7rem 0.35rem 1.15rem;
   color: var(--color-ink);
-  box-shadow: 0 -1px 0 color-mix(in oklab, #ffffff 25%, transparent) inset;
+  box-shadow: 0 1px 0 color-mix(in oklab, #ffffff 25%, transparent) inset;
 }
 
 .index-tab::before {
@@ -81,7 +80,6 @@ html[data-shift="night"] {
   border-radius: 9999px;
   background-color: var(--color-accent);
 }
-
 /* Panel is the only dark section; its tab inverts. */
 .bg-panel .index-tab,
 .index-tab[data-tone="night"] {
@@ -170,5 +168,50 @@ html[data-shift="night"] {
   .bg-drawing::before,
   .bg-drawing::after {
     display: none;
+  }
+}
+
+/* --- form: printed form (C02 about, /about) ------------------------------ */
+
+/*
+ * Horizontal rules at a 32px pitch, plus one red margin rule near the left
+ * edge. A pre-printed form, not a ruled page: the rules run edge to edge and
+ * stop for nothing.
+ *
+ * The red rule sits at 16px, inside the 24px page padding, so it never passes
+ * behind body text. Over a glyph the muted ink would fall to 2.8:1; outside the
+ * text column the rule is just a margin, and no text meets it.
+ */
+.bg-form {
+  position: relative;
+  background-color: var(--bd-form, #f2ebd9);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 31px,
+      rgb(var(--line-rgb) / 0.12) 31px 32px
+    ),
+    linear-gradient(
+      90deg,
+      transparent 15px,
+      rgb(var(--bd-red-rgb) / 0.55) 15px 16px,
+      transparent 16px
+    );
+}
+
+@media (max-width: 767px) {
+  .bg-form {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent 0 27px,
+        rgb(var(--line-rgb) / 0.12) 27px 28px
+      ),
+      linear-gradient(
+        90deg,
+        transparent 11px,
+        rgb(var(--bd-red-rgb) / 0.55) 11px 12px,
+        transparent 12px
+      );
   }
 }
