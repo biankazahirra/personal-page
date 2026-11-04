@@ -16,7 +16,9 @@ export default function FilmsPage() {
   );
 
   return (
-    <>
+    <div className="bg-panel relative">
+      <p className="eyebrow index-tab">C05 · Films</p>
+
       <PageHeader
         code="C05"
         name="films"
@@ -58,6 +60,6 @@ export default function FilmsPage() {
           stays dark until there is a note worth putting behind it.
         </p>
       </section>
-    </>
+    </div>
   );
 }

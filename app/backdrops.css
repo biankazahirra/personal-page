@@ -223,10 +223,9 @@ html[data-shift="night"] {
  * of ruler ticks along the top edge.
  *
  * The mat is darker than the paper, so muted text on a major line drops to
- * 3.94:1 in Day shift. Body text therefore never sits on the bare mat: the
- * strip footer and the tray meta carry their own tint (see .bg-desk .desk-ink
- * and the .bg-desk .photo-arrow overrides below). On the flat mat the same
- * text measures 5.06:1 Day and 8.31:1 Night.
+ * 3.94:1 in Day shift. Body text therefore never sits on a dark major line:
+ * the line is drawn in cream for Day (see the last block below). On the flat
+ * mat muted text measures 5.06:1 Day and 8.31:1 Night.
  */
 .bg-desk {
   position: relative;
@@ -310,4 +309,55 @@ html:not([data-shift="night"]) .bg-desk {
  */
 html:not([data-shift="night"]) .bg-desk {
   --color-accent: var(--color-accent-ink);
+}
+
+/* --- panel: indicator panel (C05 films, /films) -------------------------- */
+
+/*
+ * Pegboard, not paper: 26px holes at 16% cream, and a rivet in each corner.
+ * This is the one section the brief keeps dark in both shifts, so it is the
+ * only backdrop whose markup does not change colour with the shift.
+ *
+ * Everything inside inherits the token block below, so the lamp markup and the
+ * section copy keep their existing utility classes and still come out cream on
+ * dark. --color-paper is re-derived from the panel itself instead of being
+ * pinned to a literal, so the inset lamp note stays a shade darker than the
+ * board in both shifts.
+ *
+ * Contrast on the grain-adjusted board: cream 10.11:1, muted 5.79:1 Day and
+ * 6.92:1 Night. The Day accent only reaches 3.79:1 there, so it is re-pointed
+ * to --color-accent-warm (6.55:1), the token the site already uses for accents
+ * on dark surfaces.
+ */
+.bg-panel {
+  position: relative;
+  background-color: var(--bd-panel, #231f1a);
+  /* Four rivets, one per corner at 16px, then the repeating pegboard. Drawn as
+     background layers so they can never paint over text near an edge. */
+  background-image:
+    radial-gradient(circle, #8a8478 0 2.5px, #4a453d 2.5px 4.5px, transparent 4.5px),
+    radial-gradient(circle, #8a8478 0 2.5px, #4a453d 2.5px 4.5px, transparent 4.5px),
+    radial-gradient(circle, #8a8478 0 2.5px, #4a453d 2.5px 4.5px, transparent 4.5px),
+    radial-gradient(circle, #8a8478 0 2.5px, #4a453d 2.5px 4.5px, transparent 4.5px),
+    radial-gradient(circle, rgb(239 230 208 / 0.16) 2px, transparent 2.6px);
+  background-size:
+    9px 9px,
+    9px 9px,
+    9px 9px,
+    9px 9px,
+    26px 26px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-position:
+    16px 16px,
+    calc(100% - 16px) 16px,
+    16px calc(100% - 16px),
+    calc(100% - 16px) calc(100% - 16px),
+    0 0;
+
+  color: var(--color-ink);
+  --color-ink: var(--color-paper-on-night);
+  --color-ink-muted: #b9af9c;
+  --color-paper: color-mix(in oklab, var(--bd-panel, #231f1a) 88%, #000000);
+  --color-paper-2: #322d25;
+  --color-accent: var(--color-accent-warm);
 }

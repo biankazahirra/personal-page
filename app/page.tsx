@@ -179,7 +179,9 @@ export default function HomePage() {
       </section>
 
       {/* 05 — the indicator panel */}
-      <section id="chapter-05" className="bg-paper">
+      <section id="chapter-05" className="bg-panel relative">
+        <p className="eyebrow index-tab">C05 · Indicator panel</p>
+
         <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-12 md:py-24">
           <div className="grid gap-8 md:grid-cols-12">
             <div className="md:col-span-3">
