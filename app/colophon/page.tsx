@@ -16,7 +16,9 @@ export const metadata: Metadata = {
 
 export default function ColophonPage() {
   return (
-    <>
+    <div className="bg-plate relative">
+      <p className="eyebrow index-tab">9.0 · Colophon</p>
+
       <PageHeader
         code="9.0"
         name="end matter"
@@ -179,6 +181,6 @@ export default function ColophonPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

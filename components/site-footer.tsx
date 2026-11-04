@@ -11,7 +11,10 @@ export function SiteFooter() {
   const available = site.links.filter((link) => link.href);
 
   return (
-    <footer id="contact" className="mt-24 border-t-2 border-ink/70 md:mt-32">
+    <footer
+      id="contact"
+      className="bg-plate plate-rivets mt-24 border-t-2 border-ink/70 md:mt-32"
+    >
       <div className="hazard h-2.5" aria-hidden="true" />
 
       <div className="mx-auto max-w-[1440px] px-6 py-14 md:px-12 md:py-20">
