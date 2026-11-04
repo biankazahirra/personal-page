@@ -24,7 +24,7 @@ export default function FilmsPage() {
         name="films"
         plain="Films I've watched"
         title="Watched, then thought about."
-        lede="Four favourites to start with. A rating or a line appears only when there is something real to say."
+        lede="Four favourites to start with. A rating or a line appears only when there is something real to say (there's absolutely something to say)."
       />
 
       <section className="mx-auto max-w-[1440px] px-6 pb-24 md:px-12">
