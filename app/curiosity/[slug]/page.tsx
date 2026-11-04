@@ -38,74 +38,78 @@ export default async function NotePage({ params }: Params) {
   if (!note) notFound();
 
   return (
-    <article className="mx-auto max-w-[1440px] px-6 pb-24 pt-32 md:px-12 md:pt-44">
-      <Link
-        href="/curiosity"
-        className="eyebrow inline-flex items-center gap-3 text-ink-muted hover:text-accent"
-      >
-        <span className="node-label text-accent">C03</span>
-        all notes
-      </Link>
+    <div className="bg-ledger relative">
+      <p className="eyebrow index-tab">C03 · {note.title}</p>
 
-      <header className="mt-10 max-w-[24ch]">
-        <p className="eyebrow flex flex-wrap items-center gap-x-2 gap-y-1 text-ink-muted">
-          <span>{note.category}</span>
-          {note.date ? <span>· {formatDate(note.date)}</span> : null}
-          {note.placeholder ? <span>· sample</span> : null}
-          {note.status ? (
-            <span className="inline-flex items-center gap-1.5">
-              <span aria-hidden="true">·</span>
-              <span aria-hidden="true" className="status-led" data-status={note.status} />
-              {logStatus[note.status]}
-            </span>
-          ) : null}
-        </p>
-        <h1 tabIndex={-1} className="display mt-4 text-[clamp(2.5rem,7vw,5rem)]">
-          {note.title}
-        </h1>
-      </header>
+      <article className="mx-auto max-w-[1440px] px-6 pb-24 pt-32 md:px-12 md:pt-44">
+        <Link
+          href="/curiosity"
+          className="eyebrow inline-flex items-center gap-3 text-ink-muted hover:text-accent"
+        >
+          <span className="node-label text-accent">C03</span>
+          all notes
+        </Link>
 
-      <div className="mt-14 grid gap-10 md:grid-cols-12 md:gap-8">
-        <div className="md:col-span-4">
-          <Media
-            image={note.cover}
-            variant="waves"
-            label="image pending"
-            className="aspect-[4/5] w-full"
-            sizes="(min-width: 768px) 33vw, 100vw"
-          />
-        </div>
-
-        <div className="reading md:col-span-7 md:col-start-6">
-          <p className="text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-ink">
-            {note.excerpt}
+        <header className="mt-10 max-w-[24ch]">
+          <p className="eyebrow flex flex-wrap items-center gap-x-2 gap-y-1 text-ink-muted">
+            <span>{note.category}</span>
+            {note.date ? <span>· {formatDate(note.date)}</span> : null}
+            {note.placeholder ? <span>· sample</span> : null}
+            {note.status ? (
+              <span className="inline-flex items-center gap-1.5">
+                <span aria-hidden="true">·</span>
+                <span aria-hidden="true" className="status-led" data-status={note.status} />
+                {logStatus[note.status]}
+              </span>
+            ) : null}
           </p>
-          {note.body?.map((paragraph) => (
-            <p key={paragraph} className="text-ink-muted">
-              {paragraph}
-            </p>
-          ))}
+          <h1 tabIndex={-1} className="display mt-4 text-[clamp(2.5rem,7vw,5rem)]">
+            {note.title}
+          </h1>
+        </header>
 
-          <dl className="log-findings mt-8 border-t border-ink/20 pt-4">
-            <div>
-              <dt className="eyebrow text-ink-muted">fault code</dt>
-              <dd>{note.faultCode ?? "[ not logged ]"}</dd>
-            </div>
-            <div>
-              <dt className="eyebrow text-ink-muted">root cause</dt>
-              <dd className={note.rootCause ? "" : "text-ink-muted"}>
-                {note.rootCause ?? "[ not recorded — still being worked out ]"}
-              </dd>
-            </div>
-            <div>
-              <dt className="eyebrow text-ink-muted">fix</dt>
-              <dd className={note.fix ? "" : "text-ink-muted"}>
-                {note.fix ?? "[ no fix recorded ]"}
-              </dd>
-            </div>
-          </dl>
+        <div className="mt-14 grid gap-10 md:grid-cols-12 md:gap-8">
+          <div className="md:col-span-4">
+            <Media
+              image={note.cover}
+              variant="waves"
+              label="image pending"
+              className="aspect-[4/5] w-full"
+              sizes="(min-width: 768px) 33vw, 100vw"
+            />
+          </div>
+
+          <div className="reading md:col-span-7 md:col-start-6">
+            <p className="text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-ink">
+              {note.excerpt}
+            </p>
+            {note.body?.map((paragraph) => (
+              <p key={paragraph} className="text-ink-muted">
+                {paragraph}
+              </p>
+            ))}
+
+            <dl className="log-findings mt-8 border-t border-ink/20 pt-4">
+              <div>
+                <dt className="eyebrow text-ink-muted">fault code</dt>
+                <dd>{note.faultCode ?? "[ not logged ]"}</dd>
+              </div>
+              <div>
+                <dt className="eyebrow text-ink-muted">root cause</dt>
+                <dd className={note.rootCause ? "" : "text-ink-muted"}>
+                  {note.rootCause ?? "[ not recorded — still being worked out ]"}
+                </dd>
+              </div>
+              <div>
+                <dt className="eyebrow text-ink-muted">fix</dt>
+                <dd className={note.fix ? "" : "text-ink-muted"}>
+                  {note.fix ?? "[ no fix recorded ]"}
+                </dd>
+              </div>
+            </dl>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </div>
   );
 }

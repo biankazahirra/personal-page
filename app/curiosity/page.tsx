@@ -12,7 +12,9 @@ export const metadata: Metadata = {
 
 export default function CuriosityPage() {
   return (
-    <>
+    <div className="bg-ledger relative">
+      <p className="eyebrow index-tab">C03 · Curiosity</p>
+
       <PageHeader
         code="C03"
         name="curiosity"
@@ -24,6 +26,6 @@ export default function CuriosityPage() {
       <section className="mx-auto max-w-[1440px] px-6 pb-24 md:px-12">
         <Logbook notes={notes} />
       </section>
-    </>
+    </div>
   );
 }

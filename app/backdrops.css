@@ -562,3 +562,87 @@ html[data-shift="night"] .bg-plate {
     16px calc(100% - 22px),
     calc(100% - 24px) calc(100% - 22px);
 }
+
+/* --- ledger: maintenance logbook (C03 curiosity, /curiosity) -------------- */
+
+/*
+ * 36px rules at 13% ink on yellowed stock, a double red margin rule, and three
+ * binder holes down the left edge.
+ *
+ * The brief puts the double rule at 120/124px. The text column starts at 48px,
+ * so a rule there runs behind the first words of every line; it is drawn in the
+ * page padding instead, right of the holes and clear of the text, the same move
+ * the form rule makes. For the same reason the rule is dropped under 768px:
+ * 24px of padding cannot hold a hole and a rule without the rule touching text.
+ *
+ * Day accent on this stock measures 4.24:1, under AA for the 11px part codes
+ * and the log counts, so the section re-points --color-accent to the accent-ink
+ * token (6.41:1), as the mat and the plate do. Night reads 4.99:1 and is left
+ * alone. Muted ink measures 5.77:1 on the flat stock, 4.55:1 where a rule
+ * crosses it.
+ */
+.bg-ledger {
+  position: relative;
+  background-color: var(--bd-ledger, #e9ddbe);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 35px,
+      rgb(var(--line-rgb) / 0.13) 35px 36px
+    ),
+    linear-gradient(
+      90deg,
+      transparent 35px,
+      rgb(var(--bd-red-rgb) / 0.6) 35px 36px,
+      transparent 36px 39px,
+      rgb(var(--bd-red-rgb) / 0.6) 39px 40px,
+      transparent 40px
+    );
+}
+
+html:not([data-shift="night"]) .bg-ledger {
+  --color-accent: var(--color-accent-ink);
+}
+
+/*
+ * Three punched holes, one per third of the element, so the count holds whether
+ * this is the homepage section or a full page. The rim lifts them off the
+ * stock. Night inverts the fill, because a cream disc reads as a rivet.
+ */
+.bg-ledger::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 26px;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle,
+    rgb(var(--line-rgb) / 0.5) 0 4.4px,
+    rgb(255 255 255 / 0.3) 4.4px 6px,
+    rgb(var(--line-rgb) / 0.15) 6px 7.4px,
+    transparent 8px
+  );
+  background-repeat: repeat-y;
+  background-size: 26px 33.3333%;
+}
+
+html[data-shift="night"] .bg-ledger::before {
+  background-image: radial-gradient(
+    circle,
+    rgb(12 10 8 / 0.5) 0 4.4px,
+    rgb(var(--line-rgb) / 0.22) 4.4px 6px,
+    transparent 6.6px
+  );
+}
+
+@media (max-width: 767px) {
+  .bg-ledger {
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent 0 31px,
+      rgb(var(--line-rgb) / 0.13) 31px 32px
+    );
+  }
+}

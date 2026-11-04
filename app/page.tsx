@@ -115,7 +115,9 @@ export default function HomePage() {
       </section>
 
       {/* 03 — the maintenance logbook */}
-      <section id="chapter-03" className="relative overflow-hidden bg-paper">
+      <section id="chapter-03" className="relative overflow-hidden bg-ledger">
+        <p className="eyebrow index-tab">C03 · Maintenance logbook</p>
+
         <div className="relative mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
           <div className="grid gap-8 md:grid-cols-12">
             <div className="md:col-span-3">
