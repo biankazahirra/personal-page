@@ -58,15 +58,15 @@ export const journal: JournalEntry[] = [
     ],
     placeholder: true,
   },
-  {
-    slug: "sample-where-this-goes",
-    title: "Where this is going",
-    date: "2026-09-15",
-    kind: "update",
-    excerpt:
-      "Sample entry for the first honest post: why this page exists and what it is not.",
-    placeholder: true,
-  },
+  // {
+  //   slug: "sample-where-this-goes",
+  //   title: "Where this is going",
+  //   date: "2026-09-15",
+  //   kind: "update",
+  //   excerpt:
+  //     "Sample entry for the first honest post: why this page exists and what it is not.",
+  //   placeholder: true,
+  // },
 ];
 
 export const kindLabels: Record<JournalEntry["kind"], string> = {

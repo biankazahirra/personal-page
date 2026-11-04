@@ -9,9 +9,9 @@ export const site: Site = {
     "Most of what lives here is unfinished on purpose: notes on AI agents, films I keep turning over, songs on repeat, a ukulele I am still slow at.",
   ],
   heroLine:
-    "A little bit of everything, master of... some.",
+    "Currently under construction. Mentally and professionally.",
   aboutPreview:
-    "I keep forms and records in order for a living. The ukulele keeps me humble after hours.",
+    "A little bit of everything, master of... some.",
   email: "biankaazahirra@gmail.com",
   portrait: {
     src: "/images/portraits/portrait.jpg",
