@@ -18,7 +18,7 @@
 
   --bd-drawing: #efe6d0;
   --bd-factory: #cfcbc0;
-  --bd-concrete: #c2beb3;
+  --bd-sheet: #efe6d0;
   --bd-ledger: #e9ddbe;
   --bd-desk: #d8d0b9;
   --bd-panel: #231f1a;
@@ -35,7 +35,7 @@ html[data-shift="night"] {
 
   --bd-drawing: #1e1b17;
   --bd-factory: #2a2926;
-  --bd-concrete: #2a2926;
+  --bd-sheet: #1e1b17;
   --bd-ledger: #231e17;
   --bd-desk: #191612;
   --bd-panel: #14110e;
@@ -433,161 +433,35 @@ html:not([data-shift="night"]) .bg-desk {
   --color-accent: var(--color-accent-warm);
 }
 
-/* --- concrete: poured concrete floor (C06 projects, /projects, detail) ---- */
+/* --- sheet: engineering drawing sheet (C06 projects, /projects, detail) --- */
 
 /*
- * Poured concrete: soft mottling, formwork tie holes, panel joints and a fine
- * grain. It replaces the flat drawing-sheet base the section carried before; the
- * frame, zone marks and title block stay.
+ * A drawing sheet: a 16px layout grid at 5%, a ruled frame, zone marks along
+ * the top and left edges, and a title block.
  *
- * Colour and texture are separate classes because the two surfaces behave
- * differently. On the two project pages the concrete is in normal flow, so the
- * texture scrolls with the page. On the homepage C06 is a 220vh pinned strip: a
- * texture drawn on the section slides under the pinned content, which reads as
- * the floor moving while the cards stay put. The texture therefore goes on the
- * 100svh sticky child, where it holds still for the whole pin.
+ * Colour and grid are separate classes because the two surfaces behave
+ * differently. On the two project pages the sheet is in normal flow, so grid and
+ * frame scroll with the page. On the homepage C06 is a 220vh pinned strip: a
+ * grid drawn on the section slides under the pinned content, which reads as the
+ * paper moving while the cards stay put. The grid therefore goes on the 100svh
+ * sticky child, where it holds still for the whole pin, and the frame follows it
+ * for the same reason.
  *
- * Concrete is a mid tone, so the base needs the same re-pointing the plate
- * needed. On the flat floor Day accent measures 3.09:1 and Night 4.39:1, both
- * under AA for the 11px part codes and stamps; --color-accent-ink measures
- * 4.67:1 in Day and 5.70:1 at night. Day muted ink measures 4.19:1 and moves to
- * #423a31 (6.01:1); Night muted ink already reads 6.70:1 and is left alone.
- * Where two dark grain dots overlap, or a dot lands on a joint line, Day muted
- * ink falls to about 3.8:1: the same pixel-level exception the other speckled
- * bases carry. Body text uses --color-ink, which clears AA on every layer.
+ * .sheet-frame is applied to a positioned element. Its border is the frame,
+ * its two pseudos are the zone marks, and the title block is a child span
+ * because there are only two pseudos and three pieces to place.
  */
-.bg-concrete {
-  --color-accent: var(--color-accent-ink);
-
+.bg-sheet {
   position: relative;
-  background-color: var(--bd-concrete, #c2beb3);
+  background-color: var(--bd-sheet, #efe6d0);
 }
 
-html:not([data-shift="night"]) .bg-concrete {
-  --color-ink-muted: #423a31;
-}
-
-/*
- * Ten fixed-size tiles: four mottling ellipses over 960x640 (two panels by
- * two), one tie hole per 480x320 panel, one joint on each axis of the same
- * grid with its highlight inside the panel, then three grain layers. The tile
- * sizes are fixed and few, so a long page like /projects stays cheap.
- */
-.concrete-face {
+.sheet-grid {
   background-image:
-    /* mottling */
-    radial-gradient(
-      ellipse 300px 170px at 16% 28%,
-      rgb(var(--line-rgb) / 0.1),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 380px 200px at 70% 68%,
-      rgb(255 255 255 / 0.2),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 240px 150px at 92% 18%,
-      rgb(var(--line-rgb) / 0.08),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 280px 180px at 38% 88%,
-      rgb(var(--line-rgb) / 0.07),
-      transparent 70%
-    ),
-    /* formwork tie hole, one per panel */
-    radial-gradient(
-      circle,
-      rgb(var(--line-rgb) / 0.38) 0 3px,
-      rgb(255 255 255 / 0.35) 3px 4.5px,
-      transparent 5px
-    ),
-    /* panel joints: vertical, then horizontal */
-    linear-gradient(
-      90deg,
-      rgb(var(--line-rgb) / 0.26) 0 2px,
-      rgb(255 255 255 / 0.28) 2px 3px,
-      transparent 3px
-    ),
-    linear-gradient(
-      rgb(var(--line-rgb) / 0.26) 0 2px,
-      rgb(255 255 255 / 0.28) 2px 3px,
-      transparent 3px
-    ),
-    /* grain */
-    radial-gradient(circle, rgb(var(--line-rgb) / 0.16) 1px, transparent 1.5px),
-    radial-gradient(circle, rgb(255 255 255 / 0.3) 1px, transparent 1.5px),
-    radial-gradient(circle, rgb(var(--line-rgb) / 0.1) 0.8px, transparent 1.3px);
-
-  background-size:
-    960px 640px, 960px 640px, 960px 640px, 960px 640px,
-    480px 320px, 480px 100%, 100% 320px,
-    13px 13px, 19px 19px, 29px 29px;
-
-  background-position:
-    0 0, 0 0, 0 0, 0 0,
-    0 0, 0 0, 0 0,
-    0 0, 7px 5px, 11px 17px;
+    linear-gradient(rgb(var(--line-rgb) / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--line-rgb) / 0.05) 1px, transparent 1px);
+  background-size: 16px 16px;
 }
-
-/*
- * Night: the same ten layers in black, cream and one dim highlight. The three
- * dark mottling ellipses keep their relative weights, roughly doubled, so the
- * pattern still reads at the darker base.
- */
-html[data-shift="night"] .concrete-face {
-  background-image:
-    radial-gradient(
-      ellipse 300px 170px at 16% 28%,
-      rgb(0 0 0 / 0.2),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 380px 200px at 70% 68%,
-      rgb(255 255 255 / 0.05),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 240px 150px at 92% 18%,
-      rgb(0 0 0 / 0.16),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 280px 180px at 38% 88%,
-      rgb(0 0 0 / 0.14),
-      transparent 70%
-    ),
-    radial-gradient(
-      circle,
-      rgb(0 0 0 / 0.55) 0 3px,
-      rgb(255 255 255 / 0.1) 3px 4.5px,
-      transparent 5px
-    ),
-    linear-gradient(
-      90deg,
-      rgb(0 0 0 / 0.45) 0 2px,
-      rgb(255 255 255 / 0.08) 2px 3px,
-      transparent 3px
-    ),
-    linear-gradient(
-      rgb(0 0 0 / 0.45) 0 2px,
-      rgb(255 255 255 / 0.08) 2px 3px,
-      transparent 3px
-    ),
-    radial-gradient(circle, rgb(0 0 0 / 0.28) 1px, transparent 1.5px),
-    radial-gradient(circle, rgb(var(--line-rgb) / 0.08) 1px, transparent 1.5px),
-    radial-gradient(circle, rgb(0 0 0 / 0.18) 0.8px, transparent 1.3px);
-}
-
-/* --- sheet furniture: frame, zone marks, title block (C06) --------------- */
-
-/*
- * The frame is applied to a positioned element. Its border is the frame, its two
- * pseudos are the zone marks, and the title block is a child span because there
- * are only two pseudos and three pieces to place. It follows the texture: on the
- * pinned homepage strip it sits inside the sticky child, so it holds still too.
- */
 
 
 .sheet-frame {
@@ -632,7 +506,7 @@ html[data-shift="night"] .concrete-face {
   right: 6px;
   bottom: 5px;
   border: 1px solid rgb(var(--line-rgb) / 0.32);
-  background-color: var(--bd-concrete, #c2beb3);
+  background-color: var(--bd-sheet, #efe6d0);
   padding: 1px 6px;
   font-family: var(--font-mono);
   font-size: 9px;
@@ -641,8 +515,8 @@ html[data-shift="night"] .concrete-face {
   color: rgb(var(--line-rgb) / 0.7);
 }
 
-/* The gauge dots are accent-warm by default, which disappears on this floor. */
-.bg-concrete .projects-gauge > span {
+/* The gauge dots are accent-warm by default, which disappears on this sheet. */
+.bg-sheet .projects-gauge > span {
   background-color: var(--color-accent);
 }
 
@@ -671,19 +545,6 @@ html[data-shift="night"] .sheet-stock {
 }
 
 @media (max-width: 767px) {
-  /*
-   * Calmer and lighter: the vertical joint tile narrows to 320px, and the
-   * horizontal joint and the tie hole are switched off by giving them a zero
-   * size. Keeping them in the list keeps every index and every other tile
-   * aligned across both shifts, with one declaration each.
-   */
-  .concrete-face {
-    background-size:
-      960px 640px, 960px 640px, 960px 640px, 960px 640px,
-      0 0, 320px 100%, 0 0,
-      13px 13px, 19px 19px, 29px 29px;
-  }
-
   /* Zone marks dropped on mobile; the frame stays as a single hairline. */
   .sheet-frame {
     inset: 6px;
