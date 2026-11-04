@@ -280,7 +280,7 @@ export default function HomePage() {
                         priority={index === firstProjectImage}
                       />
 
-                      <div className="flex flex-1 flex-col bg-paper/85 p-4 md:p-5">
+                      <div className="sheet-stock flex flex-1 flex-col bg-paper/85 p-4 md:p-5">
                         <p className="eyebrow text-ink-muted">
                           {project.status}
                           {project.year ? ` · ${project.year}` : ""}
