@@ -524,15 +524,16 @@ html:not([data-shift="night"]) .bg-desk {
  * The project cards read as paper stock laid on the sheet. The rect paints ink
  * and the turbulence drives its alpha, so only the denser flecks show: the card
  * keeps its cream value instead of greying out the way a plain noise box does.
+ * The -0.72 cutoff is the thinner fleck the cards carried before 727ef20.
  */
 .sheet-stock {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.17 0 0 0 0 0.15 0 0 0 0 0.12 1 0 0 0 -0.45'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23p)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.17 0 0 0 0 0.15 0 0 0 0 0.12 1 0 0 0 -0.72'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23p)'/%3E%3C/svg%3E");
   background-size: 160px 160px;
 }
 
 /* Night: the same fleck recipe in paper light, so the stock still reads. */
 html[data-shift="night"] .sheet-stock {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.937 0 0 0 0 0.902 0 0 0 0 0.816 1 0 0 0 -0.45'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23p)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.937 0 0 0 0 0.902 0 0 0 0 0.816 1 0 0 0 -0.72'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23p)'/%3E%3C/svg%3E");
 }
 
 /*
