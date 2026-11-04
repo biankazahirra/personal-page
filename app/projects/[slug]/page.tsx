@@ -50,7 +50,13 @@ export default async function ProjectPage({ params }: Params) {
   if (!project) notFound();
 
   return (
-    <article className="mx-auto max-w-[1440px] px-6 pb-24 pt-32 md:px-12 md:pt-44">
+    <div className="bg-sheet relative">
+      <p className="eyebrow index-tab">C06 · {project.title}</p>
+      <div className="sheet-frame" aria-hidden="true">
+        <span className="sheet-title">BZ-2026 · SHEET 6/6</span>
+      </div>
+
+      <article className="mx-auto max-w-[1440px] px-6 pb-24 pt-32 md:px-12 md:pt-44">
       <Link
         href="/projects"
         className="eyebrow inline-flex items-center gap-3 text-ink-muted hover:text-accent"
@@ -143,5 +149,6 @@ export default async function ProjectPage({ params }: Params) {
         </ol>
       </div>
     </article>
+    </div>
   );
 }

@@ -12,7 +12,12 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <>
+    <div className="bg-sheet relative">
+      <p className="eyebrow index-tab">C06 · Projects</p>
+      <div className="sheet-frame" aria-hidden="true">
+        <span className="sheet-title">BZ-2026 · SHEET 6/6</span>
+      </div>
+
       <PageHeader
         code="C06"
         name="projects"
@@ -45,6 +50,6 @@ export default function ProjectsPage() {
           margin note: part numbers are stamped by hand; expect one crooked.
         </p>
       </section>
-    </>
+    </div>
   );
 }

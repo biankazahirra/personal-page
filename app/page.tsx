@@ -230,21 +230,27 @@ export default function HomePage() {
         id="chapter-06"
         data-horizontal
         data-horizontal-focus
-        className="h-section relative h-[220vh] bg-night text-paper-on-night md:h-[200vh]"
+        className="h-section bg-sheet relative h-[220vh] md:h-[200vh]"
       >
+        <p className="eyebrow index-tab">C06 · Illustrated parts list</p>
+
         <div className="h-sticky sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-24 md:pt-[5.25rem]">
+          <div className="sheet-frame" aria-hidden="true">
+            <span className="sheet-title">BZ-2026 · SHEET 6/6</span>
+          </div>
+
           <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
-            <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-paper-on-night/20 pb-4">
-              <PartLabel code="C06" name="illustrated parts list" plain="My projects" tone="night" />
+            <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-ink/20 pb-4">
+              <PartLabel code="C06" name="illustrated parts list" plain="My projects" />
 
               <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2">
-                <p className="eyebrow projects-hint text-paper-on-night/60">keep scrolling —</p>
+                <p className="eyebrow projects-hint text-ink-muted">keep scrolling —</p>
                 <div className="projects-gauge" aria-hidden="true">
                   <span />
                   <span />
                   <span />
                 </div>
-                <Link href="/projects" className="eyebrow hover:text-accent-warm">
+                <Link href="/projects" className="eyebrow hover:text-accent">
                   all projects
                 </Link>
               </div>
@@ -262,7 +268,7 @@ export default function HomePage() {
                   <li key={project.slug} data-project-card className="projects-card">
                     <Link
                       href={`/projects/${project.slug}`}
-                      className="group flex h-full flex-col border border-paper-on-night/20"
+                      className="group flex h-full flex-col border border-ink/20"
                     >
                       <Media
                         image={project.cover}
@@ -275,15 +281,15 @@ export default function HomePage() {
                       />
 
                       <div className="flex flex-1 flex-col p-4 md:p-5">
-                        <p className="eyebrow text-paper-on-night/60">
+                        <p className="eyebrow text-ink-muted">
                           {project.status}
                           {project.year ? ` · ${project.year}` : ""}
                         </p>
-                        <h3 className="display mt-2 text-[clamp(1.6rem,2.2vw,2rem)] group-hover:text-accent-warm">
+                        <h3 className="display mt-2 text-[clamp(1.6rem,2.2vw,2rem)] group-hover:text-accent">
                           {project.title}
                         </h3>
-                        <p className="mt-2 text-sm text-paper-on-night/60">{project.summary}</p>
-                        <p className="eyebrow mt-auto pt-4 text-paper-on-night/60">
+                        <p className="mt-2 text-sm text-ink-muted">{project.summary}</p>
+                        <p className="eyebrow mt-auto pt-4 text-ink-muted">
                           {project.stack.join(" · ")}
                         </p>
                       </div>
@@ -296,11 +302,11 @@ export default function HomePage() {
 
           <div
             aria-hidden="true"
-            className="projects-fade-left pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-night to-transparent md:w-16"
+            className="projects-fade-left pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-paper to-transparent md:w-16"
           />
           <div
             aria-hidden="true"
-            className="projects-fade-right pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-night to-transparent md:w-16"
+            className="projects-fade-right pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-paper to-transparent md:w-16"
           />
         </div>
       </section>
