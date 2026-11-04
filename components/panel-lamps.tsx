@@ -62,7 +62,21 @@ export function PanelLamps({ films }: { films: FilmEntry[] }) {
                 </div>
                 <div>
                   <dt className="eyebrow text-ink-muted">rating</dt>
-                  <dd>{film.rating ? `${film.rating}/5` : "—"}</dd>
+                  <dd>
+                    {film.rating ? (
+                      <>
+                        <span className="tracking-widest" aria-hidden="true">
+                          <span className="text-accent">{"★".repeat(film.rating)}</span>
+                          <span className="text-ink-muted">
+                            {"☆".repeat(5 - film.rating)}
+                          </span>
+                        </span>
+                        <span className="sr-only">{film.rating} out of 5</span>
+                      </>
+                    ) : (
+                      "—"
+                    )}
+                  </dd>
                 </div>
                 <div>
                   <dt className="eyebrow text-ink-muted">entry</dt>

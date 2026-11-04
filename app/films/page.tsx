@@ -7,7 +7,7 @@ import { films } from "@/content/films";
 export const metadata: Metadata = {
   title: "Films",
   description:
-    "A small film journal: what was watched, what stayed, and the rare five stars.",
+    "A small film journal: four favourites, what stayed after the credits, and how many times each one was rewatched.",
 };
 
 export default function FilmsPage() {

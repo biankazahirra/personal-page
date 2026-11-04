@@ -62,7 +62,7 @@ export const components: ComponentEntry[] = [
     label: "films",
     plain: "Films I've watched",
     blurb: "the watcher",
-    spec: "four favourites, no ratings yet",
+    spec: "four favourites, five stars each",
     status: "live",
   },
   {
