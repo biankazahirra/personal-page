@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <div className="bg-sheet relative">
+    <div className="bg-sheet sheet-grid relative">
       <p className="eyebrow index-tab">C06 · Projects</p>
       <div className="sheet-frame" aria-hidden="true">
         <span className="sheet-title">BZ-2026 · SHEET 6/6</span>

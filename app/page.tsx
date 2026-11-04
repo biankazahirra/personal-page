@@ -234,7 +234,7 @@ export default function HomePage() {
       >
         <p className="eyebrow index-tab">C06 · Illustrated parts list</p>
 
-        <div className="h-sticky sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-24 md:pt-[5.25rem]">
+        <div className="h-sticky sheet-grid sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-24 md:pt-[5.25rem]">
           <div className="sheet-frame" aria-hidden="true">
             <span className="sheet-title">BZ-2026 · SHEET 6/6</span>
           </div>

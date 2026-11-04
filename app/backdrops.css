@@ -368,11 +368,13 @@ html:not([data-shift="night"]) .bg-desk {
  * A drawing sheet: a 16px layout grid at 5%, a ruled frame, zone marks along
  * the top and left edges, and a title block.
  *
- * The grid goes on the section, but the frame does not. On the homepage C06 is
- * a 220vh pinned strip, so a frame drawn on it would start and end off screen;
- * the frame therefore lives on the 100svh sticky child and hugs the viewport.
- * On the two project pages the frame sits on the page wrapper, which is in
- * normal flow, so it outlines the sheet as a whole.
+ * Colour and grid are separate classes because the two surfaces behave
+ * differently. On the two project pages the sheet is in normal flow, so grid and
+ * frame scroll with the page. On the homepage C06 is a 220vh pinned strip: a
+ * grid drawn on the section slides under the pinned content, which reads as the
+ * paper moving while the cards stay put. The grid therefore goes on the 100svh
+ * sticky child, where it holds still for the whole pin, and the frame follows it
+ * for the same reason.
  *
  * .sheet-frame is applied to a positioned element. Its border is the frame,
  * its two pseudos are the zone marks, and the title block is a child span
@@ -381,11 +383,15 @@ html:not([data-shift="night"]) .bg-desk {
 .bg-sheet {
   position: relative;
   background-color: var(--bd-sheet, #efe6d0);
+}
+
+.sheet-grid {
   background-image:
     linear-gradient(rgb(var(--line-rgb) / 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgb(var(--line-rgb) / 0.05) 1px, transparent 1px);
   background-size: 16px 16px;
 }
+
 
 .sheet-frame {
   position: absolute;
