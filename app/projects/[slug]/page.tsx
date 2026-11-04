@@ -50,7 +50,7 @@ export default async function ProjectPage({ params }: Params) {
   if (!project) notFound();
 
   return (
-    <div className="bg-sheet sheet-grid relative">
+    <div className="bg-concrete concrete-face relative">
       <p className="eyebrow index-tab">C06 · {project.title}</p>
       <div className="sheet-frame" aria-hidden="true">
         <span className="sheet-title">BZ-2026 · SHEET 6/6</span>
