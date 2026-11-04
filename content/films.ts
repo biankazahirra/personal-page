@@ -19,7 +19,7 @@ export const films: FilmEntry[] = [
     director: "Rajkumar Hirani",
     rewatches: "10+×",
     rating: 5,
-    note: "Saw it as a kid and it was just a comedy. Saw it again after college, and every student with their own struggle and their own ambition hit a lot harder. The characters stick with you long after.",
+    note: "Used to think this was just a silly comedy as a kid. When I was in college it hits VERY differently. The struggles, the pressure, the dreams... it's all way too relatable. Funny, wholesome, and surprisingly emotional. A comfort movie for sure.",
     letterboxdUrl: "https://letterboxd.com/film/3-idiots/",
   },
   {
@@ -28,7 +28,7 @@ export const films: FilmEntry[] = [
     director: "Christopher Nolan",
     rewatches: "5+×",
     rating: 5,
-    note: "No explanation needed: it's a masterpiece, chef's kiss. Every part of it is top notch, and the Joker is genuinely insane. It's Christopher Nolan, so what did you expect.",
+    note: "No explanation needed. Absolute masterpiece. Everything is top-tier and the Joker? INSANE. Every scene with him is pure cinema. I mean, it's Christopher Nolan. Enough said.",
     letterboxdUrl: "https://letterboxd.com/film/the-dark-knight/",
   },
   {
@@ -37,7 +37,7 @@ export const films: FilmEntry[] = [
     director: "Jonathan Demme",
     rewatches: "5+×",
     rating: 5,
-    note: "My favourite psychological thriller, and it isn't close. Dr. Hannibal Lecter is brilliant, manipulative, and impossible to look away from, and the chemistry between him and Clarice is off the charts. Not a weak part in it.",
+    note: "Favorite psychological thriller. Hannibal Lecter is terrifyingly smart and manipulative and his chemistry with Clarice... is just CHEF'S KISS. Every conversation feels like a psychological chess match. Literally obsessed.",
     letterboxdUrl: "https://letterboxd.com/film/the-silence-of-the-lambs/",
   },
 ];
