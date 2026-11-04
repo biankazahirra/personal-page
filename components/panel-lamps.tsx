@@ -1,4 +1,3 @@
-import { formatDate } from "@/lib/format";
 import type { FilmEntry } from "@/content/types";
 
 /**
@@ -57,8 +56,8 @@ export function PanelLamps({ films }: { films: FilmEntry[] }) {
 
               <dl className="lamp-meta">
                 <div>
-                  <dt className="eyebrow text-ink-muted">watched</dt>
-                  <dd>{film.watchedOn ? formatDate(film.watchedOn) : "—"}</dd>
+                  <dt className="eyebrow text-ink-muted">rewatched</dt>
+                  <dd>{film.rewatches ?? "—"}</dd>
                 </div>
                 <div>
                   <dt className="eyebrow text-ink-muted">rating</dt>

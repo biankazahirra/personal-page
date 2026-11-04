@@ -64,6 +64,8 @@ export type FilmEntry = {
   year?: number;
   director?: string;
   watchedOn?: string;
+  /** How many times the film has been watched, e.g. "3×", "10+×". */
+  rewatches?: string;
   rating?: 1 | 2 | 3 | 4 | 5;
   note?: string;
   /** The line that stayed after the credits. */
