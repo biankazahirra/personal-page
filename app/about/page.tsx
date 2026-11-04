@@ -108,16 +108,22 @@ const revisions = timeline
 
 export default function AboutPage() {
   return (
-    <div className="bg-form relative">
+    <div className="bg-factory relative">
       <p className="eyebrow index-tab">C02 · About</p>
 
-      <PageHeader
-        code="C02"
-        name="about"
-        plain="About me"
-        title="The person behind the tabs."
-        lede="Still learning, in public. Not a finished product, and not trying to look like one."
-      />
+      <div className="relative">
+        <PageHeader
+          code="C02"
+          name="about"
+          plain="About me"
+          title="The person behind the tabs."
+          lede="Still learning, in public. Not a finished product, and not trying to look like one."
+        />
+
+        <div className="factory-lane bottom-1 md:bottom-11" aria-hidden="true">
+          <span className="factory-lane-label">▸ ▸ ▸ WALKWAY</span>
+        </div>
+      </div>
 
       <section className="mx-auto max-w-[1440px] px-6 pb-16 md:px-12 md:pb-24">
         <div className="grid gap-10 md:grid-cols-12 md:gap-8">

@@ -94,7 +94,7 @@ export default function HomePage() {
       </section>
 
       {/* 02 — the person */}
-      <section id="chapter-02" className="bg-form relative">
+      <section id="chapter-02" className="bg-factory relative">
         <p className="eyebrow index-tab">C02 · Specifications</p>
 
         <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
@@ -111,6 +111,10 @@ export default function HomePage() {
               read the whole section
             </Link>
           </div>
+        </div>
+
+        <div className="factory-lane bottom-11 md:bottom-19" aria-hidden="true">
+          <span className="factory-lane-label">▸ ▸ ▸ WALKWAY</span>
         </div>
       </section>
 

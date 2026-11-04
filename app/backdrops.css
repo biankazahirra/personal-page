@@ -17,15 +17,16 @@
   --line-rgb: 43 38 32; /* pattern ink */
 
   --bd-drawing: #efe6d0;
-  --bd-form: #f2ebd9;
+  --bd-factory: #cfcbc0;
   --bd-sheet: #efe6d0;
   --bd-ledger: #e9ddbe;
   --bd-desk: #d8d0b9;
   --bd-panel: #231f1a;
   --bd-plate: #bdb7a7;
 
-  --bd-red-rgb: 184 58 34; /* margin rules on form and ledger */
+  --bd-red-rgb: 184 58 34; /* margin rule on the ledger */
   --bd-hazard: #d9a441;
+  --bd-factory-frame: #d9a441; /* safety frame and walkway lane */
 }
 
 /* Night shift: warm dark paper, cream pattern ink, same structure. */
@@ -33,7 +34,7 @@ html[data-shift="night"] {
   --line-rgb: 239 230 208;
 
   --bd-drawing: #1e1b17;
-  --bd-form: #211d18;
+  --bd-factory: #2a2926;
   --bd-sheet: #1e1b17;
   --bd-ledger: #231e17;
   --bd-desk: #191612;
@@ -42,6 +43,7 @@ html[data-shift="night"] {
 
   --bd-red-rgb: 190 110 80;
   --bd-hazard: #e3b45c;
+  --bd-factory-frame: #b18c3a;
 }
 
 /* --- index tab ----------------------------------------------------------- */
@@ -171,48 +173,117 @@ html[data-shift="night"] {
   }
 }
 
-/* --- form: printed form (C02 about, /about) ------------------------------ */
+/* --- factory: factory floor with safety markings (C02 about, /about) ------ */
 
 /*
- * Horizontal rules at a 32px pitch, plus one red margin rule near the left
- * edge. A pre-printed form, not a ruled page: the rules run edge to edge and
- * stop for nothing.
+ * Concrete with a very fine speckle, a mustard safety frame, and one painted
+ * walkway lane. This replaces the printed form the section used to carry.
  *
- * The red rule sits at 16px, inside the 24px page padding, so it never passes
- * behind body text. Over a glyph the muted ink would fall to 2.8:1; outside the
- * text column the rule is just a margin, and no text meets it.
+ * The floor is a mid tone, so both shifts need the accent re-pointed. Day
+ * accent measures 3.53:1 on the concrete and the Night one 4.39:1 on the dark
+ * floor, under AA for the 11px part codes and stamps; the accent-ink token
+ * measures 5.34:1 in Day and 5.70:1 at night. Muted ink measures 4.80:1 on the
+ * flat floor in Day shift (its darkest speckle pixel drops to 3.90:1, the same
+ * pixel-level exception the sheet grain carries) and 6.70:1 at night.
+ *
+ * The frame sits at 30px, inside the 48px page padding, and at 12px under the
+ * 24px mobile padding, so neither line ever passes behind text.
  */
-.bg-form {
+.bg-factory {
+  --color-accent: var(--color-accent-ink);
+
   position: relative;
-  background-color: var(--bd-form, #f2ebd9);
+  background-color: var(--bd-factory, #cfcbc0);
   background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 31px,
-      rgb(var(--line-rgb) / 0.12) 31px 32px
-    ),
-    linear-gradient(
-      90deg,
-      transparent 15px,
-      rgb(var(--bd-red-rgb) / 0.55) 15px 16px,
-      transparent 16px
-    );
+    radial-gradient(circle, rgb(var(--line-rgb) / 0.12) 1px, transparent 1.5px),
+    radial-gradient(circle, rgb(255 255 255 / 0.3) 1px, transparent 1.5px);
+  background-size: 17px 17px, 23px 23px;
+  background-position: 0 0, 8px 11px;
+}
+
+/* Safety frame. */
+.bg-factory::before {
+  content: "";
+  position: absolute;
+  inset: 30px;
+  border: 4px solid var(--bd-factory-frame, #d9a441);
+  pointer-events: none;
+}
+
+/*
+ * Zone tag, straddling the top line of the frame at its right end. Ink on
+ * mustard measures 7.03:1 in Day; at night the dimmed frame colour under the
+ * same dark text measures 5.99:1, so the tag keeps a dark text colour in both
+ * shifts rather than following --color-ink.
+ */
+.bg-factory::after {
+  content: "ZONE 2 · SPECIFICATIONS";
+  position: absolute;
+  top: 32px;
+  right: 34px;
+  transform: translateY(-50%);
+  background-color: var(--bd-factory-frame, #d9a441);
+  padding: 2px 10px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-night);
+  pointer-events: none;
+}
+
+/*
+ * Walkway lane: a dashed rule under the heading block, with its label. Shape
+ * only; each page sets where it sits with a bottom utility, as the index tabs
+ * do. The element is aria-hidden and carries no height of its own, so the
+ * section keeps the height it had.
+ */
+.factory-lane {
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  height: 1.75rem;
+  border-top: 4px dashed var(--bd-factory-frame, #d9a441);
+  padding-top: 0.4rem;
+  color: var(--color-accent);
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+html[data-shift="night"] .bg-factory {
+  background-image:
+    radial-gradient(circle, rgb(var(--line-rgb) / 0.1) 1px, transparent 1.5px),
+    radial-gradient(circle, rgb(255 255 255 / 0.06) 1px, transparent 1.5px);
 }
 
 @media (max-width: 767px) {
-  .bg-form {
-    background-image:
-      repeating-linear-gradient(
-        0deg,
-        transparent 0 27px,
-        rgb(var(--line-rgb) / 0.12) 27px 28px
-      ),
-      linear-gradient(
-        90deg,
-        transparent 11px,
-        rgb(var(--bd-red-rgb) / 0.55) 11px 12px,
-        transparent 12px
-      );
+  .bg-factory::before {
+    inset: 12px;
+    border-width: 3px;
+  }
+
+  .bg-factory::after {
+    top: 13px;
+    right: 15px;
+    padding: 1px 8px;
+    font-size: 10px;
+  }
+
+  /* Lane tracks the frame, and the label is dropped as the mockup shows. */
+  .factory-lane {
+    left: 15px;
+    right: 15px;
+    border-top-width: 3px;
+  }
+
+  .factory-lane-label {
+    display: none;
   }
 }
 
