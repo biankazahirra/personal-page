@@ -451,9 +451,10 @@ html:not([data-shift="night"]) .bg-desk {
  * needed. On the flat floor Day accent measures 3.09:1 and Night 4.39:1, both
  * under AA for the 11px part codes and stamps; --color-accent-ink measures
  * 4.67:1 in Day and 5.70:1 at night. Day muted ink measures 4.19:1 and moves to
- * #423a31 (6.01:1); Night muted ink already reads 6.70:1 and is left alone. The
- * darkest stacked grain pixel drops Day muted ink to 4.58:1, the same
- * pixel-level exception the other speckled bases carry.
+ * #423a31 (6.01:1); Night muted ink already reads 6.70:1 and is left alone.
+ * Where two dark grain dots overlap, or a dot lands on a joint line, Day muted
+ * ink falls to about 3.8:1: the same pixel-level exception the other speckled
+ * bases carry. Body text uses --color-ink, which clears AA on every layer.
  */
 .bg-concrete {
   --color-accent: var(--color-accent-ink);
