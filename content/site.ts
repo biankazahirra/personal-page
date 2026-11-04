@@ -8,8 +8,8 @@ export const site: Site = {
     "I keep forms, spreadsheets and small systems in order for a living. The rest of the time I make things, take them apart, and write down what happened.",
     "Most of what lives here is unfinished on purpose: notes on AI agents, films I keep turning over, songs on repeat, a ukulele I am still slow at.",
   ],
-  heroLine:
-    "Forms and spreadsheets by day; films, songs on repeat and a half-learned ukulele by night.",
+  // heroLine:
+  //   "Forms and spreadsheets by day; films, songs on repeat and a half-learned ukulele by night.",
   aboutPreview:
     "I keep forms and records in order for a living. The ukulele keeps me humble after hours.",
   email: "biankaazahirra@gmail.com",
