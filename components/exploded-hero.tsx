@@ -394,6 +394,8 @@ export function ExplodedHero() {
             </p>
             <p className="mt-5 max-w-[46ch] text-ink-muted">{site.heroLine}</p>
 
+            <DataPlate className="mt-7 max-w-[30rem]" />
+
             {/* <DataPlate className="mt-7 max-w-[30rem]" /> */}
 
             {/* <div className="mt-7 flex flex-wrap items-center gap-4">
@@ -435,8 +437,6 @@ export function ExplodedHero() {
               </p>
             </noscript>
           </div>
-
-          <DataPlate className="mt-7 max-w-[30rem]" />
 
           <div className="md:col-span-6 md:col-start-7">
             <div
