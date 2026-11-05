@@ -101,7 +101,7 @@ export function PartsList({ projects }: { projects: Project[] }) {
                       </div>
                     ))}
 
-                    <p className="parts-change">
+                    {/* <p className="parts-change">
                       <span className="eyebrow text-ink-muted">what i&apos;d change</span>{" "}
                       {procedure?.change ? (
                         procedure.change
@@ -111,7 +111,7 @@ export function PartsList({ projects }: { projects: Project[] }) {
                           guessing ]
                         </span>
                       )}
-                    </p>
+                    </p> */}
                   </div>
 
                   <div className="parts-figure">
