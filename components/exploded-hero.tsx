@@ -396,7 +396,7 @@ export function ExplodedHero() {
 
             <DataPlate className="mt-7 max-w-[30rem]" />
 
-            <div className="mt-7 flex flex-wrap items-center gap-4">
+            {/* <div className="mt-7 flex flex-wrap items-center gap-4">
               <button
                 id="assemble-unit"
                 type="button"
@@ -413,7 +413,7 @@ export function ExplodedHero() {
                 <span className="assemble-btn-label">{buttonLabel}</span>
               </button>
               <p className="eyebrow text-ink-muted">{helper}</p>
-            </div>
+            </div> */}
 
             {/* <p className="mt-4">
               <Link
@@ -500,6 +500,25 @@ export function ExplodedHero() {
             <p className="sr-only" role="status" aria-live="polite">
               {assembled ? "Inspection complete. The unit is assembled." : ""}
             </p>
+
+            <div className="mt-7 flex flex-wrap items-center gap-4">
+              <button
+                id="assemble-unit"
+                type="button"
+                onClick={activate}
+                onPointerDown={beginHold}
+                onPointerUp={releaseHold}
+                onPointerCancel={cancelHold}
+                onPointerMove={trackHold}
+                aria-pressed={assembled}
+                aria-busy={busy}
+                style={{ "--hold": hold } as CSSProperties}
+                className="assemble-btn label touch-pan-y min-h-11 w-full border-2 border-ink bg-ink px-5 py-3 text-xs text-paper transition-colors hover:border-accent hover:bg-accent md:min-h-0 md:w-auto"
+              >
+                <span className="assemble-btn-label">{buttonLabel}</span>
+              </button>
+              <p className="eyebrow text-ink-muted">{helper}</p>
+            </div>
 
             <div className="mx-auto mt-6 max-w-[36rem] border-t border-ink/30 pt-3">
               <p className="eyebrow text-ink-muted">Legend</p>
