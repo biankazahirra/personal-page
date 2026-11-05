@@ -139,7 +139,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <ul className="md:col-span-8 md:col-start-5">
+            {/* <ul className="md:col-span-8 md:col-start-5">
               {recentNotes.map((note) => (
                 <li key={note.slug}>
                   <Link
@@ -160,7 +160,7 @@ export default function HomePage() {
                   </Link>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
         </div>
       </section>
