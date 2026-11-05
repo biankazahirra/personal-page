@@ -216,7 +216,7 @@ html[data-shift="night"] {
  * same dark text measures 5.99:1, so the tag keeps a dark text colour in both
  * shifts rather than following --color-ink.
  */
-.bg-factory::after {
+/* .bg-factory::after {
   content: "ZONE 2 · SPECIFICATIONS";
   position: absolute;
   top: 32px;
@@ -231,7 +231,7 @@ html[data-shift="night"] {
   text-transform: uppercase;
   color: var(--color-night);
   pointer-events: none;
-}
+} */
 
 /*
  * Walkway lane: a dashed rule under the heading block, with its label. Shape
