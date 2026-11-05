@@ -17,7 +17,7 @@ export default function CuriosityPage() {
 
       <PageHeader
         code="C03"
-        name="curiosity"
+        name="Maintenance Logbook"
         plain="Notes & experiments"
         title="Notes from the open tabs."
         lede="Things I tried, what broke, and what I would do differently. Written while it is still fresh, not after it has become a nice story."

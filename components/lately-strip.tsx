@@ -22,17 +22,26 @@ export function LatelyStrip({ items }: { items: LatelyItem[] }) {
           <ul className="md:col-span-8 md:col-start-5">
             {items.map((item) => (
               <li key={`${item.section}:${item.slug}`}>
-                <Link
-                  href={item.href}
-                  className="group flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-ink/15 py-3"
-                >
-                  <span className="eyebrow w-24 text-ink-muted">
-                    {item.category}
-                  </span>
-                  <span className="display text-xl group-hover:text-accent">
-                    {item.title}
-                  </span>
-                </Link>
+                {item.href ? (
+                  <Link
+                    href={item.href}
+                    className="group flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-ink/15 py-3"
+                  >
+                    <span className="eyebrow w-24 text-ink-muted">
+                      {item.category}
+                    </span>
+                    <span className="display text-xl group-hover:text-accent">
+                      {item.title}
+                    </span>
+                  </Link>
+                ) : (
+                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-ink/15 py-3">
+                    <span className="eyebrow w-24 text-ink-muted">
+                      {item.category}
+                    </span>
+                    <span className="display text-xl">{item.title}</span>
+                  </div>
+                )}
               </li>
             ))}
           </ul>

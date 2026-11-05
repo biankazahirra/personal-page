@@ -13,7 +13,7 @@ export default function ContactPage() {
 
   return (
     <div className="mx-auto max-w-[1440px] px-6 pb-24 pt-12 md:px-12 md:pt-16">
-      <p className="eyebrow text-ink-muted">Section 7.0 · Page 7-1</p>
+      <p className="eyebrow text-ink-muted">Service Request · Contact</p>
       <h1 tabIndex={-1} className="display mt-3 text-[clamp(2.5rem,8vw,6rem)]">
         Say hi.
       </h1>
@@ -74,7 +74,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="md:col-span-4 md:col-start-9">
+          {/* <div className="md:col-span-4 md:col-start-9">
             <div className="notice px-4 py-3">
               <p className="label text-[10px] text-ink-muted">Note</p>
               <p className="mt-1 text-sm">
@@ -86,7 +86,7 @@ export default function ContactPage() {
             <p className="eyebrow mt-4 text-ink-muted">
               channel: {configured ? "connected" : "not connected"}
             </p>
-          </div>
+          </div> */}
         </div>
       </section>
 

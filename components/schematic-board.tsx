@@ -39,34 +39,52 @@ export function SchematicBoard() {
         <ul className="socket-tabs" aria-label="Sockets">
           {components.map((item) => {
             const isActive = active.code === item.code;
+            const tab = (
+              <>
+                <span className="label socket-tab-code text-[10px]">
+                  {item.code}
+                </span>
+                <span className="label text-xs">{item.label}</span>
+                <span className="socket-tab-plain eyebrow text-[9px] text-ink-muted md:hidden">
+                  {item.plain}
+                </span>
+                <span className="eyebrow ml-auto text-[9px] text-ink-muted">
+                  {item.status}
+                </span>
+                <span className="socket-tab-spur" aria-hidden="true" />
+              </>
+            );
 
             return (
               <li key={item.code}>
-                <Link
-                  href={item.href}
-                  data-active={isActive}
-                  data-code={item.code}
-                  aria-label={`${item.code} ${item.label} — ${item.plain}`}
-                  aria-controls="socket-preview"
-                  onMouseEnter={() => setProbed(item.code)}
-                  onMouseLeave={() => setProbed(null)}
-                  onFocus={() => setProbed(item.code)}
-                  onBlur={() => setProbed(null)}
-                  onPointerDown={() => setProbed(item.code)}
-                  className="socket-tab"
-                >
-                  <span className="label socket-tab-code text-[10px]">
-                    {item.code}
+                {item.draft ? (
+                  <span
+                    data-active={isActive}
+                    data-code={item.code}
+                    aria-label={`${item.code} ${item.label} — under construction`}
+                    onMouseEnter={() => setProbed(item.code)}
+                    onMouseLeave={() => setProbed(null)}
+                    className="socket-tab cursor-default"
+                  >
+                    {tab}
                   </span>
-                  <span className="label text-xs">{item.label}</span>
-                  <span className="socket-tab-plain eyebrow text-[9px] text-ink-muted md:hidden">
-                    {item.plain}
-                  </span>
-                  <span className="eyebrow ml-auto text-[9px] text-ink-muted">
-                    {item.status}
-                  </span>
-                  <span className="socket-tab-spur" aria-hidden="true" />
-                </Link>
+                ) : (
+                  <Link
+                    href={item.href}
+                    data-active={isActive}
+                    data-code={item.code}
+                    aria-label={`${item.code} ${item.label} — ${item.plain}`}
+                    aria-controls="socket-preview"
+                    onMouseEnter={() => setProbed(item.code)}
+                    onMouseLeave={() => setProbed(null)}
+                    onFocus={() => setProbed(item.code)}
+                    onBlur={() => setProbed(null)}
+                    onPointerDown={() => setProbed(item.code)}
+                    className="socket-tab"
+                  >
+                    {tab}
+                  </Link>
+                )}
               </li>
             );
           })}
@@ -102,12 +120,18 @@ export function SchematicBoard() {
             </div>
           </dl>
 
-          <Link
-            href={active.href}
-            className="eyebrow mt-4 inline-block border-b border-accent pb-1 hover:text-accent"
-          >
-            open section →
-          </Link>
+          {active.draft ? (
+            <span className="stamp mt-4 inline-block" data-tone="mustard">
+              Under construction
+            </span>
+          ) : (
+            <Link
+              href={active.href}
+              className="eyebrow mt-4 inline-block border-b border-accent pb-1 hover:text-accent"
+            >
+              open section →
+            </Link>
+          )}
         </div>
       </div>
     </div>

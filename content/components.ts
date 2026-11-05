@@ -8,6 +8,8 @@ export type ComponentEntry = {
   /** One line shown on the assembly board. */
   spec: string;
   status: "live" | "unpopulated";
+  /** True while the section is not ready to be opened from the manual. */
+  draft?: boolean;
   /** Codes of sockets this one connects to. Related parts light on probe. */
   links?: string[];
 };
@@ -45,7 +47,8 @@ export const components: ComponentEntry[] = [
     plain: "Notes & experiments",
     blurb: "the explorer",
     spec: "notes, some unfinished",
-    status: "live",
+    status: "unpopulated",
+    draft: true,
   },
   {
     href: "/life",

@@ -110,38 +110,58 @@ export function ContentsOverlay() {
               <ol>
                 {sections.map((item) => {
                   const active = isActive(item.href);
+                  const row =
+                    "flex flex-wrap items-baseline gap-x-4 gap-y-1 py-4 md:flex-nowrap";
+                  const body = (
+                    <>
+                      <span className="label w-14 shrink-0 text-ink-muted">
+                        {item.section}
+                      </span>
+                      <span className="min-w-0">
+                        <span
+                          className={`label block text-[clamp(1.05rem,2.6vw,1.6rem)] tracking-[0.06em] transition-colors group-hover:text-accent ${
+                            active && !item.draft ? "text-accent" : ""
+                          }`}
+                        >
+                          {item.title}
+                        </span>
+                        <span className="mt-1 block text-sm text-ink-muted">
+                          {item.plain}
+                        </span>
+                      </span>
+                      <span className="toc-leader hidden md:block" aria-hidden="true" />
+                      <span className="label ml-auto shrink-0 text-xs text-ink-muted md:ml-0">
+                        {item.page}
+                      </span>
+                    </>
+                  );
+
                   return (
                     <li key={item.code} className="border-b border-ink/25">
-                      <Link
-                        href={item.href}
-                        aria-current={active ? "page" : undefined}
-                        className="group flex flex-wrap items-baseline gap-x-4 gap-y-1 py-4 md:flex-nowrap"
-                      >
-                        <span className="label w-14 shrink-0 text-ink-muted">
-                          {item.section}
-                        </span>
-                        <span className="min-w-0">
+                      {item.draft ? (
+                        <div className={`${row} text-ink-muted`}>
+                          {body}
                           <span
-                            className={`label block text-[clamp(1.05rem,2.6vw,1.6rem)] tracking-[0.06em] transition-colors group-hover:text-accent ${
-                              active ? "text-accent" : ""
-                            }`}
+                            className="stamp ml-2 shrink-0"
+                            data-tone="mustard"
                           >
-                            {item.title}
+                            Under construction
                           </span>
-                          <span className="mt-1 block text-sm text-ink-muted">
-                            {item.plain}
-                          </span>
-                        </span>
-                        <span className="toc-leader hidden md:block" aria-hidden="true" />
-                        <span className="label ml-auto shrink-0 text-xs text-ink-muted md:ml-0">
-                          {item.page}
-                        </span>
-                        {active ? (
-                          <span className="stamp ml-2 hidden shrink-0 sm:inline-block">
-                            In use
-                          </span>
-                        ) : null}
-                      </Link>
+                        </div>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          aria-current={active ? "page" : undefined}
+                          className={`${row} group`}
+                        >
+                          {body}
+                          {active ? (
+                            <span className="stamp ml-2 hidden shrink-0 sm:inline-block">
+                              In use
+                            </span>
+                          ) : null}
+                        </Link>
+                      )}
                     </li>
                   );
                 })}

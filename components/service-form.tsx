@@ -180,13 +180,13 @@ export function ServiceForm({
                   : "channel not connected"}
           </button>
 
-          <p id="service-channel" className="eyebrow max-w-[42ch] text-ink-muted">
+          {/* <p id="service-channel" className="eyebrow max-w-[42ch] text-ink-muted">
             {configured
               ? "Posts to the configured delivery endpoint. Nothing is stored on this site."
               : email
                 ? "No server endpoint is configured, so this opens your mail app with the request. Nothing is stored on this site."
                 : "No delivery endpoint or email is configured yet. Nothing can be sent from this form."}
-          </p>
+          </p> */}
         </div>
 
         <div className="carbon-status" aria-live="polite">

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Media } from "@/components/media";
@@ -42,13 +41,10 @@ export default async function NotePage({ params }: Params) {
       <p className="eyebrow index-tab">C03 · {note.title}</p>
 
       <article className="mx-auto max-w-[1440px] px-6 pb-24 pt-32 md:px-12 md:pt-44">
-        <Link
-          href="/curiosity"
-          className="eyebrow inline-flex items-center gap-3 text-ink-muted hover:text-accent"
-        >
+        <p className="eyebrow inline-flex items-center gap-3 text-ink-muted">
           <span className="node-label text-accent">C03</span>
-          all notes
-        </Link>
+          maintenance logbook &middot; under construction
+        </p>
 
         <header className="mt-10 max-w-[24ch]">
           <p className="eyebrow flex flex-wrap items-center gap-x-2 gap-y-1 text-ink-muted">

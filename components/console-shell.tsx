@@ -91,10 +91,6 @@ export function ConsoleShell() {
           <noscript>
             <p className="mt-3 max-w-[52ch] border-l-2 border-accent px-3 py-2 text-sm text-ink-muted">
               The console needs JavaScript. Every command also has a page:{" "}
-              <Link href="/curiosity" className="border-b border-accent">
-                notes
-              </Link>
-              ,{" "}
               <Link href="/projects" className="border-b border-accent">
                 projects
               </Link>

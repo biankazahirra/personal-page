@@ -60,8 +60,10 @@ function run(command: string): Line[] {
 
   if (verb === "contents") {
     return sections.map((section) => ({
-      text: `${section.section}  ${section.title}  ·  ${section.page}`,
-      href: section.href,
+      text: `${section.section}  ${section.title}  ·  ${section.page}${
+        section.draft ? "  ·  under construction" : ""
+      }`,
+      href: section.draft ? undefined : section.href,
     }));
   }
 
@@ -101,9 +103,8 @@ function run(command: string): Line[] {
       { text: `${notes.length} entries in the maintenance logbook:`, muted: true },
       ...notes.map((note, index) => ({
         text: `  E-${String(index + 1).padStart(3, "0")}  [${note.status ?? "open"}]  ${note.title}`,
-        href: note.body ? `/curiosity/${note.slug}` : "/curiosity",
       })),
-      { text: "filter by channel on the logbook page:", href: "/curiosity" },
+      { text: "the logbook is under construction; entries are read-only here.", muted: true },
     ];
   }
 

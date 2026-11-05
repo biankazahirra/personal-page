@@ -13,6 +13,8 @@ export type ManualSection = {
   page: string;
   /** Short line for the contents overlay. */
   blurb: string;
+  /** True while the section cannot be opened from the contents list. */
+  draft?: boolean;
 };
 
 const titles: Record<string, Pick<ManualSection, "section" | "page" | "title">> = {
@@ -30,6 +32,7 @@ export const sections: ManualSection[] = [
     href: component.href,
     plain: component.plain,
     blurb: component.blurb,
+    draft: component.draft,
     ...titles[component.code],
   })),
   {

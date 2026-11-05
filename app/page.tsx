@@ -131,12 +131,9 @@ export default function HomePage() {
               <p className="mt-4 max-w-[30ch] text-ink-muted">
                 What I tried, what broke, and what I would do differently.
               </p>
-              <Link
-                href="/curiosity"
-                className="eyebrow mt-8 inline-block border-b border-accent pb-1 hover:text-accent"
-              >
-                all {notes.length} notes
-              </Link>
+              <span className="stamp mt-8 inline-block" data-tone="mustard">
+                Under construction
+              </span>
             </div>
 
             {/* <ul className="md:col-span-8 md:col-start-5">

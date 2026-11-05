@@ -114,7 +114,7 @@ export default function AboutPage() {
       <div className="relative">
         <PageHeader
           code="C02"
-          name="about"
+          name="Specifications"
           plain="About me"
           title="The person behind the tabs."
           lede="Still learning, in public. Not a finished product, and not trying to look like one."
@@ -323,9 +323,6 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-16 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-ink/15 pt-8">
-          <Link href="/curiosity" className="eyebrow border-b border-accent pb-1 hover:text-accent">
-            the notes
-          </Link>
           <Link href="/life" className="eyebrow border-b border-accent pb-1 hover:text-accent">
             life lately
           </Link>

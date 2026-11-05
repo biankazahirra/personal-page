@@ -10,7 +10,8 @@ export type LatelyItem = {
   slug: string;
   category: string;
   title: string;
-  href: string;
+  /** Missing while the section is under construction, so the row is plain text. */
+  href?: string;
   date: string;
 };
 
@@ -36,7 +37,6 @@ const fromNote = (note: Note): LatelyItem | null =>
         slug: note.slug,
         category: note.category,
         title: note.title,
-        href: `/curiosity/${note.slug}`,
         date: note.date,
       }
     : null;

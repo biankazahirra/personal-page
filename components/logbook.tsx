@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { noteCategories } from "@/content/notes";
@@ -198,16 +197,7 @@ export function Logbook({ notes }: { notes: Note[] }) {
                 <div className="log-body">
                   <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
                     <h2 className="display text-[clamp(1.6rem,3vw,2.35rem)]">
-                      {note.body ? (
-                        <Link
-                          href={`/curiosity/${note.slug}`}
-                          className="hover:text-accent"
-                        >
-                          {note.title}
-                        </Link>
-                      ) : (
-                        note.title
-                      )}
+                      {note.title}
                     </h2>
                     <span className="stamp shrink-0" data-tone={stateTone[logState]}>
                       {stateLabel[logState]}
@@ -250,15 +240,6 @@ export function Logbook({ notes }: { notes: Note[] }) {
                       </dd>
                     </div>
                   </dl>
-
-                  {note.body ? (
-                    <Link
-                      href={`/curiosity/${note.slug}`}
-                      className="eyebrow mt-4 inline-flex items-center gap-2 border-b border-accent pb-1 hover:text-accent"
-                    >
-                      read the full entry <span aria-hidden="true">→</span>
-                    </Link>
-                  ) : null}
                 </div>
               </li>
             );

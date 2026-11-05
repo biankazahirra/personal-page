@@ -22,27 +22,44 @@ export function IndexTabs() {
         {components.map((item) => {
           const active =
             item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+          const className = `flex h-14 flex-col items-start justify-center border-r border-ink/20 px-3 transition-colors md:px-4 ${
+            active && !item.draft
+              ? "-mt-1 h-[3.75rem] border-t-4 border-t-mustard bg-paper text-ink"
+              : "bg-paper-2 text-ink-muted"
+          } ${item.draft ? "" : "hover:bg-paper hover:text-ink"}`;
+          const label = (
+            <>
+              <span className="label text-[10px] leading-none tracking-[0.14em]">
+                {item.code}
+              </span>
+              <span className="mt-1 truncate text-[11px] uppercase leading-none tracking-[0.12em] md:text-xs">
+                {item.label}
+              </span>
+            </>
+          );
 
           return (
             <li key={item.code} className="min-w-[5.5rem] flex-1 snap-start">
-              <Link
-                href={item.href}
-                prefetch={false}
-                aria-current={active ? "page" : undefined}
-                aria-label={`${item.code} ${item.label} — ${item.plain}`}
-                className={`flex h-14 flex-col items-start justify-center border-r border-ink/20 px-3 transition-colors md:px-4 ${
-                  active
-                    ? "-mt-1 h-[3.75rem] border-t-4 border-t-mustard bg-paper text-ink"
-                    : "bg-paper-2 text-ink-muted hover:bg-paper hover:text-ink"
-                }`}
-              >
-                <span className="label text-[10px] leading-none tracking-[0.14em]">
-                  {item.code}
+              {item.draft ? (
+                <span
+                  aria-disabled="true"
+                  aria-label={`${item.code} ${item.label} — under construction`}
+                  title="Under construction"
+                  className={`${className} cursor-default`}
+                >
+                  {label}
                 </span>
-                <span className="mt-1 truncate text-[11px] uppercase leading-none tracking-[0.12em] md:text-xs">
-                  {item.label}
-                </span>
-              </Link>
+              ) : (
+                <Link
+                  href={item.href}
+                  prefetch={false}
+                  aria-current={active ? "page" : undefined}
+                  aria-label={`${item.code} ${item.label} — ${item.plain}`}
+                  className={className}
+                >
+                  {label}
+                </Link>
+              )}
             </li>
           );
         })}
