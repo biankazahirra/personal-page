@@ -415,18 +415,18 @@ export function ExplodedHero() {
               <p className="eyebrow text-ink-muted">{helper}</p>
             </div>
 
-            <p className="mt-4">
+            {/* <p className="mt-4">
               <Link
                 href="/projects"
                 className="eyebrow border-b border-accent pb-0.5 text-ink-muted hover:text-accent"
               >
                 see my projects
               </Link>
-            </p>
+            </p> */}
 
-            <p className="eyebrow mt-4 text-ink-muted">
+            {/* <p className="eyebrow mt-4 text-ink-muted">
               {EGG_TOTAL} hidden parts, location unknown.
-            </p>
+            </p> */}
 
             <noscript>
               <p className="mt-4 max-w-[46ch] border-l-2 border-accent px-3 py-2 text-sm text-ink-muted">
