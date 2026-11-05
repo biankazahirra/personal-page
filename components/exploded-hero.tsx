@@ -394,7 +394,7 @@ export function ExplodedHero() {
             </p>
             <p className="mt-5 max-w-[46ch] text-ink-muted">{site.heroLine}</p>
 
-            <DataPlate className="mt-7 max-w-[30rem]" />
+            {/* <DataPlate className="mt-7 max-w-[30rem]" /> */}
 
             {/* <div className="mt-7 flex flex-wrap items-center gap-4">
               <button
@@ -519,6 +519,8 @@ export function ExplodedHero() {
               </button>
               <p className="eyebrow text-ink-muted">{helper}</p>
             </div>
+
+            <DataPlate className="mt-7 max-w-[30rem]" />
 
             <div className="mx-auto mt-6 max-w-[36rem] border-t border-ink/30 pt-3">
               <p className="eyebrow text-ink-muted">Legend</p>
