@@ -23,6 +23,12 @@ const LogbookConsole = dynamic(
 export function ConsoleShell() {
   const [open, setOpen] = useState(false);
 
+  // Open by default on desktop, closed on mobile.
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 768px)");
+    setOpen(desktop.matches);
+  }, []);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
