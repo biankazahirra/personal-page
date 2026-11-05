@@ -51,7 +51,6 @@ export default async function ProjectPage({ params }: Params) {
 
   return (
     <div className="bg-sheet sheet-grid relative">
-      <p className="eyebrow index-tab">C06 · {project.title}</p>
       <div className="sheet-frame" aria-hidden="true">
         <span className="sheet-title">BZ-2026 · SHEET 6/6</span>
       </div>

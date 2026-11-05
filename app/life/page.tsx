@@ -19,7 +19,6 @@ export default function LifePage() {
 
   return (
     <div className="bg-desk relative">
-      <p className="eyebrow index-tab">C04 · Life</p>
 
       <PageHeader
         code="C04"

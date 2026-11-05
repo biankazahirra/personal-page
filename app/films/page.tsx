@@ -17,7 +17,6 @@ export default function FilmsPage() {
 
   return (
     <div className="bg-panel relative">
-      <p className="eyebrow index-tab">C05 · Films</p>
 
       <PageHeader
         code="C05"

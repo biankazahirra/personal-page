@@ -372,7 +372,6 @@ export function ExplodedHero() {
 
   return (
     <section className="bg-drawing relative overflow-hidden">
-      <p className="eyebrow index-tab">C01 · Identification</p>
 
       <div className="mx-auto max-w-[1440px] px-6 pb-16 pt-10 md:px-12 md:pb-24 md:pt-14">
         <div className="flex flex-wrap items-baseline justify-between gap-3 border-b-2 border-ink/70 pb-3">

@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 export default function CuriosityPage() {
   return (
     <div className="bg-ledger relative">
-      <p className="eyebrow index-tab">C03 · Curiosity</p>
 
       <PageHeader
         code="C03"

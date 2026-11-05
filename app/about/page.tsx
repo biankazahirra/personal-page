@@ -109,7 +109,6 @@ const revisions = timeline
 export default function AboutPage() {
   return (
     <div className="bg-factory relative">
-      <p className="eyebrow index-tab">C02 · About</p>
 
       <div className="relative">
         <PageHeader

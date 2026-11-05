@@ -94,7 +94,6 @@ export default function HomePage() {
 
       {/* 02 — the person */}
       <section id="chapter-02" className="bg-factory relative">
-        <p className="eyebrow index-tab">C02 · Specifications</p>
 
         <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
           <div className="max-w-[52rem]">
@@ -119,7 +118,6 @@ export default function HomePage() {
 
       {/* 03 — the maintenance logbook */}
       <section id="chapter-03" className="relative overflow-hidden bg-ledger">
-        <p className="eyebrow index-tab">C03 · Maintenance logbook</p>
 
         <div className="relative mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
           <div className="grid gap-8 md:grid-cols-12">
@@ -164,7 +162,6 @@ export default function HomePage() {
 
       {/* 04 — the inspection photos, a tray of moments */}
       <section id="chapter-04" className="bg-desk relative">
-        <p className="eyebrow index-tab">C04 · Inspection photos</p>
 
         <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-12 md:py-28">
           <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-ink/20 pb-4">
@@ -182,7 +179,6 @@ export default function HomePage() {
 
       {/* 05 — the indicator panel */}
       <section id="chapter-05" className="bg-panel relative">
-        <p className="eyebrow index-tab">C05 · Indicator panel</p>
 
         <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-12 md:py-24">
           <div className="grid gap-8 md:grid-cols-12">
@@ -234,8 +230,6 @@ export default function HomePage() {
         data-horizontal-focus
         className="h-section bg-sheet relative h-[220vh] md:h-[200vh]"
       >
-        <p className="eyebrow index-tab">C06 · Illustrated parts list</p>
-
         <div className="h-sticky sheet-grid sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-24 md:pt-[5.25rem]">
           <div className="sheet-frame" aria-hidden="true">
             <span className="sheet-title">BZ-2026 · SHEET 6/6</span>

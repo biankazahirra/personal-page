@@ -38,7 +38,6 @@ export default async function NotePage({ params }: Params) {
 
   return (
     <div className="bg-ledger relative">
-      <p className="eyebrow index-tab">C03 · {note.title}</p>
 
       <article className="mx-auto max-w-[1440px] px-6 pb-24 pt-32 md:px-12 md:pt-44">
         <p className="eyebrow inline-flex items-center gap-3 text-ink-muted">
