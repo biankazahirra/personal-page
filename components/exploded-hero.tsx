@@ -436,6 +436,8 @@ export function ExplodedHero() {
             </noscript>
           </div>
 
+          <DataPlate className="mt-7 max-w-[30rem]" />
+
           <div className="md:col-span-6 md:col-start-7">
             <div
               ref={stage}
@@ -501,22 +503,6 @@ export function ExplodedHero() {
               {assembled ? "Inspection complete. The unit is assembled." : ""}
             </p>
 
-            <div className="mx-auto mt-6 max-w-[36rem] border-t border-ink/30 pt-3">
-              <p className="eyebrow text-ink-muted">Legend</p>
-              <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-sm sm:grid-cols-3">
-                {legend.map((item) => (
-                  <li key={item.n} className="flex items-baseline gap-2">
-                    <span className="label text-[10px] text-accent">
-                      {String(item.n).padStart(2, "0")}
-                    </span>
-                    {item.label}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <DataPlate className="mt-7 max-w-[30rem]" />
-
             <div className="mt-7 flex flex-wrap items-center gap-4">
               <button
                 id="assemble-unit"
@@ -535,6 +521,20 @@ export function ExplodedHero() {
               </button>
               <p className="eyebrow text-ink-muted">{helper}</p>
             </div>
+
+            <div className="mx-auto mt-6 max-w-[36rem] border-t border-ink/30 pt-3">
+              <p className="eyebrow text-ink-muted">Legend</p>
+              <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-sm sm:grid-cols-3">
+                {legend.map((item) => (
+                  <li key={item.n} className="flex items-baseline gap-2">
+                    <span className="label text-[10px] text-accent">
+                      {String(item.n).padStart(2, "0")}
+                    </span>
+                    {item.label}
+                  </li>
+                ))}
+              </ul>
+            </div>              
 
             {/* <div className="mx-auto mt-6 max-w-[36rem] border-t border-ink/30 pt-3">
               <p className="eyebrow text-ink-muted">Legend</p>
