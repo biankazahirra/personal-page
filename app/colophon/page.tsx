@@ -150,7 +150,7 @@ export default function ColophonPage() {
 
             <div className="md:col-span-8 md:col-start-5">
               <p className="border border-dashed border-ink/45 px-4 py-3 font-mono text-sm text-ink-muted">
-                [ typefaces, tools — fill in ]
+                Me :&gt;
               </p>
             </div>
           </div>
