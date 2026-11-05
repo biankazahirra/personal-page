@@ -20,7 +20,7 @@ export function FilmStrip({ entries }: { entries: JournalEntry[] }) {
   return (
     <div>
       <div className="film-strip-wrap">
-        <ul className="film-strip" tabIndex={0} aria-label="Film strip of journal frames">
+        <ul className="film-strip" tabIndex={0} aria-label="Photo strip of journal frames">
           {entries.map((entry, index) => (
             <li key={entry.slug} className="film-frame">
               <div className="film-frame-media">

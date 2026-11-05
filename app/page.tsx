@@ -12,7 +12,6 @@ import { StartupChecklist } from "@/components/startup-checklist";
 import { films } from "@/content/films";
 import { journal } from "@/content/journal";
 import { notes } from "@/content/notes";
-import { photoMoments } from "@/content/photos";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 import { formatDate } from "@/lib/format";
@@ -179,7 +178,7 @@ export default function HomePage() {
             <FilmStrip entries={journal} />
           </div>
           <div className="md:hidden">
-            <PhotoTray moments={photoMoments} entries={journal} tone="paper" />
+            <PhotoTray entries={journal} tone="paper" />
           </div>
         </div>
       </section>

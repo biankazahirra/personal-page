@@ -4,29 +4,37 @@ import type { KeyboardEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Media } from "@/components/media";
+import { kindLabels } from "@/content/journal";
 import type { JournalEntry } from "@/content/types";
-import type { PhotoMoment } from "@/content/photos";
+import { formatDate } from "@/lib/format";
 import { currentMotion } from "@/lib/motion";
 import { flipOrder, photoLabel } from "@/lib/photo-tray";
 
 const FLIP_MS = 380;
 
+/** Placeholder texture per entry kind, the same mapping the photo strip uses. */
+const variants: Record<JournalEntry["kind"], "grid" | "waves" | "field" | "arcs"> = {
+  update: "grid",
+  photo: "field",
+  music: "waves",
+  ukulele: "field",
+  moment: "arcs",
+};
+
 /**
  * C04 photo tray: the top photo of a small stack, flipped by tap, arrows,
- * swipe or keyboard. The stack is the enhancement; a plain list of all four
- * moments renders when JavaScript never runs.
+ * swipe or keyboard. The stack is the enhancement; a plain list of the same
+ * journal entries renders when JavaScript never runs.
  */
 export function PhotoTray({
-  moments,
   entries,
   tone = "night",
 }: {
-  moments: PhotoMoment[];
   entries: JournalEntry[];
   /** `paper` when the tray sits on a light section instead of the dark one. */
   tone?: "night" | "paper";
 }) {
-  const [order, setOrder] = useState(() => moments.map((_, index) => index));
+  const [order, setOrder] = useState(() => entries.map((_, index) => index));
   const [leaving, setLeaving] = useState<{ index: number; direction: 1 | -1 } | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const swipe = useRef<{ x: number; y: number } | null>(null);
@@ -57,18 +65,12 @@ export function PhotoTray({
   );
 
   const top = order[0];
-  const total = moments.length;
+  const total = entries.length;
+  const current = entries[top];
 
   /** Ink that stays readable on whichever section the tray is mounted in. */
   const ink = tone === "paper" ? "text-ink" : "text-paper-on-night/60";
   const inkSoft = tone === "paper" ? "text-ink-muted" : "text-paper-on-night/50";
-
-  /**
-   * The photo for a slot is the journal entry it points at, exactly as C04
-   * shows it, so the tray and the section can never disagree.
-   */
-  const imageFor = (moment: PhotoMoment | undefined) =>
-    entries.find((entry) => entry.slug === moment?.entrySlug)?.images?.[0];
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const onControl = (event.target as HTMLElement).closest("button");
@@ -109,15 +111,15 @@ export function PhotoTray({
           {[2, 1, 0].map((layer) => {
             const momentIndex = order[layer];
             if (momentIndex === undefined) return null;
-            const moment = moments[momentIndex];
+            const entry = entries[momentIndex];
             const isTop = layer === 0;
 
             if (!isTop) {
               return (
                 <div key={momentIndex} className="photo-layer" data-layer={layer} aria-hidden="true">
                   <Media
-                    image={imageFor(moment)}
-                    variant={moment.variant}
+                    image={entry.images?.[0]}
+                    variant={variants[entry.kind]}
                     tone="night"
                     className="h-full w-full"
                     label="image pending"
@@ -133,12 +135,12 @@ export function PhotoTray({
                 className="photo-layer photo-layer-top"
                 data-top="true"
                 data-leaving={leaving && leaving.index === momentIndex ? leaving.direction : undefined}
-                aria-label={`Next photo: ${moment.label}`}
+                aria-label={`Next photo: ${entry.title}`}
                 onClick={() => flip(1)}
               >
                 <Media
-                  image={imageFor(moment)}
-                  variant={moment.variant}
+                  image={entry.images?.[0]}
+                  variant={variants[entry.kind]}
                   tone="night"
                   className="h-full w-full"
                   label="image pending"
@@ -150,14 +152,16 @@ export function PhotoTray({
       </div>
 
       <p className="sr-only" aria-live="polite">
-        {photoLabel(moments[top]?.label ?? "", top, total)}
+        {photoLabel(current?.title ?? "", top, total)}
       </p>
 
       <div className="photo-meta">
-        {/* The counter below already prints the position, so the label stands alone. */}
-        <p className={`eyebrow ${ink}`}>{moments[top]?.label}</p>
-        <p className={`mt-2 max-w-[34ch] text-sm ${ink}`}>
-          {moments[top]?.note}
+        {/* The counter below already prints the position, so the meta carries
+            only the facts the photo strip shows: kind, title, date. */}
+        <p className={`eyebrow ${ink}`}>{current ? kindLabels[current.kind] : ""}</p>
+        <p className={`mt-1 max-w-[34ch] text-sm ${ink}`}>{current?.title}</p>
+        <p className={`eyebrow mt-1 ${inkSoft}`}>
+          {current ? formatDate(current.date) : ""}
         </p>
       </div>
 
@@ -177,12 +181,14 @@ export function PhotoTray({
       </div>
 
       <ul className="photo-list">
-        {moments.map((moment, index) => (
-          <li key={moment.label}>
-            <Media image={imageFor(moment)} variant={moment.variant} tone="night" className="aspect-[4/3] w-full" label="image pending" />
+        {entries.map((entry, index) => (
+          <li key={entry.slug}>
+            <Media image={entry.images?.[0]} variant={variants[entry.kind]} tone="night" className="aspect-[4/3] w-full" label="image pending" />
             <p className={`eyebrow mt-3 ${ink}`}>
-              <span className={tone === "paper" ? "text-accent" : "text-accent-warm"}>{String(index + 1).padStart(2, "0")}</span> · {moment.label}
+              <span className={tone === "paper" ? "text-accent" : "text-accent-warm"}>{String(index + 1).padStart(2, "0")}</span> · {kindLabels[entry.kind]}
             </p>
+            <p className="mt-1 text-sm">{entry.title}</p>
+            <p className={`eyebrow mt-1 ${inkSoft}`}>{formatDate(entry.date)}</p>
           </li>
         ))}
       </ul>

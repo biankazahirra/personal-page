@@ -19,7 +19,7 @@ Contact: ${site.email}
 - ${baseUrl}/ — identification, contents, exploded view, assembly board
 - ${baseUrl}/about — specifications, revision history, tool rack
 - ${baseUrl}/curiosity — maintenance logbook of notes and faults
-- ${baseUrl}/life — inspection photos, film strip, loop counter, tuner
+- ${baseUrl}/life — inspection photos, photo strip, loop counter, tuner
 - ${baseUrl}/films — indicator panel of film notes
 - ${baseUrl}/projects — illustrated parts list
 - ${baseUrl}/contact — service request in plain text and a triplicate form
