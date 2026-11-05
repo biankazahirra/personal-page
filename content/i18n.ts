@@ -29,7 +29,7 @@ export const ui = {
     "lang.ready": "printed",
     "lang.pending": "not printed yet",
     "lang.note":
-      "The Indonesian edition is still in translation. Nothing is machine-translated here; the copy goes in when Bianka writes it.",
+      "The Indonesian edition is still in translation. Nothing is machine-translated here.",
     "lang.close": "close",
   },
   id: {},
