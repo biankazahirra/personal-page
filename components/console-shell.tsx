@@ -72,7 +72,7 @@ export function ConsoleShell() {
         </>
       ) : (
         <div className="mt-5">
-          <p className="max-w-[52ch] border border-dashed border-ink/35 px-4 py-4 text-sm text-ink-muted">
+          {/* <p className="max-w-[52ch] border border-dashed border-ink/35 px-4 py-4 text-sm text-ink-muted">
             The console is closed. It accepts{" "}
             <span className="font-mono text-ink">help</span>,{" "}
             <span className="font-mono text-ink">whoami</span>,{" "}
@@ -81,7 +81,7 @@ export function ConsoleShell() {
             <span className="font-mono text-ink">fault-log</span> and{" "}
             <span className="font-mono text-ink">sudo hire-me</span>. Nothing on
             this site needs it.
-          </p>
+          </p> */}
           <noscript>
             <p className="mt-3 max-w-[52ch] border-l-2 border-accent px-3 py-2 text-sm text-ink-muted">
               The console needs JavaScript. Every command also has a page:{" "}
