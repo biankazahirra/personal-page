@@ -380,7 +380,7 @@ export function ExplodedHero() {
           <p className="eyebrow text-ink-muted">Fig. 1-1 · exploded view</p>
         </div>
 
-        <div className="mt-8 grid gap-10 md:grid-cols-12 md:gap-8">
+        <div className="mt-8 grid gap-4 md:grid-cols-12 md:gap-4">
           <div className="md:col-span-5 md:pt-6">
             <h1
               id="hero-title"
