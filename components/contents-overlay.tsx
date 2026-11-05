@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { UnderConstructionSign } from "@/components/under-construction-sign";
 import { manual, sections } from "@/content/manual";
 
 /**
@@ -141,12 +142,10 @@ export function ContentsOverlay() {
                       {item.draft ? (
                         <div className={`${row} text-ink-muted`}>
                           {body}
-                          <span
-                            className="stamp ml-2 shrink-0"
-                            data-tone="mustard"
-                          >
-                            Under construction
-                          </span>
+                          <UnderConstructionSign
+                            size={44}
+                            className="ml-2 h-11 w-11 shrink-0 self-center -rotate-6 md:h-[52px] md:w-[52px]"
+                          />
                         </div>
                       ) : (
                         <Link

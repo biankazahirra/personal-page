@@ -9,6 +9,7 @@ import { PartLabel } from "@/components/part-label";
 import { PhotoTray } from "@/components/photo-tray";
 import { SchematicBoard } from "@/components/schematic-board";
 import { StartupChecklist } from "@/components/startup-checklist";
+import { UnderConstructionSign } from "@/components/under-construction-sign";
 import { films } from "@/content/films";
 import { journal } from "@/content/journal";
 import { notes } from "@/content/notes";
@@ -120,6 +121,11 @@ export default function HomePage() {
       <section id="chapter-03" className="relative overflow-hidden bg-ledger">
 
         <div className="relative mx-auto max-w-[1440px] px-6 py-24 md:px-12 md:py-32">
+          <UnderConstructionSign
+            size={96}
+            className="pointer-events-none absolute right-4 top-8 z-10 -rotate-6 md:right-12 md:top-1/2 md:h-[210px] md:w-[210px] md:-translate-y-1/2"
+          />
+
           <div className="grid gap-8 md:grid-cols-12">
             <div className="md:col-span-3">
               <PartLabel code="C03" name="maintenance logbook" plain="Notes & experiments" />
@@ -129,9 +135,6 @@ export default function HomePage() {
               <p className="mt-4 max-w-[30ch] text-ink-muted">
                 What I tried, what broke, and what I would do differently.
               </p>
-              <span className="stamp mt-8 inline-block" data-tone="mustard">
-                Under construction
-              </span>
             </div>
 
             {/* <ul className="md:col-span-8 md:col-start-5">
