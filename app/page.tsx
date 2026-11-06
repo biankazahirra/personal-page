@@ -133,7 +133,7 @@ export default function HomePage() {
                 Notes from the open tabs.
               </h2>
               <p className="mt-4 max-w-[30ch] text-ink-muted">
-                What I tried, what broke, and what I would do differently.
+                What I tried, what broke, and what I would do differently. Currently under construction.
               </p>
             </div>
 
