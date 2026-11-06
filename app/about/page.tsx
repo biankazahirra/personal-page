@@ -40,7 +40,7 @@ const specs = [
   },
   {
     label: "location",
-    value: "site.location"
+    value: site.location
     // note: "Add site.location in content/site.ts when it should be public.",
   },
   {
