@@ -43,4 +43,6 @@ export const site: Site = {
       note: "Unglamorous systems that return an hour every week.",
     },
   ],
+  location: 
+    "Cilegon, Banten, Indonesia"
 };
