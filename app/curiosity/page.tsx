@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/page-header";
 import { notes } from "@/content/notes";
 
 export const metadata: Metadata = {
-  title: "Curiosity",
+  title: "Maintenance Logbook",
   description:
     "Notes from testing AI agents, writing small scripts, and learning things in public.",
 };

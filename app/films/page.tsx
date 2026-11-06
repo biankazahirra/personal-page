@@ -5,7 +5,7 @@ import { PanelLamps } from "@/components/panel-lamps";
 import { films } from "@/content/films";
 
 export const metadata: Metadata = {
-  title: "Films",
+  title: "Indicator Panel",
   description:
     "A small film journal: four favourites, what stayed after the credits, and how many times each one was rewatched.",
 };

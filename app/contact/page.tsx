@@ -4,7 +4,7 @@ import { ServiceForm } from "@/components/service-form";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Service Request",
   description: "How to reach Bianka: plain text, no ticket queue.",
 };
 

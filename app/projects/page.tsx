@@ -5,7 +5,7 @@ import { PartsList } from "@/components/parts-list";
 import { projects } from "@/content/projects";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: "Illustrated Parts List",
   description:
     "Small systems, academic projects, and things built to make a repetitive day shorter.",
 };

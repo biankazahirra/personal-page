@@ -7,7 +7,7 @@ import { site } from "@/content/site";
 import { timeline } from "@/content/timeline";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "Specifications",
   description:
     "Bianka: computer science, unfinished; a day job in systems and documents; a habit of building small tools.",
 };

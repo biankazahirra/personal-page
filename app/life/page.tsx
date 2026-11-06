@@ -8,7 +8,7 @@ import { UkuleleTuner } from "@/components/ukulele-tuner";
 import { journal } from "@/content/journal";
 
 export const metadata: Metadata = {
-  title: "Life lately",
+  title: "Inspection Photos",
   description:
     "A visual journal: songs on repeat, ukulele progress, and things worth noticing.",
 };
