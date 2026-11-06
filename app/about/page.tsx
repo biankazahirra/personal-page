@@ -40,8 +40,8 @@ const specs = [
   },
   {
     label: "location",
-    value: "[ not supplied ]",
-    note: "Add site.location in content/site.ts when it should be public.",
+    value: "site.location"
+    // note: "Add site.location in content/site.ts when it should be public.",
   },
   {
     label: "operating hours",
