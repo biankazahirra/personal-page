@@ -46,51 +46,6 @@ html[data-shift="night"] {
   --bd-factory-frame: #b18c3a;
 }
 
-/* --- index tab ----------------------------------------------------------- */
-
-/*
- * Folder tab, pinned to the top-left edge of a section like the tab on a
- * folder. It sits outside the flow, so it never changes a row height and no
- * section grows. The section must be `relative`; every backdrop class sets it.
- *
- * Apply it as a direct child of the section, before the content wrapper. Pages
- * that need it elsewhere set `top`/`left` with utilities.
- */
-.index-tab {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  margin: 0;
-  border: 1px solid color-mix(in oklab, var(--color-ink) 55%, transparent);
-  border-top: 0;
-  border-radius: 0 0 3px 0;
-  background-color: color-mix(in oklab, var(--color-paper-2) 92%, transparent);
-  padding: 0.3rem 0.7rem 0.35rem 1.15rem;
-  color: var(--color-ink);
-  box-shadow: 0 1px 0 color-mix(in oklab, #ffffff 25%, transparent) inset;
-}
-
-.index-tab::before {
-  content: "";
-  position: absolute;
-  left: 0.45rem;
-  top: 50%;
-  width: 5px;
-  height: 5px;
-  transform: translateY(-50%);
-  border-radius: 9999px;
-  background-color: var(--color-accent);
-}
-/* Panel is the only dark section; its tab inverts. */
-.bg-panel .index-tab,
-.index-tab[data-tone="night"] {
-  border-color: color-mix(in oklab, var(--color-paper-on-night) 45%, transparent);
-  background-color: color-mix(in oklab, var(--color-night-soft) 92%, transparent);
-  color: var(--color-paper-on-night);
-  box-shadow: 0 -1px 0 color-mix(in oklab, #ffffff 8%, transparent) inset;
-}
-
 /* --- drawing: drafting paper (homepage hero) ----------------------------- */
 
 .bg-drawing {

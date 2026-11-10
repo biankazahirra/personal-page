@@ -129,7 +129,7 @@ export function PartsList({ projects }: { projects: Project[] }) {
                     )}
                     <Link
                       href={`/projects/${project.slug}`}
-                      className="eyebrow mt-6 inline-flex items-center gap-2 border-b border-accent pb-1 hover:text-accent"
+                      className="eyebrow relative mt-6 inline-flex items-center gap-2 border-b border-accent pb-1 after:absolute after:-inset-x-2 after:-inset-y-3 after:content-[''] hover:text-accent"
                     >
                       full record <span aria-hidden="true">→</span>
                     </Link>

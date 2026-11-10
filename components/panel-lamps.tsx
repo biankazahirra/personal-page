@@ -88,7 +88,7 @@ export function PanelLamps({ films }: { films: FilmEntry[] }) {
                   href={film.letterboxdUrl}
                   rel="noreferrer noopener"
                   target="_blank"
-                  className="eyebrow mt-5 inline-flex items-center gap-2 border-b border-accent pb-1 hover:text-accent"
+                  className="eyebrow relative mt-5 inline-flex items-center gap-2 border-b border-accent pb-1 after:absolute after:-inset-x-2 after:-inset-y-3 after:content-[''] hover:text-accent"
                 >
                   open on Letterboxd <span aria-hidden="true">↗</span>
                 </a>

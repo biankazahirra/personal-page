@@ -72,6 +72,7 @@ export function ContentsOverlay() {
         onClick={() => setOpen(true)}
         aria-expanded={open}
         aria-controls="contents"
+        aria-haspopup="dialog"
         className="band-control eyebrow"
       >
         Contents

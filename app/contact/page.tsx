@@ -34,7 +34,7 @@ export default function ContactPage() {
               <dl className="divide-y divide-ink/20">
                 <div className="px-4 py-3">
                   <dt className="label text-[10px] text-ink-muted">Email</dt>
-                  <dd className="mt-1">
+                  <dd className="mt-1 [overflow-wrap:anywhere]">
                     {site.email ? (
                       <a
                         href={`mailto:${site.email}`}
@@ -52,7 +52,7 @@ export default function ContactPage() {
                 {site.links.map((link) => (
                   <div key={link.label} className="px-4 py-3">
                     <dt className="label text-[10px] text-ink-muted">{link.label}</dt>
-                    <dd className="mt-1">
+                    <dd className="mt-1 [overflow-wrap:anywhere]">
                       {link.href ? (
                         <a
                           href={link.href}
