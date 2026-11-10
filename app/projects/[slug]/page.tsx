@@ -49,6 +49,11 @@ export default async function ProjectPage({ params }: Params) {
 
   if (!project) notFound();
 
+  const index = projects.indexOf(project);
+  const previous = index > 0 ? projects[index - 1] : undefined;
+  const next = index >= 0 && index < projects.length - 1 ? projects[index + 1] : undefined;
+  const pager = "eyebrow inline-block border-b border-transparent pb-1 hover:border-accent hover:text-accent";
+
   return (
     <div className="bg-sheet sheet-grid relative">
       <div className="sheet-frame" aria-hidden="true">
@@ -147,6 +152,24 @@ export default async function ProjectPage({ params }: Params) {
           ))}
         </ol>
       </div>
+
+      <nav
+        aria-label="Other projects"
+        className="mt-16 flex flex-wrap items-baseline justify-between gap-4 border-t border-ink/15 pt-6"
+      >
+        {previous ? (
+          <Link href={`/projects/${previous.slug}`} className={pager}>
+            ← {previous.title}
+          </Link>
+        ) : (
+          <span />
+        )}
+        {next ? (
+          <Link href={`/projects/${next.slug}`} className={`${pager} text-right`}>
+            {next.title} →
+          </Link>
+        ) : null}
+      </nav>
     </article>
     </div>
   );

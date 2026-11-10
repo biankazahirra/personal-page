@@ -87,15 +87,6 @@ export type Project = {
   links?: { label: string; href: string }[];
   cover?: ImageRef;
   body?: string[];
-  /** The three-panel view: problem, build, and the note that stayed. */
-  procedure?: {
-    problem?: string;
-    build?: string;
-    /** What the project taught, in the owner's own words. */
-    lesson?: string;
-    /** Left blank until there is an honest change to record. */
-    change?: string;
-  };
   /** How the parts connect. Rendered as a chain of expandable nodes. */
   schematic?: { label: string; role: string; step?: string }[];
   placeholder?: boolean;

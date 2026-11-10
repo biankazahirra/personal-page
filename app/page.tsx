@@ -20,7 +20,7 @@ import { formatDate } from "@/lib/format";
 export default function HomePage() {
   const recentNotes = notes.slice(0, 3);
   const recentFilms = films.slice(0, 4);
-  const featuredProjects = projects.slice(0, 3);
+  const featuredProjects = projects;
   const firstProjectImage = featuredProjects.findIndex((project) => project.cover);
 
   return (
@@ -234,7 +234,7 @@ export default function HomePage() {
         id="chapter-06"
         data-horizontal
         data-horizontal-focus
-        className="h-section bg-sheet relative h-[220vh] md:h-[200vh]"
+        className="h-section bg-sheet relative"
       >
         <div className="h-sticky sheet-grid sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-24 md:pt-[5.25rem]">
           <div className="sheet-frame" aria-hidden="true">
@@ -246,12 +246,10 @@ export default function HomePage() {
               <PartLabel code="C06" name="illustrated parts list" plain="My projects" />
 
               <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2">
-                <p className="eyebrow projects-hint text-ink-muted">keep scrolling —</p>
-                <div className="projects-gauge" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                </div>
+                <p className="eyebrow projects-hint text-ink-muted">
+                  <span className="md:hidden">swipe the strip —</span>
+                  <span className="hidden md:inline">keep scrolling —</span>
+                </p>
                 <Link href="/projects" className="eyebrow hover:text-accent">
                   all projects
                 </Link>

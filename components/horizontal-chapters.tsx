@@ -22,15 +22,20 @@ export function HorizontalChapters() {
     const update = () => {
       frame = 0;
       const animate = document.documentElement.dataset.motion !== "reduce";
+      // Phones keep the strip as a native horizontal scroller: a sideways
+      // swipe is the gesture people try, so the pin only runs from md up.
+      const pinned = window.matchMedia("(min-width: 768px)").matches;
       const viewport = window.innerHeight;
 
       for (const section of sections) {
         const track = section.querySelector<HTMLElement>("[data-horizontal-track]");
         if (!track) continue;
 
-        if (!animate) {
+        if (!animate || !pinned) {
           track.style.transform = "";
           section.style.removeProperty("--h-progress");
+          section.style.removeProperty("--h-distance");
+          section.removeAttribute("data-h-distance");
           continue;
         }
 
@@ -41,6 +46,15 @@ export function HorizontalChapters() {
         const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
         // The track is often narrower than the window, so measure its own box.
         const distance = Math.max(0, track.scrollWidth - track.clientWidth);
+
+        // The section is only as tall as its own travel, so no scroll is spent
+        // with the cards already parked. CSS reads the length from this value.
+        const key = String(Math.round(distance));
+        if (section.dataset.hDistance !== key) {
+          section.dataset.hDistance = key;
+          section.style.setProperty("--h-distance", `${distance}px`);
+        }
+
         track.style.transform = `translate3d(${-(progress * distance).toFixed(1)}px, 0, 0)`;
         section.style.setProperty("--h-progress", progress.toFixed(4));
       }

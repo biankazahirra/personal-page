@@ -1095,6 +1095,13 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
 
 /* --- C06 homepage: pinned sideways parts list ----------------------------- */
 
+/* The pin is exactly as long as the strip's own travel. HorizontalChapters
+   writes --h-distance from the track's scrollWidth, so no scroll is spent with
+   the cards already parked; the fallback covers the first paint and no-JS. */
+#chapter-06 {
+  height: calc(100svh + var(--h-distance, 120vh));
+}
+
 .projects-viewport {
   position: relative;
 }
@@ -1131,33 +1138,6 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
   transition: opacity var(--t-toggle) var(--ease-page);
 }
 
-.projects-gauge {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.projects-gauge > span {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 999px;
-  background-color: var(--color-accent-warm);
-  opacity: 0.2;
-  transition: opacity var(--t-toggle) var(--ease-page);
-}
-
-.projects-gauge > span:first-child {
-  opacity: 1;
-}
-
-.projects-gauge > span:nth-child(2) {
-  opacity: clamp(0.2, calc((var(--h-progress, 0) - 0.2) * 12), 1);
-}
-
-.projects-gauge > span:nth-child(3) {
-  opacity: clamp(0.2, calc((var(--h-progress, 0) - 0.55) * 12), 1);
-}
-
 @media (min-width: 768px) {
   .projects-card {
     width: clamp(26rem, 40vw, 34rem);
@@ -1167,6 +1147,30 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
 /* The left fade only appears once the strip has travelled. */
 .projects-fade-left {
   opacity: clamp(0, calc(var(--h-progress, 0) * 8), 1);
+}
+
+/* Phones: no pin. The strip is a normal sideways scroller, because a swipe is
+   the gesture people reach for, and the pin has little room to work with. */
+@media (max-width: 767px) {
+  #chapter-06 {
+    height: auto;
+  }
+
+  #chapter-06 .h-sticky {
+    position: static;
+    height: auto;
+    padding-block: 4rem;
+  }
+
+  #chapter-06 .h-track {
+    transform: none !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .projects-hint {
+    opacity: 1;
+  }
 }
 
 /* No JavaScript: unpack the section and let the strip scroll sideways. */
@@ -1186,21 +1190,13 @@ html:not([data-motion]) #chapter-06 .h-track {
   scroll-snap-type: x mandatory;
 }
 
-html:not([data-motion]) .projects-gauge {
-  display: none;
-}
-
 html:not([data-motion]) .projects-hint {
   opacity: 1;
 }
 
-/* Reduced motion: same unpinned strip, no gauge. */
+/* Reduced motion: same unpinned strip. */
 html[data-motion="reduce"] #chapter-06 .h-sticky {
   padding-block: 4rem;
-}
-
-html[data-motion="reduce"] .projects-gauge {
-  display: none;
 }
 
 html[data-motion="reduce"] .projects-hint {
@@ -1360,10 +1356,6 @@ html:not([data-motion]) .photo-list {
   }
 
   html:not([data-motion="full"]) .projects-hint {
-    transition: none !important;
-  }
-
-  html:not([data-motion="full"]) .projects-gauge > span {
     transition: none !important;
   }
 }

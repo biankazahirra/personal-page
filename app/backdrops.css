@@ -470,11 +470,6 @@ html:not([data-shift="night"]) .bg-desk {
   color: rgb(var(--line-rgb) / 0.7);
 }
 
-/* The gauge dots are accent-warm by default, which disappears on this sheet. */
-.bg-sheet .projects-gauge > span {
-  background-color: var(--color-accent);
-}
-
 /*
  * The project cards read as paper stock laid on the sheet. The rect paints ink
  * and the turbulence drives its alpha, so only the denser flecks show: the card

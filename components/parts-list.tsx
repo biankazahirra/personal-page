@@ -16,6 +16,9 @@ const statusTone: Record<Project["status"], string> = {
   archived: "accent",
 };
 
+/** The body paragraphs are written in this order; longer entries get "note". */
+const stepLabels = ["problem", "build", "what it taught me"];
+
 /**
  * C06 as an illustrated parts list. Rows are native `<details>`, so the table
  * still opens without JavaScript and keeps normal keyboard behaviour. On a
@@ -35,8 +38,6 @@ export function PartsList({ projects }: { projects: Project[] }) {
 
       <ul>
         {projects.map((project, index) => {
-          const procedure = project.procedure;
-
           return (
             <li key={project.slug}>
               <details className="parts-row">
@@ -77,41 +78,29 @@ export function PartsList({ projects }: { projects: Project[] }) {
 
                 <div className="parts-panel">
                   <div className="parts-steps">
-                    <p className="eyebrow text-ink-muted">Service procedure</p>
+                    <div className="flex flex-wrap items-baseline justify-between gap-3">
+                      <p className="eyebrow text-ink-muted">Service procedure</p>
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="eyebrow relative inline-flex items-center gap-2 border-b border-accent pb-1 after:absolute after:-inset-x-2 after:-inset-y-3 after:content-[''] hover:text-accent"
+                      >
+                        full record <span aria-hidden="true">→</span>
+                      </Link>
+                    </div>
 
-                    {[
-                      { n: "01", label: "problem", text: procedure?.problem },
-                      { n: "02", label: "build", text: procedure?.build },
-                      { n: "03", label: "what it taught me", text: procedure?.lesson },
-                    ].map((step) => (
-                      <div key={step.n} className="parts-step">
+                    {project.body?.map((text, step) => (
+                      <div key={text} className="parts-step">
                         <span className="parts-step-no" aria-hidden="true">
-                          {step.n}
+                          {String(step + 1).padStart(2, "0")}
                         </span>
                         <div>
-                          <p className="eyebrow text-accent">{step.label}</p>
-                          {step.text ? (
-                            <p className="mt-1 max-w-[58ch] text-ink-muted">{step.text}</p>
-                          ) : (
-                            <p className="mt-1 text-sm text-ink-muted">
-                              [ not recorded yet — add it in content/projects.ts ]
-                            </p>
-                          )}
+                          <p className="eyebrow text-accent">
+                            {stepLabels[step] ?? "note"}
+                          </p>
+                          <p className="mt-1 max-w-[58ch] text-ink-muted">{text}</p>
                         </div>
                       </div>
                     ))}
-
-                    {/* <p className="parts-change">
-                      <span className="eyebrow text-ink-muted">what i&apos;d change</span>{" "}
-                      {procedure?.change ? (
-                        procedure.change
-                      ) : (
-                        <span className="text-sm">
-                          [ change note pending — the manual leaves this line blank rather than
-                          guessing ]
-                        </span>
-                      )}
-                    </p> */}
                   </div>
 
                   <div className="parts-figure">
@@ -127,12 +116,6 @@ export function PartsList({ projects }: { projects: Project[] }) {
                         [ diagram pending — insert Fig. 6-{index + 1} ]
                       </p>
                     )}
-                    <Link
-                      href={`/projects/${project.slug}`}
-                      className="eyebrow relative mt-6 inline-flex items-center gap-2 border-b border-accent pb-1 after:absolute after:-inset-x-2 after:-inset-y-3 after:content-[''] hover:text-accent"
-                    >
-                      full record <span aria-hidden="true">→</span>
-                    </Link>
                   </div>
                 </div>
               </details>
