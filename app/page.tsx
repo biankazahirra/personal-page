@@ -169,6 +169,9 @@ export default function HomePage() {
         <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-12 md:py-28">
           <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-ink/20 pb-4">
             <PartLabel code="C04" name="inspection photos" plain="Personal moments" />
+            <Link href="/life" className="eyebrow border-b border-accent pb-1 hover:text-accent">
+              life lately
+            </Link>
           </div>
 
           <div className="mt-6 hidden md:block">
