@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { CalibrationBench } from "@/components/calibration-bench";
 import { DiagnosticsPlate } from "@/components/diagnostics-plate";
 import { EggMeter } from "@/components/egg-meter";
 import { LangEditions } from "@/components/lang-editions";
@@ -135,6 +136,23 @@ export default function ColophonPage() {
 
             <div className="md:col-span-8 md:col-start-5">
               <DiagnosticsPlate />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="calibration" className="border-t border-ink/15">
+        <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-12 md:py-24">
+          <div className="grid gap-8 md:grid-cols-12">
+            <div className="md:col-span-3">
+              <h2 className="display text-[clamp(1.75rem,3vw,2.5rem)]">
+                Calibration
+              </h2>
+              <p className="eyebrow mt-3 text-ink-muted">three controls, real effect</p>
+            </div>
+
+            <div className="md:col-span-8 md:col-start-5">
+              <CalibrationBench />
             </div>
           </div>
         </div>

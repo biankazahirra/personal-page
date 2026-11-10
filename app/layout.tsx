@@ -94,7 +94,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           // Runs before first paint: theme and motion choices never flash.
           dangerouslySetInnerHTML={{
             __html:
-              'try{var s=localStorage.getItem("shift");document.documentElement.dataset.shift=(s==="day"||s==="night")?s:(matchMedia("(prefers-color-scheme: dark)").matches?"night":"day");var m=localStorage.getItem("motion");document.documentElement.dataset.motion=(m?m==="full":!matchMedia("(prefers-reduced-motion: reduce)").matches)?"full":"reduce"}catch(e){document.documentElement.dataset.shift="day";document.documentElement.dataset.motion="full"}',
+              'try{var s=localStorage.getItem("shift");document.documentElement.dataset.shift=(s==="day"||s==="night")?s:(matchMedia("(prefers-color-scheme: dark)").matches?"night":"day");var m=localStorage.getItem("motion");document.documentElement.dataset.motion=(m?m==="full":!matchMedia("(prefers-reduced-motion: reduce)").matches)?"full":"reduce";var r=localStorage.getItem("bench-grain"),g=Number(r);if(r!==null&&isFinite(g)){document.documentElement.style.setProperty("--grain-opacity",String(Math.min(200,Math.max(0,Math.round(g)))/1000))}}catch(e){document.documentElement.dataset.shift="day";document.documentElement.dataset.motion="full"}',
           }}
         />
         <a

@@ -59,6 +59,11 @@ function writeEggs(ids: EggId[]) {
   window.dispatchEvent(new Event("eggchange"));
 }
 
+/** Clears the field kit. Only the calibration bench calls this. */
+export function resetEggs() {
+  writeEggs([]);
+}
+
 /**
  * Records a hidden part once and announces it. Returns true only the first
  * time, so repeated gestures never replay the toast or the sound.
