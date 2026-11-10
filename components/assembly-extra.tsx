@@ -25,7 +25,7 @@ export function AssemblyExtra() {
   if (!complete) return null;
 
   return (
-    <section id="service-note" className="bg-paper pt-8 md:pt-12">
+    <section id="service-note" className="bg-paper pt-16 md:pt-24">
       <div className="mx-auto max-w-[1440px] px-6 pb-20 md:px-12 md:pb-28 gap-6">
         <div className="relative border-2 border-ink/70 bg-paper-2/50 p-5 md:p-8">
           <span
