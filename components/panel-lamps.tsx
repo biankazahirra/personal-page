@@ -46,13 +46,9 @@ export function PanelLamps({ films }: { films: FilmEntry[] }) {
             <div className="lamp-note">
               <p className="eyebrow text-accent">what stayed after the credits</p>
 
-              <p className="mt-3 max-w-[58ch]">
-                {film.note ?? film.stayed ?? (
-                  <span className="text-ink-muted">
-                    [ note pending — add a line only when it is real ]
-                  </span>
-                )}
-              </p>
+              {film.note || film.stayed ? (
+                <p className="mt-3 max-w-[58ch]">{film.note ?? film.stayed}</p>
+              ) : null}
 
               <dl className="lamp-meta">
                 <div>
@@ -77,10 +73,12 @@ export function PanelLamps({ films }: { films: FilmEntry[] }) {
                     )}
                   </dd>
                 </div>
-                <div>
-                  <dt className="eyebrow text-ink-muted">entry</dt>
-                  <dd>{film.placeholder ? "sample" : "logged"}</dd>
-                </div>
+                {film.placeholder ? null : (
+                  <div>
+                    <dt className="eyebrow text-ink-muted">entry</dt>
+                    <dd>logged</dd>
+                  </div>
+                )}
               </dl>
 
               {film.letterboxdUrl ? (

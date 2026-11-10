@@ -280,17 +280,6 @@
   color: var(--color-ink-muted);
 }
 
-.log-sample {
-  border: 1px dashed color-mix(in oklab, var(--color-ink) 45%, transparent);
-  padding: 0 0.3rem;
-  font-family: var(--font-label);
-  font-size: 0.5625rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-ink-muted);
-}
-
 .log-findings {
   display: grid;
   gap: 0.75rem;
@@ -673,16 +662,6 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
 
 .film-frame-caption .text-ink-muted {
   color: color-mix(in oklab, var(--color-paper-on-night) 62%, transparent);
-}
-
-.film-frame-empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 12rem;
-  border-style: dashed;
-  color: color-mix(in oklab, var(--color-paper-on-night) 62%, transparent);
-  padding: 1rem;
 }
 
 .loop-counter,

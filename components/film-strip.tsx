@@ -43,11 +43,6 @@ export function FilmStrip({ entries }: { entries: JournalEntry[] }) {
               </p>
             </li>
           ))}
-          <li className="film-frame film-frame-empty" aria-hidden="true">
-            <p className="eyebrow">
-              [ more frames pending — insert Fig. 4-{entries.length + 1} ]
-            </p>
-          </li>
         </ul>
       </div>
       <p className="eyebrow mt-3 text-ink-muted">swipe or scroll the strip →</p>

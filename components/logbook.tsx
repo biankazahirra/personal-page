@@ -189,9 +189,6 @@ export function Logbook({ notes }: { notes: Note[] }) {
                   {note.date ? (
                     <span className="log-date">{formatDate(note.date)}</span>
                   ) : null}
-                  {note.placeholder ? (
-                    <span className="log-sample">sample</span>
-                  ) : null}
                 </div>
 
                 <div className="log-body">
@@ -221,7 +218,9 @@ export function Logbook({ notes }: { notes: Note[] }) {
                     </span>
                   </p>
 
-                  <p className="mt-3 max-w-[58ch] text-ink-muted">{note.excerpt}</p>
+                  {note.placeholder ? null : (
+                    <p className="mt-3 max-w-[58ch] text-ink-muted">{note.excerpt}</p>
+                  )}
 
                   <dl className="log-findings">
                     <div>

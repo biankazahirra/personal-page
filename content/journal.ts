@@ -34,7 +34,7 @@ export const journal: JournalEntry[] = [
     ],
     body: [
       "The loop counter is real this time: 77 plays of I'm With You by Avril Lavigne in October 2026.",
-      "Why it stayed on repeat is still unwritten. [ note pending ]",
+      "Why it stayed on repeat is still unwritten.",
     ],
   },
   {

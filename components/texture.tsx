@@ -75,9 +75,10 @@ function Pattern({ variant, stroke, accent }: { variant: TextureVariant; stroke:
 
 /**
  * Stand-in for photography until real images exist. Deliberately abstract so it
- * never suggests it depicts the owner.
+ * never suggests it depicts the owner. The `label` prop is kept so call sites
+ * stay unchanged, but the badge is not drawn: pending markers stay out of view.
  */
-export function Texture({ variant = "arcs", tone = "paper", label, className = "" }: TextureProps) {
+export function Texture({ variant = "arcs", tone = "paper", className = "" }: TextureProps) {
   const palette = palettes[tone];
 
   return (
@@ -94,11 +95,6 @@ export function Texture({ variant = "arcs", tone = "paper", label, className = "
       >
         <Pattern variant={variant} stroke={palette.stroke} accent={palette.accent} />
       </svg>
-      {label ? (
-        <span className="eyebrow absolute bottom-3 left-3 bg-paper px-2 py-1 text-ink">
-          {label}
-        </span>
-      ) : null}
     </div>
   );
 }

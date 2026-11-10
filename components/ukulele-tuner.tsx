@@ -35,7 +35,6 @@ export function UkuleleTuner() {
     <div className="tuner">
       <div className="flex items-baseline justify-between gap-4">
         <p className="eyebrow text-ink-muted">ukulele tuner · C04</p>
-        <p className="eyebrow text-accent">calibration in progress</p>
       </div>
 
       <div className="tuner-gauge" aria-hidden="true">

@@ -49,7 +49,6 @@ export default async function NotePage({ params }: Params) {
           <p className="eyebrow flex flex-wrap items-center gap-x-2 gap-y-1 text-ink-muted">
             <span>{note.category}</span>
             {note.date ? <span>· {formatDate(note.date)}</span> : null}
-            {note.placeholder ? <span>· sample</span> : null}
             {note.status ? (
               <span className="inline-flex items-center gap-1.5">
                 <span aria-hidden="true">·</span>
@@ -75,14 +74,18 @@ export default async function NotePage({ params }: Params) {
           </div>
 
           <div className="reading md:col-span-7 md:col-start-6">
-            <p className="text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-ink">
-              {note.excerpt}
-            </p>
-            {note.body?.map((paragraph) => (
-              <p key={paragraph} className="text-ink-muted">
-                {paragraph}
-              </p>
-            ))}
+            {note.placeholder ? null : (
+              <>
+                <p className="text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-ink">
+                  {note.excerpt}
+                </p>
+                {note.body?.map((paragraph) => (
+                  <p key={paragraph} className="text-ink-muted">
+                    {paragraph}
+                  </p>
+                ))}
+              </>
+            )}
 
             <dl className="log-findings mt-8 border-t border-ink/20 pt-4">
               <div>
