@@ -626,36 +626,30 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
     line-height: 1.7;
   }
 
-  /* Spec sheet as logbook rows: label, dotted leader, value, and the note
-     always visible. The toggle box goes away because every row is open. */
+  /* Prose sits at full ink on a phone: muted grey that works on a wide sheet
+     turns to mush in one narrow column. */
+  .about-intro p + p {
+    color: var(--color-ink);
+  }
+
+  /* Spec sheet stacked: label, value, note, all flush left. No leader dots
+     and no right-aligned value block, so every row starts on the same edge. */
   .spec-row > summary {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.2rem 0.5rem;
+    display: block;
     padding: 0.875rem 0 0;
     cursor: default;
   }
 
   .spec-label {
-    display: flex;
-    flex: 1 1 auto;
-    align-items: baseline;
-    gap: 0.5rem;
-  }
-
-  .spec-label::after {
-    content: "";
-    flex: 1 1 auto;
-    border-bottom: 1px dotted
-      color-mix(in oklab, var(--color-ink) 35%, transparent);
-    transform: translateY(-0.25em);
+    display: block;
   }
 
   .spec-value {
-    flex: 0 1 auto;
-    text-align: right;
+    display: block;
+    margin-top: 0.3rem;
     font-size: 1.125rem;
+    line-height: 1.35;
+    text-align: left;
   }
 
   .spec-toggle {
@@ -663,7 +657,7 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
   }
 
   .spec-note {
-    padding: 0.35rem 0 0.875rem;
+    padding: 0.4rem 0 0.875rem;
     font-size: 1rem;
     line-height: 1.65;
   }
