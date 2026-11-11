@@ -844,16 +844,110 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
     box-shadow 220ms ease;
 }
 
-/* Four small lamps on the homepage; the full panel stays on /films. */
-.lamp-mini .lamp-bezel {
+/* C05 on the homepage reads as a gauge, not four buttons: a tally, a lamp rack
+   and a plain list of titles. Nothing in here is interactive; the only link is
+   "the films section" below. */
+.lamp-readout {
+  margin-top: 1.5rem;
+  border-block: 1px solid color-mix(in oklab, var(--color-ink) 30%, transparent);
+  padding: 0.7rem 0 0.75rem;
+}
+
+.lamp-tally {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.lamp-tally-count {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.lamp-rack {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.lamp-rack .lamp-bezel {
   width: 1.75rem;
   height: 1.75rem;
   padding: 0.16rem;
   border-width: 1px;
 }
 
-.lamp-mini:hover .lamp-lens {
+.lamp-rack .lamp-lens {
   background: radial-gradient(circle at 40% 35%, #ffe9a8, var(--color-mustard) 58%, #b57b1e);
+  box-shadow: 0 0 10px color-mix(in oklab, var(--color-mustard) 55%, transparent);
+}
+
+.lamp-titles {
+  margin: 0.7rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lamp-titles li {
+  display: grid;
+  grid-template-columns: 1.4rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px dotted color-mix(in oklab, var(--color-ink) 22%, transparent);
+}
+
+.lamp-titles li:last-child {
+  border-bottom: 0;
+}
+
+.lamp-title-no,
+.lamp-title-year {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--color-ink-muted);
+}
+
+.lamp-title-name {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lamp-fig {
+  margin-top: 0.6rem;
+}
+
+/* Two columns once there is room: rack left, titles right. Below 900px the
+   titles column is too narrow for the longest film name, so it stays stacked. */
+@media (min-width: 900px) {
+  .lamp-readout-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2.5rem;
+    align-items: start;
+  }
+
+  .lamp-rack {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .lamp-fig {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .lamp-titles {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin-top: 0.2rem;
+  }
 }
 
 .lamp-panel[open] .lamp-lens {

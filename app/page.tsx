@@ -202,20 +202,40 @@ export default function HomePage() {
               </p>
 
               {recentFilms.length > 0 ? (
-                <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  {recentFilms.map((film) => (
-                    <li key={film.title}>
-                      <span className="lamp-mini flex min-h-[44px] items-center gap-2 border border-ink/35 bg-paper-2/50 px-2.5 py-2 hover:border-accent hover:text-accent">
-                        <span className="lamp-bezel" aria-hidden="true">
+                <div className="lamp-readout">
+                  <p className="lamp-tally">
+                    <span className="eyebrow text-ink-muted">lamps lit</span>
+                    <span className="lamp-tally-count">
+                      {String(recentFilms.length).padStart(2, "0")}
+                    </span>
+                  </p>
+                  <div className="lamp-readout-body">
+                    <div className="lamp-rack" aria-hidden="true">
+                      {recentFilms.map((film) => (
+                        <span key={film.title} className="lamp-bezel">
                           <span className="lamp-lens" />
                         </span>
-                        <span className="label text-[10px] leading-tight">
-                          {film.title}
-                        </span>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                      ))}
+                    </div>
+                    <ol className="lamp-titles">
+                      {recentFilms.map((film, index) => (
+                        <li key={film.title}>
+                          <span className="lamp-title-no">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <span className="lamp-title-name">{film.title}</span>
+                          {film.year ? (
+                            <span className="lamp-title-year">{film.year}</span>
+                          ) : null}
+                        </li>
+                      ))}
+                    </ol>
+                    <p className="lamp-fig eyebrow text-ink-muted">
+                      fig. 5-1 · lamps 01–
+                      {String(recentFilms.length).padStart(2, "0")}
+                    </p>
+                  </div>
+                </div>
               ) : null}
 
               <Link
