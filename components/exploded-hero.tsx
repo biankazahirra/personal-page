@@ -376,22 +376,29 @@ export function ExplodedHero() {
       <div className="mx-auto max-w-[1440px] px-6 pb-16 pt-10 md:px-12 md:pb-24 md:pt-14">
         <div className="flex flex-wrap items-baseline justify-between gap-3 border-b-2 border-ink/70 pb-3">
           <p className="eyebrow text-ink-muted">Section 1.0 · Identification</p>
-          <p className="eyebrow text-ink-muted">Fig. 1-1 · exploded view</p>
+          <p className="eyebrow text-ink-muted">
+            <span className="md:hidden">Fig. 1-1</span>
+            <span className="hidden md:inline">Fig. 1-1 · exploded view</span>
+          </p>
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-12 md:gap-4">
-          <div className="md:col-span-5 md:pt-6">
-            <h1
-              id="hero-title"
-              tabIndex={-1}
-              className="display mt-4 text-[clamp(3rem,8vw,6.5rem)]"
-            >
-              {site.name}
-            </h1>
-            <p className="mt-5 max-w-[30ch] text-[clamp(1.35rem,2.6vw,2rem)] leading-tight">
-              {site.tagline}
-            </p>
-            <p className="mt-5 max-w-[46ch] text-ink-muted">{site.heroLine}</p>
+        <div className="hero-grid mt-8">
+          <div className="hero-main">
+            <div className="hero-plate">
+              <h1
+                id="hero-title"
+                tabIndex={-1}
+                className="display mt-4 text-[clamp(3rem,8vw,6.5rem)]"
+              >
+                {site.name}
+              </h1>
+              <p className="hero-tagline mt-5 max-w-[30ch] text-[clamp(1.35rem,2.6vw,2rem)] leading-tight">
+                {site.tagline}
+              </p>
+            </div>
+
+            <div className="hero-meta">
+              <p className="mt-5 max-w-[46ch] text-ink-muted">{site.heroLine}</p>
 
             <DataPlate className="mt-7 max-w-[30rem]" />
 
@@ -435,9 +442,11 @@ export function ExplodedHero() {
                 also a page: the legend below names each one.
               </p>
             </noscript>
+            </div>
           </div>
 
-          <div className="md:col-span-6 md:col-start-7">
+          <div className="hero-side">
+            <div className="hero-stage">
             <div
               ref={stage}
               className="exploded-stage touch-pan-y mx-auto w-full max-w-[36rem]"
@@ -497,7 +506,9 @@ export function ExplodedHero() {
               ))}
 
             </div>
+            </div>
 
+            <div className="hero-controls">
             <p className="sr-only" role="status" aria-live="polite">
               {assembled ? "Inspection complete. The unit is assembled." : ""}
             </p>
@@ -534,6 +545,8 @@ export function ExplodedHero() {
                 ))}
               </ul>
             </div>              
+            </div>
+          </div>
 
             {/* <div className="mx-auto mt-6 max-w-[36rem] border-t border-ink/30 pt-3">
               <p className="eyebrow text-ink-muted">Legend</p>
@@ -548,7 +561,6 @@ export function ExplodedHero() {
                 ))}
               </ul>
             </div> */}
-          </div>
         </div>
       </div>
     </section>

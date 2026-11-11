@@ -4,6 +4,105 @@
    inspection photos, indicator lamps and the carbon-copy form.
    ============================================================ */
 
+/* --- C01 Identification: the sheet ---------------------------------------- */
+
+/* Desktop keeps the two-column sheet. A phone reads as a manual cover: the
+   diagram runs edge to edge and the name sits on a plate across its foot, so
+   the face and the name share the first screen instead of four text blocks. */
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 1rem;
+}
+
+.hero-main {
+  grid-column: 1 / span 5;
+  grid-row: 1 / span 2;
+  padding-top: 1.5rem;
+}
+
+/* The wrapper only keeps stage and controls in one column on a sheet; on a
+   phone its children join the cover stack directly. */
+.hero-side {
+  display: contents;
+}
+
+.hero-stage {
+  grid-column: 7 / span 6;
+  grid-row: 1;
+}
+
+.hero-controls {
+  grid-column: 7 / span 6;
+  grid-row: 2;
+}
+
+@media (max-width: 767px) {
+  .hero-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-main {
+    padding-top: 0;
+  }
+
+  /* Full bleed: the section already clips its own edges. */
+  .hero-stage {
+    order: -1;
+    margin-inline: -1.5rem;
+  }
+
+  .hero-stage .exploded-stage {
+    --unit: 0.9;
+    height: 20.625rem;
+    min-height: 0;
+    max-width: none;
+  }
+
+  .hero-stage .exploded-center {
+    width: 54%;
+  }
+
+  .hero-plate {
+    position: relative;
+    z-index: 3;
+    margin: -2.625rem -0.75rem 0;
+    padding: 0.625rem 0.75rem 0.75rem;
+    border: 2px solid var(--color-ink);
+    background-color: var(--color-paper);
+    box-shadow: 4px 4px 0 color-mix(in oklab, var(--color-ink) 14%, transparent);
+  }
+
+  .hero-plate h1 {
+    margin-top: 0;
+    font-size: clamp(2rem, 10.5vw, 2.75rem);
+    line-height: 1;
+  }
+
+  .hero-plate .hero-tagline {
+    margin-top: 0.5rem;
+    font-size: 1.0625rem;
+    line-height: 1.3;
+  }
+
+  .hero-meta > :first-child {
+    margin-top: 1rem;
+  }
+
+  /* The riveted plate becomes a plain spec strip in one narrow column. */
+  .hero-meta .data-plate {
+    margin-top: 1rem;
+    max-width: none;
+    border: 0;
+    border-top: 1px solid color-mix(in oklab, var(--color-ink) 30%, transparent);
+    border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+    background: none;
+    box-shadow: none;
+    color: inherit;
+  }
+}
+
 /* --- C06 Illustrated parts list ------------------------------------------ */
 
 .parts-head,
