@@ -339,6 +339,14 @@ html[data-motion="full"] .stamp-in {
   background-color: var(--color-accent-warm);
 }
 
+/* On phones the section marker has no room for the trailing hairline: it either
+   wraps alone (and then stretches the full row) or crowds the plain name. */
+@media (max-width: 767px) {
+  .part-trace {
+    display: none;
+  }
+}
+
 .trace-h {
   height: 1px;
   width: 100%;

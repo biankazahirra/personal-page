@@ -1272,6 +1272,27 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
     transform: none !important;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    /* The strip is swiped, not scrolled with a bar: a 15px gutter under the
+       cards reads as a broken border. The swipe hint carries the affordance. */
+    scrollbar-width: none;
+  }
+
+  #chapter-06 .h-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* One card fills the strip, so nothing important is cut mid-word. A fixed
+     300px card was wider than the strip at 320–375 and left a 7px sliver at
+     390. The swipe hint carries the affordance instead of a peek. */
+  #chapter-06 .projects-card {
+    width: 100%;
+  }
+
+  /* The fades are pinned-scroll furniture; on a static strip they wash a 40px
+     column down the whole section. */
+  .projects-fade-left,
+  .projects-fade-right {
+    display: none;
   }
 
   .projects-hint {

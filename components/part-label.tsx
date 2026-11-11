@@ -23,7 +23,7 @@ export function PartLabel({ code, name, plain, tone = "ink" }: PartLabelProps) {
       {plain ? (
         <span className="shrink-0 opacity-80">· {plain}</span>
       ) : null}
-      <span className="trace h-px w-10 shrink-0 opacity-50 md:w-16" aria-hidden="true" />
+      <span className="trace part-trace h-px w-10 shrink-0 opacity-50 md:w-16" aria-hidden="true" />
     </p>
   );
 }
