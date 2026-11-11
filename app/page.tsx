@@ -284,11 +284,8 @@ export default function HomePage() {
             <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-ink/20 pb-4">
               <PartLabel code="C06" name="illustrated parts list" plain="My projects" />
 
-              <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2">
-                <p className="eyebrow projects-hint text-ink-muted">
-                  <span className="md:hidden">swipe the strip —</span>
-                  <span className="hidden md:inline">keep scrolling —</span>
-                </p>
+              <div className="hidden flex-wrap items-center justify-end gap-x-4 gap-y-2 md:flex">
+                <p className="eyebrow projects-hint text-ink-muted">keep scrolling —</p>
                 <Link href="/projects" className="eyebrow hover:text-accent">
                   all projects
                 </Link>
@@ -301,7 +298,15 @@ export default function HomePage() {
           </div>
 
           <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
-            <div className="projects-viewport mt-5 md:mt-6">
+            {/* The swipe hint sits with the cards, where it is read before the
+                first gesture; the label row is too far up on a phone. */}
+            <div className="mt-4 flex items-baseline justify-between gap-4 md:hidden">
+              <p className="eyebrow text-ink-muted">swipe the strip —</p>
+              <Link href="/projects" className="eyebrow hover:text-accent">
+                all projects
+              </Link>
+            </div>
+            <div className="projects-viewport mt-3 md:mt-6">
               <ul data-horizontal-track className="h-track projects-track flex gap-5">
                 {featuredProjects.map((project, index) => (
                   <li key={project.slug} data-project-card className="projects-card">

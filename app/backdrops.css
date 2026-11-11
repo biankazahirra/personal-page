@@ -502,8 +502,10 @@ html[data-shift="night"] .sheet-stock {
     border-color: rgb(var(--line-rgb) / 0.22);
   }
 
+  /* Phones do not pin the strip, so the frame starts at the section edge. The
+     4.75rem offset used to drop its top rule onto the C06 part label. */
   .h-sticky .sheet-frame {
-    top: 4.75rem;
+    top: 6px;
   }
 
   .sheet-frame::before,
