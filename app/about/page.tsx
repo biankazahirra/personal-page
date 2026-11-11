@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { AboutChips } from "@/components/about-chips";
 import { PageHeader } from "@/components/page-header";
-import { Media } from "@/components/media";
+import { PortraitPlate } from "@/components/portrait-plate";
 import { site } from "@/content/site";
 import { timeline } from "@/content/timeline";
 
@@ -130,19 +130,7 @@ export default function AboutPage() {
       <section id="overview" className="mx-auto max-w-[1440px] px-6 pb-16 md:px-12 md:pb-24">
         <div className="grid gap-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-4">
-            <figure className="about-id data-plate p-3 md:p-4">
-              <Media
-                image={site.portrait}
-                variant="field"
-                label="portrait pending"
-                className="aspect-[4/5] w-full border border-ink/20"
-                sizes="(min-width: 768px) 33vw, 100vw"
-              />
-              <figcaption className="mt-3 flex flex-wrap items-baseline justify-between gap-2 border-t border-ink/25 pt-2 font-mono text-[10px] uppercase tracking-[0.18em]">
-                <span>FIG. 2-1 · Portrait</span>
-                <span>Part 01</span>
-              </figcaption>
-            </figure>
+            <PortraitPlate image={site.portrait} />
           </div>
 
           <div className="about-intro md:col-span-7 md:col-start-6">

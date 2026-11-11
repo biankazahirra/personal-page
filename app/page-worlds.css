@@ -573,6 +573,94 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
   color: var(--color-paper);
 }
 
+/* --- Portrait plate: the crop opens the whole photograph ----------------- */
+
+.portrait-zoom {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.portrait-zoom:focus-visible {
+  outline: 2px solid var(--color-accent-warm);
+  outline-offset: 2px;
+}
+
+.portrait-zoom::after {
+  content: "↗";
+  position: absolute;
+  right: 0.25rem;
+  bottom: 0.25rem;
+  display: grid;
+  place-items: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  background-color: var(--color-mustard);
+  color: var(--color-night);
+  font-family: var(--font-label);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.portrait-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(88vw, 26rem);
+  height: fit-content;
+  max-height: 92svh;
+  margin: auto;
+  overflow-y: auto;
+  padding: 0;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 45%, transparent);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.portrait-dialog::backdrop {
+  background-color: rgb(30 27 23 / 0.62);
+}
+
+.portrait-dialog-plate {
+  position: relative;
+  padding: 0.75rem;
+}
+
+.portrait-dialog-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-ink);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-label);
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+.portrait-dialog-close:hover,
+.portrait-dialog-close:focus-visible {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.portrait-dialog-close:focus-visible {
+  outline: 2px solid var(--color-accent-warm);
+  outline-offset: 2px;
+}
+
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
 @media (max-width: 767px) {
   .about-chips {
     display: grid;

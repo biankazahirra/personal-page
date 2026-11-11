@@ -1,0 +1,72 @@
+"use client";
+
+import { useRef } from "react";
+
+import { Media } from "@/components/media";
+import type { ImageRef } from "@/content/types";
+
+/**
+ * The portrait plate. The small 4:5 crop opens a native dialog with the whole
+ * photograph, because the ID-card crop on a phone hides most of the picture.
+ */
+export function PortraitPlate({ image }: { image?: ImageRef }) {
+  const dialog = useRef<HTMLDialogElement>(null);
+
+  return (
+    <>
+      <figure className="about-id data-plate p-3 md:p-4">
+        <button
+          type="button"
+          className="portrait-zoom"
+          aria-label="Open the portrait larger"
+          aria-haspopup="dialog"
+          onClick={() => dialog.current?.showModal()}
+        >
+          <Media
+            image={image}
+            variant="field"
+            label="portrait pending"
+            className="aspect-[4/5] w-full border border-ink/20"
+            sizes="(min-width: 768px) 33vw, 100vw"
+          />
+        </button>
+        <figcaption className="mt-3 flex flex-wrap items-baseline justify-between gap-2 border-t border-ink/25 pt-2 font-mono text-[10px] uppercase tracking-[0.18em]">
+          <span>FIG. 2-1 · Portrait</span>
+          <span>Part 01</span>
+        </figcaption>
+      </figure>
+
+      <dialog
+        ref={dialog}
+        aria-label="Portrait, figure 2-1"
+        className="portrait-dialog"
+        onClick={(event) => {
+          if (event.target === dialog.current) dialog.current?.close();
+        }}
+      >
+        <figure className="portrait-dialog-plate">
+          <Media
+            image={image}
+            variant="field"
+            label="portrait pending"
+            fit="intrinsic"
+            className="w-full border border-ink/25"
+            sizes="(min-width: 768px) 26rem, 88vw"
+          />
+          <figcaption className="mt-3 flex flex-wrap items-baseline justify-between gap-2 border-t border-ink/25 pt-2 font-mono text-[10px] uppercase tracking-[0.18em]">
+            <span>FIG. 2-1 · Portrait</span>
+            <span>Part 01</span>
+          </figcaption>
+          <button
+            type="button"
+            className="portrait-dialog-close"
+            aria-label="Close the portrait"
+            onClick={() => dialog.current?.close()}
+          >
+            ×
+          </button>
+        </figure>
+      </dialog>
+    </>
+  );
+}
