@@ -13,7 +13,7 @@ export const timeline: TimelineItem[] = [
   {
     period: "2022 — 2024",
     title: "Computer Science",
-    org: "Universitas Lampung",
+    org: "Lampung University",
     kind: "education",
     summary:
       "93 credits completed, last GPA 3.51/4.00. The degree is not finished, and this page will not pretend otherwise.",
@@ -21,7 +21,7 @@ export const timeline: TimelineItem[] = [
   {
     period: "Aug — Dec 2023",
     title: "Teaching Assistant, Logic",
-    org: "Universitas Lampung",
+    org: "Lampung University",
     kind: "organization",
     summary:
       "Ran structured tutorials and supported students through the semester. A 94% pass rate was reported for the course.",

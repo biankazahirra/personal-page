@@ -35,7 +35,7 @@ const specs = [
   },
   {
     label: "education",
-    value: "Computer Science, Universitas Lampung",
+    value: "Computer Science, Lampung University",
     note: "93 credits completed. Last GPA 3.51 out of 4.00. The degree is not finished, and this plate does not pretend otherwise.",
   },
   {
@@ -145,7 +145,7 @@ export default function AboutPage() {
           <div className="about-intro md:col-span-7 md:col-start-6">
             <p className="text-[clamp(1.25rem,2vw,1.625rem)] leading-[1.5]">
               I&apos;m {site.fullName ?? site.name}. I spent two years in computer
-              science at Universitas Lampung, collected 93 credits, and stopped
+              science at Lampung University, collected 93 credits, and stopped
               before the degree was finished. The last GPA was 3.51 out of 4.00.
             </p>
             <p className="mt-7 max-w-[58ch] text-ink-muted md:mt-6">
