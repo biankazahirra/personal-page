@@ -8,7 +8,7 @@ import { kindLabels } from "@/content/journal";
 import type { JournalEntry } from "@/content/types";
 import { formatDate } from "@/lib/format";
 import { currentMotion } from "@/lib/motion";
-import { flipOrder, photoLabel } from "@/lib/photo-tray";
+import { bringToFront, flipOrder, photoLabel } from "@/lib/photo-tray";
 
 const FLIP_MS = 380;
 
@@ -38,6 +38,8 @@ export function PhotoTray({
   const [leaving, setLeaving] = useState<{ index: number; direction: 1 | -1 } | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const swipe = useRef<{ x: number; y: number } | null>(null);
+  /** A finished swipe is not also a tap; the photo button's click would double flip. */
+  const swiped = useRef(false);
 
   useEffect(() => {
     return () => {
@@ -68,6 +70,14 @@ export function PhotoTray({
   const total = entries.length;
   const current = entries[top];
 
+  /** A dot jumps straight to one photo; the stack keeps its cyclic order. */
+  const goTo = (index: number) => {
+    if (leaving || index === top) return;
+    setOrder((current) => bringToFront(current, index));
+  };
+
+  const topLayer = (tray: HTMLElement) => tray.querySelector<HTMLElement>(".photo-layer-top");
+
   /** Ink that stays readable on whichever section the tray is mounted in. */
   const ink = tone === "paper" ? "text-ink" : "text-paper-on-night/60";
   const inkSoft = tone === "paper" ? "text-ink-muted" : "text-paper-on-night/50";
@@ -94,17 +104,50 @@ export function PhotoTray({
         onKeyDown={onKeyDown}
         onPointerDown={(event) => {
           swipe.current = { x: event.clientX, y: event.clientY };
+          swiped.current = false;
+          // Keep the moves coming even when the finger leaves the tray. Capture
+          // can throw when the pointer is already gone.
+          try {
+            event.currentTarget.setPointerCapture(event.pointerId);
+          } catch {
+            /* pointer already released */
+          }
+        }}
+        onPointerMove={(event) => {
+          const start = swipe.current;
+          if (!start || currentMotion() === "reduce") return;
+          const dx = event.clientX - start.x;
+          const dy = event.clientY - start.y;
+          // Let a vertical scroll through untouched.
+          if (Math.abs(dx) <= Math.abs(dy)) return;
+          const layer = topLayer(event.currentTarget);
+          if (!layer) return;
+          layer.dataset.dragging = "true";
+          layer.style.transform = `translate(${dx}px, ${Math.min(10, Math.abs(dx) * 0.05)}px) rotate(${dx * 0.03}deg)`;
         }}
         onPointerUp={(event) => {
           const start = swipe.current;
           swipe.current = null;
+          const layer = topLayer(event.currentTarget);
+          if (layer) {
+            delete layer.dataset.dragging;
+            layer.style.removeProperty("transform");
+          }
           if (!start) return;
           const dx = event.clientX - start.x;
           const dy = event.clientY - start.y;
-          if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) flip(dx < 0 ? 1 : -1);
+          if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) {
+            swiped.current = true;
+            flip(dx < 0 ? 1 : -1);
+          }
         }}
-        onPointerCancel={() => {
+        onPointerCancel={(event) => {
           swipe.current = null;
+          const layer = topLayer(event.currentTarget);
+          if (layer) {
+            delete layer.dataset.dragging;
+            layer.style.removeProperty("transform");
+          }
         }}
       >
         <div className="photo-stage">
@@ -136,7 +179,13 @@ export function PhotoTray({
                 data-top="true"
                 data-leaving={leaving && leaving.index === momentIndex ? leaving.direction : undefined}
                 aria-label={`Next photo: ${entry.title}`}
-                onClick={() => flip(1)}
+                onClick={() => {
+                  if (swiped.current) {
+                    swiped.current = false;
+                    return;
+                  }
+                  flip(1);
+                }}
               >
                 <Media
                   image={entry.images?.[0]}
@@ -177,7 +226,23 @@ export function PhotoTray({
         </button>
       </div>
 
-      <p className={`eyebrow mt-4 ${inkSoft}`}>tap to flip to the next ▸</p>
+      <div className="photo-dots">
+        {entries.map((entry, index) => (
+          <button
+            key={entry.slug}
+            type="button"
+            className="photo-dot"
+            aria-current={index === top}
+            aria-label={`Photo ${index + 1}: ${entry.title}`}
+            onClick={() => goTo(index)}
+          />
+        ))}
+        <span className={`photo-counter eyebrow ${ink}`}>
+          {String(top + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+        </span>
+      </div>
+
+      <p className={`eyebrow mt-4 ${inkSoft}`}>swipe or tap to flip</p>
       </div>
 
       <ul className="photo-list">

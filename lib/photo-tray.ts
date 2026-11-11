@@ -9,3 +9,9 @@ export function flipOrder(order: number[], direction: 1 | -1): number[] {
 export function photoLabel(title: string, index: number, total: number): string {
   return `Photo ${index + 1} of ${total}: ${title}`;
 }
+
+/** Order after a dot jump: the chosen photo comes to the top, the rest keep theirs. */
+export function bringToFront(order: number[], index: number): number[] {
+  if (!order.includes(index)) return order;
+  return [index, ...order.filter((item) => item !== index)];
+}
