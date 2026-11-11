@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const chapters = [
   { href: "#overview", label: "about" },
@@ -17,6 +17,9 @@ const chapters = [
  * the sheet reads as a logbook with every note visible; desktop keeps it shut.
  */
 export function AboutChips() {
+  const nav = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(chapters[0].href);
+
   useEffect(() => {
     const header = document.querySelector("header.manual-band");
     const root = document.documentElement;
@@ -41,17 +44,49 @@ export function AboutChips() {
     openSpecs();
     phone.addEventListener("change", openSpecs);
 
+    const sections = chapters
+      .map((chapter) => document.querySelector<HTMLElement>(chapter.href))
+      .filter((section): section is HTMLElement => section !== null);
+
+    // The active chip is the last section whose top has passed the sticky
+    // stack. Scroll only queues one frame, so the check stays cheap.
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (!phone.matches) return;
+      const line =
+        (header?.clientHeight ?? 0) + (nav.current?.offsetHeight ?? 0) + 8;
+      let current = chapters[0].href;
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= line) {
+          current = `#${section.id}`;
+        }
+      }
+      setActive(current);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => {
       observer?.disconnect();
       phone.removeEventListener("change", openSpecs);
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
       root.style.removeProperty("--band-h");
     };
   }, []);
 
   return (
-    <nav aria-label="On this page" className="about-chips md:hidden">
+    <nav ref={nav} aria-label="On this page" className="about-chips md:hidden">
       {chapters.map((chapter) => (
-        <a key={chapter.href} href={chapter.href}>
+        <a
+          key={chapter.href}
+          href={chapter.href}
+          aria-current={active === chapter.href ? "true" : undefined}
+        >
           {chapter.label}
         </a>
       ))}

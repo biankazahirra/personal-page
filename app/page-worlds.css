@@ -534,41 +534,39 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
   }
 }
 
-/* The phone index: chapter chips that stay under the manual band while the
+/* The phone index: chapter tabs that stay under the manual band while the
    long page scrolls. Desktop has the contents menu, so it never renders. */
 .about-chips {
   position: sticky;
   top: var(--band-h, 5.9375rem);
   z-index: 30;
   display: none;
-  gap: 0.375rem;
-  overflow-x: auto;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   margin-inline: 15px;
-  padding: 0.375rem 9px;
   background-color: var(--bd-factory, #cfcbc0);
   border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 22%, transparent);
-  scrollbar-width: none;
-}
-
-.about-chips::-webkit-scrollbar {
-  display: none;
 }
 
 .about-chips a {
-  flex: none;
   display: grid;
   place-items: center;
   min-height: 2.75rem;
-  padding-inline: 0.5rem;
-  border: 1px solid color-mix(in oklab, var(--color-ink) 30%, transparent);
+  padding-inline: 0.25rem;
+  border-left: 1px solid
+    color-mix(in oklab, var(--color-ink) 18%, transparent);
   font-family: var(--font-label);
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-ink);
 }
 
+.about-chips a:first-child {
+  border-left: 0;
+}
+
+.about-chips a[aria-current="true"],
 .about-chips a:active,
 .about-chips a:focus-visible {
   background-color: var(--color-ink);
@@ -577,16 +575,16 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
 
 @media (max-width: 767px) {
   .about-chips {
-    display: flex;
+    display: grid;
   }
 
-  /* Land the anchor below the band and the sticky chips. */
+  /* Land the anchor below the band and the sticky tabs. */
   #overview,
   #specifications,
   #shifts,
   #history,
   #toolbox {
-    scroll-margin-top: calc(var(--band-h, 5.9375rem) + 4rem);
+    scroll-margin-top: calc(var(--band-h, 5.9375rem) + 3.25rem);
   }
 
   #overview {
