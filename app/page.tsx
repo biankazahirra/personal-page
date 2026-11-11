@@ -261,7 +261,7 @@ export default function HomePage() {
                 href="/films"
                 className="eyebrow mt-6 inline-block border-b border-accent pb-1 hover:text-accent"
               >
-                the films section
+                the review
               </Link>
             </div>
           </div>
