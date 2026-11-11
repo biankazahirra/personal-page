@@ -1255,6 +1255,25 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
   opacity: clamp(0, calc(var(--h-progress, 0) * 8), 1);
 }
 
+/* The swipe direction mark: a mustard sign with a black chevron, beside the
+   hint rather than over the card. */
+.swipe-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid color-mix(in oklab, var(--color-night) 45%, transparent);
+  border-radius: 3px;
+  background-color: var(--color-mustard);
+  color: var(--color-night);
+}
+
+.swipe-mark svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
 /* Phones: no pin. The strip is a normal sideways scroller, because a swipe is
    the gesture people reach for, and the pin has little room to work with. */
 @media (max-width: 767px) {

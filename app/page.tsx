@@ -300,8 +300,15 @@ export default function HomePage() {
           <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
             {/* The swipe hint sits with the cards, where it is read before the
                 first gesture; the label row is too far up on a phone. */}
-            <div className="mt-4 flex items-baseline justify-between gap-4 md:hidden">
-              <p className="eyebrow text-ink-muted">swipe the strip —</p>
+            <div className="mt-4 flex items-center justify-between gap-4 md:hidden">
+              <p className="eyebrow flex items-center gap-2 text-ink-muted">
+                swipe the strip
+                <span className="swipe-mark" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" fill="none">
+                    <path d="M6.5 3.5 13.5 10l-7 6.5" stroke="currentColor" strokeWidth="5" strokeLinejoin="miter" />
+                  </svg>
+                </span>
+              </p>
               <Link href="/projects" className="eyebrow hover:text-accent">
                 all projects
               </Link>
