@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { AboutChips } from "@/components/about-chips";
 import { PageHeader } from "@/components/page-header";
 import { Media } from "@/components/media";
 import { site } from "@/content/site";
@@ -124,10 +125,12 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <section className="mx-auto max-w-[1440px] px-6 pb-16 md:px-12 md:pb-24">
+      <AboutChips />
+
+      <section id="overview" className="mx-auto max-w-[1440px] px-6 pb-16 md:px-12 md:pb-24">
         <div className="grid gap-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-4">
-            <figure className="data-plate p-3 md:p-4">
+            <figure className="about-id data-plate p-3 md:p-4">
               <Media
                 image={site.portrait}
                 variant="field"
@@ -244,7 +247,8 @@ export default function AboutPage() {
                 {revisions.map((item) => (
                   <li key={`${item.period}-${item.title}`} className="revision-row">
                     <span className="revision-rev" data-label="rev">
-                      Rev {item.rev}
+                      <span className="revision-rev-word">Rev </span>
+                      {item.rev}
                     </span>
                     <span className="revision-period" data-label="period">
                       {item.period}
