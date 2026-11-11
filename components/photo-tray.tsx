@@ -242,7 +242,7 @@ export function PhotoTray({
         </span>
       </div>
 
-      <p className={`eyebrow mt-4 ${inkSoft}`}>swipe or tap to flip</p>
+      <p className={`eyebrow mt-4 ${inkSoft}`}>tap to flip</p>
       </div>
 
       <ul className="photo-list">

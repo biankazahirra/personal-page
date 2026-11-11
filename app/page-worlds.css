@@ -535,13 +535,24 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
 }
 
 @media (max-width: 767px) {
+  /* The page reads as one narrow monospace column on a phone, so body copy
+     gets a step more size and leading than the desktop sheet. */
+  .about-intro p + p,
+  .about-note,
+  .shift-card p:not(.eyebrow) {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
   .spec-row > summary {
     grid-template-columns: 1fr 1.5rem;
     gap: 0.25rem 1rem;
+    padding-block: 0.875rem;
   }
 
   .spec-value {
     grid-column: 1;
+    font-size: 1.125rem;
   }
 
   .spec-toggle {
@@ -552,11 +563,14 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
 
   .spec-note {
     padding: 0 0 1rem;
+    font-size: 1rem;
+    line-height: 1.65;
   }
 
   .revision-row {
     grid-template-columns: 1fr auto;
-    gap: 0.35rem 1rem;
+    gap: 0.5rem 1rem;
+    padding-block: 1.25rem;
   }
 
   .revision-rev {
@@ -573,9 +587,15 @@ html[data-shift="night"] .stamp[data-tone="mustard"] {
     grid-column: 1 / -1;
   }
 
+  .revision-change > .revision-org {
+    font-size: 0.9375rem;
+  }
+
   .revision-detail {
     order: 4;
     grid-column: 1 / -1;
+    font-size: 1rem;
+    line-height: 1.65;
   }
 }
 
