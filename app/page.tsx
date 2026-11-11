@@ -319,35 +319,61 @@ export default function HomePage() {
                   <li key={project.slug} data-project-card className="projects-card">
                     <Link
                       href={`/projects/${project.slug}`}
-                      className="group flex h-full flex-col border border-ink/20"
+                      className="projects-card-link group"
                     >
+                      <div className="projects-card-head">
+                        <span className="projects-card-code">{project.partNo}</span>
+                        <span
+                          className={`projects-card-status${
+                            project.status === "in-progress" ? " is-wip" : ""
+                          }`}
+                        >
+                          {project.status === "in-progress" ? "in progress" : project.status}
+                        </span>
+                        <span className="projects-card-index">
+                          {String(index + 1).padStart(2, "0")} /{" "}
+                          {String(featuredProjects.length).padStart(2, "0")}
+                        </span>
+                      </div>
+
                       <Media
                         image={project.cover}
                         variant={project.status === "in-progress" ? "grid" : "field"}
                         tone="night"
-                        className="aspect-[16/9] w-full"
+                        className="projects-card-cover aspect-[16/9] w-full"
                         label="screenshot pending"
-                        sizes="(min-width: 768px) 40vw, 85vw"
+                        sizes="(min-width: 768px) 22rem, 100vw"
                         priority={index === firstProjectImage}
                       />
 
-                      <div className="sheet-stock flex flex-1 flex-col bg-paper/85 p-4 md:p-5">
-                        <p className="eyebrow text-ink-muted">
-                          {project.status}
-                          {project.year ? ` · ${project.year}` : ""}
-                        </p>
-                        <h3 className="display mt-2 text-[clamp(1.6rem,2.2vw,2rem)] group-hover:text-accent">
+                      <div className="projects-card-body">
+                        <h3 className="display projects-card-title group-hover:text-accent">
                           {project.title}
                         </h3>
-                        <p className="mt-2 text-sm text-ink-muted">{project.summary}</p>
-                        <p className="eyebrow mt-auto pt-4 text-ink-muted">
-                          {project.stack.join(" · ")}
-                        </p>
+                        <p className="projects-card-summary">{project.summary}</p>
+                        <dl className="projects-card-spec">
+                          <div>
+                            <dt>Role</dt>
+                            <dd>{project.role}</dd>
+                          </div>
+                          <div>
+                            <dt>Stack</dt>
+                            <dd>{project.stack.join(" · ")}</dd>
+                          </div>
+                        </dl>
+                      </div>
+
+                      <div className="projects-card-foot">
+                        <span>{project.year}</span>
+                        <span aria-hidden="true">Open →</span>
                       </div>
                     </Link>
                   </li>
                 ))}
               </ul>
+            </div>
+            <div aria-hidden="true" className="projects-progress">
+              <span />
             </div>
           </div>
 
