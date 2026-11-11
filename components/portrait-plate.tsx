@@ -44,27 +44,32 @@ export function PortraitPlate({ image }: { image?: ImageRef }) {
           if (event.target === dialog.current) dialog.current?.close();
         }}
       >
-        <figure className="portrait-dialog-plate">
-          <Media
-            image={image}
-            variant="field"
-            label="portrait pending"
-            fit="intrinsic"
-            className="w-full border border-ink/25"
-            sizes="(min-width: 768px) 26rem, 88vw"
-          />
-          <figcaption className="mt-3 flex flex-wrap items-baseline justify-between gap-2 border-t border-ink/25 pt-2 font-mono text-[10px] uppercase tracking-[0.18em]">
-            <span>FIG. 2-1 · Portrait</span>
+        <figure className="portrait-dialog-plate data-plate">
+          <header className="portrait-dialog-head">
+            <span className="portrait-dialog-code">C02</span>
+            <span className="portrait-dialog-title">Fig. 2-1 · Portrait</span>
+            <button
+              type="button"
+              className="portrait-dialog-close"
+              aria-label="Close the portrait"
+              onClick={() => dialog.current?.close()}
+            >
+              ×
+            </button>
+          </header>
+          <div className="portrait-dialog-frame">
+            <Media
+              image={image}
+              variant="field"
+              label="portrait pending"
+              className="portrait-dialog-media aspect-[4/5] w-full"
+              sizes="(min-width: 768px) 26rem, 90vw"
+            />
+          </div>
+          <figcaption className="portrait-dialog-foot">
+            <span>Sheet 2-1 · Unit BZ-2026</span>
             <span>Part 01</span>
           </figcaption>
-          <button
-            type="button"
-            className="portrait-dialog-close"
-            aria-label="Close the portrait"
-            onClick={() => dialog.current?.close()}
-          >
-            ×
-          </button>
         </figure>
       </dialog>
     </>
