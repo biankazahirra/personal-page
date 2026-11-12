@@ -12,6 +12,12 @@ type ResponseBody = {
   message?: string;
 };
 
+const priorities = [
+  { value: "low", label: "low" },
+  { value: "normal", label: "normal" },
+  { value: "machine is smoking", label: "machine is smoking" },
+];
+
 export function ServiceForm({
   email,
   configured,
@@ -148,12 +154,22 @@ export function ServiceForm({
           </div>
 
           <div className="carbon-field">
-            <label htmlFor="service-priority">priority</label>
-            <select id="service-priority" name="priority" defaultValue="normal">
-              <option value="low">low — whenever there is time</option>
-              <option value="normal">normal — a normal request</option>
-              <option value="machine is smoking">machine is smoking</option>
-            </select>
+            <fieldset className="carbon-priority">
+              <legend>priority</legend>
+              <div className="carbon-stamps">
+                {priorities.map((item) => (
+                  <label key={item.value} className="carbon-stamp">
+                    <input
+                      type="radio"
+                      name="priority"
+                      value={item.value}
+                      defaultChecked={item.value === "normal"}
+                    />
+                    <span>{item.label}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
           </div>
 
           <div className="carbon-field carbon-field-wide">

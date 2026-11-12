@@ -1734,6 +1734,71 @@ html:has(dialog[open]) {
   padding: 0.5rem 0.75rem;
 }
 
+/* Priority as three rubber stamps. A native select on a phone opens a
+   full-screen list for three short words, and its option text was a sentence. */
+.carbon-priority {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.carbon-priority legend {
+  padding: 0;
+  font-family: var(--font-label);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5a5145;
+}
+
+.carbon-stamps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: 0.375rem;
+}
+
+.carbon-field .carbon-stamp {
+  position: relative;
+  display: inline-flex;
+  margin: 0;
+  cursor: pointer;
+}
+
+.carbon-stamp input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.carbon-stamp span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  border: 1px solid color-mix(in oklab, #2b2620 45%, transparent);
+  padding: 0 0.5rem;
+  font-family: var(--font-label);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5a5145;
+}
+
+.carbon-stamp input:checked + span {
+  border-color: #a6311c;
+  background-color: color-mix(in oklab, #a6311c 8%, transparent);
+  color: #a6311c;
+}
+
+.carbon-stamp input:focus-visible + span {
+  outline: 3px solid #a6311c;
+  outline-offset: 1px;
+}
+
 @media (min-width: 768px) {
   .carbon-fields {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1759,7 +1824,80 @@ html:has(dialog[open]) {
   }
 
   .carbon-stack {
-    padding-bottom: 8px;
+    padding-bottom: 10px;
+  }
+
+  /* The request reads as a service order: ruled lines, numbered steps, one
+     stamp row, and a submit bar that fills the sheet. The carbon copies stay
+     behind it, so the triplicate is still visible at the edge. */
+  .carbon-form {
+    padding: 0.875rem 0.875rem 1rem;
+  }
+
+  .carbon-form-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .carbon-fields {
+    counter-reset: step;
+    gap: 0;
+    margin-top: 0.75rem;
+  }
+
+  .carbon-field {
+    position: relative;
+    padding: 0.5rem 0 0.55rem 1.75rem;
+    border-top: 1px solid color-mix(in oklab, #2b2620 16%, transparent);
+  }
+
+  .carbon-field:first-child {
+    border-top: 0;
+  }
+
+  .carbon-field::before {
+    counter-increment: step;
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.9rem;
+    font-family: var(--font-label);
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #a6311c;
+  }
+
+  .carbon-field input,
+  .carbon-field select {
+    min-height: 2.75rem;
+    border: 0;
+    border-bottom: 1px solid color-mix(in oklab, #2b2620 55%, transparent);
+    padding: 0.35rem 0;
+  }
+
+  .carbon-field textarea {
+    min-height: 6.5rem;
+    border: 1px solid color-mix(in oklab, #2b2620 45%, transparent);
+    padding: 0.5rem 0.6rem;
+  }
+
+  .carbon-field .carbon-stamp span {
+    min-height: 2.5rem;
+    padding: 0 0.625rem;
+  }
+
+  .carbon-actions {
+    border-top: 2px solid #2b2620;
+    padding-top: 0.75rem;
+  }
+
+  .carbon-submit {
+    width: 100%;
+    min-height: 3rem;
+    background-color: #d9a441;
+    color: #2b2620;
   }
 }
 
