@@ -772,7 +772,7 @@ html[data-motion="reduce"] .journey-lamp {
   transform: translate(-50%, -50%)
     translate(
       calc(var(--x) * var(--spread) * var(--unit)),
-      calc(var(--y) * var(--spread) * var(--unit-y, var(--unit)))
+      calc(var(--y) * var(--spread) * var(--unit))
     );
   transition: opacity 160ms linear;
 }
