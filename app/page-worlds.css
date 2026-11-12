@@ -842,6 +842,70 @@ html:has(dialog[open]) {
   overflow: hidden;
 }
 
+/* --- About: the unit interview ------------------------------------------- */
+
+/* Four short exchanges in the console voice instead of three paragraphs of
+   equal weight. The panel is the same night metal used by the shift notes, so
+   it reads as part of the machine, not as a speech. */
+.about-readout {
+  border: 1px solid color-mix(in oklab, var(--color-paper-on-night) 20%, transparent);
+  border-left: 3px solid var(--color-accent-warm);
+  background-color: var(--color-night);
+  color: var(--color-paper-on-night);
+  padding: 0.9rem 1rem 1rem;
+}
+
+.about-readout-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-paper-on-night) 22%, transparent);
+  padding-bottom: 0.5rem;
+  color: color-mix(in oklab, var(--color-paper-on-night) 70%, transparent);
+}
+
+.about-readout-lamp {
+  margin-left: auto;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--color-mustard);
+  box-shadow: 0 0 6px color-mix(in oklab, var(--color-mustard) 75%, transparent);
+}
+
+.about-readout dl {
+  margin: 0;
+}
+
+.about-readout dt {
+  margin-top: 0.8rem;
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-mustard);
+}
+
+.about-readout dt::before {
+  content: "> ";
+  color: color-mix(in oklab, var(--color-mustard) 60%, transparent);
+}
+
+.about-readout dd {
+  margin: 0.3rem 0 0;
+  padding-left: 1rem;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.about-readout-foot {
+  margin-top: 1rem;
+  border-top: 1px solid color-mix(in oklab, var(--color-paper-on-night) 18%, transparent);
+  padding-top: 0.5rem;
+  color: color-mix(in oklab, var(--color-paper-on-night) 65%, transparent);
+}
+
 @media (max-width: 767px) {
   .about-chips {
     display: grid;
@@ -858,6 +922,13 @@ html:has(dialog[open]) {
 
   #overview {
     padding-top: 1.25rem;
+  }
+
+  /* The readout bleeds to the screen edge on a phone: the narrow column is
+     what makes four short answers wrap into seven lines each. */
+  .about-readout {
+    margin-inline: -1.5rem;
+    padding: 1rem 1.25rem 1.1rem;
   }
 
   /* The portrait becomes a compact ID card: face left, plate text right. */

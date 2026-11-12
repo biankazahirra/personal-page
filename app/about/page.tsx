@@ -86,6 +86,32 @@ const interests = [
 ];
 
 /*
+ * The about chapter reads as a short unit interview: four exchanges in the
+ * console voice, so the chapter is not three paragraphs of equal weight.
+ */
+const readout = [
+  {
+    q: "who is this unit?",
+    answer:
+      "Bianka Zahirra Putri. Computer science at Lampung University, 93 credits, last GPA 3.51, degree unfinished.",
+  },
+  {
+    q: "what does it do?",
+    answer:
+      "Documents, records and monthly numbers at PT Krakatau Sarana Properti since May 2025. Small tools in Access. AI agents, tested until they break.",
+  },
+  {
+    q: "and after hours?",
+    answer:
+      "Films, songs on repeat, four unreliable ukulele chords, projects almost done.",
+  },
+  {
+    q: "anything else?",
+    answer: "No spare parts.",
+  },
+];
+
+/*
  * Revision letters follow the order the work started, not the order the
  * entries happened to be written in. The table is then shown newest first.
  */
@@ -134,23 +160,23 @@ export default function AboutPage() {
           </div>
 
           <div className="about-intro md:col-span-7 md:col-start-6">
-            <p className="text-[clamp(1.25rem,2vw,1.625rem)] leading-[1.5]">
-              I&apos;m {site.fullName ?? site.name}. I spent two years in computer
-              science at Lampung University, collected 93 credits, and stopped
-              before the degree was finished. The last GPA was 3.51 out of 4.00.
-            </p>
-            <p className="mt-7 max-w-[58ch] text-ink-muted md:mt-6">
-              Since then most of the learning has been less formal: building forms
-              in Microsoft Access, testing AI agents, breaking things, fixing them.
-              I&apos;m in the IT and management system division at PT Krakatau
-              Sarana Properti, where the work is documents, records and monthly
-              numbers. Nobody would call it glamorous. It is satisfying in the way
-              small tools are satisfying.
-            </p>
-            <p className="mt-7 max-w-[58ch] text-ink-muted md:mt-6">
-              Outside of that: films, music, a ukulele I&apos;m still slow at, and a
-              folder of projects that are almost finished.
-            </p>
+            <div className="about-readout">
+              <p className="eyebrow about-readout-head">
+                Unit interview · form 2-b
+                <span className="about-readout-lamp" aria-hidden="true" />
+              </p>
+              <dl>
+                {readout.map((item) => (
+                  <div key={item.q}>
+                    <dt>{item.q}</dt>
+                    <dd>{item.answer}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="eyebrow about-readout-foot">
+                End of readout · nothing hidden
+              </p>
+            </div>
           </div>
         </div>
       </section>
