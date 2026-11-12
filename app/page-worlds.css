@@ -55,6 +55,9 @@
 
   .hero-stage .exploded-stage {
     --unit: 0.9;
+    /* The plate covers the foot of the diagram, so the ring of parts is
+       squeezed flatter to keep the low pair above it. */
+    --unit-y: 0.7;
     height: 20.625rem;
     min-height: 0;
     max-width: none;
@@ -62,6 +65,12 @@
 
   .hero-stage .exploded-center {
     width: 54%;
+  }
+
+  /* The stamp hangs off the portrait's foot on a sheet, which is exactly where
+     the plate now sits. On a phone it lands inside the frame instead. */
+  .hero-stage .stamp {
+    bottom: 1.25rem;
   }
 
   .hero-plate {
