@@ -13,8 +13,8 @@ const chapters = [
 /**
  * Phone-only chapter index. It sticks under the manual band, so it publishes
  * that band's measured height instead of guessing one that changes when the
- * band wraps at 320-360px. It also opens the spec accordion on phones, where
- * the sheet reads as a logbook with every note visible; desktop keeps it shut.
+ * band wraps at 320-360px. Every spec row starts shut; a reader opens the one
+ * they want instead of scrolling a sheet with every note already visible.
  */
 export function AboutChips() {
   const nav = useRef<HTMLElement>(null);
@@ -33,16 +33,6 @@ export function AboutChips() {
     if (header && observer) observer.observe(header);
 
     const phone = window.matchMedia("(max-width: 767px)");
-    const openSpecs = () => {
-      if (!phone.matches) return;
-      document
-        .querySelectorAll<HTMLDetailsElement>(".spec-row")
-        .forEach((row) => {
-          row.open = true;
-        });
-    };
-    openSpecs();
-    phone.addEventListener("change", openSpecs);
 
     const sections = chapters
       .map((chapter) => document.querySelector<HTMLElement>(chapter.href))
@@ -72,7 +62,6 @@ export function AboutChips() {
 
     return () => {
       observer?.disconnect();
-      phone.removeEventListener("change", openSpecs);
       window.removeEventListener("scroll", onScroll);
       if (frame) cancelAnimationFrame(frame);
       root.style.removeProperty("--band-h");

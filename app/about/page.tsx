@@ -193,8 +193,8 @@ export default function AboutPage() {
 
             <div className="md:col-span-8 md:col-start-5">
               <div className="spec-sheet">
-                {specs.map((spec, index) => (
-                  <details key={spec.label} className="spec-row" open={index === 0}>
+                {specs.map((spec) => (
+                  <details key={spec.label} className="spec-row">
                     <summary>
                       <span className="spec-label">{spec.label}</span>
                       <span className="spec-value">{spec.value}</span>
