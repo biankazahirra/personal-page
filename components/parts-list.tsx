@@ -50,14 +50,16 @@ export function PartsList({ projects }: { projects: Project[] }) {
                     <span className="display text-[clamp(1.35rem,2.4vw,1.9rem)]">
                       {project.title}
                     </span>
-                    <span className="mt-1 block max-w-[52ch] text-sm text-ink-muted">
+                    <span className="parts-desc-summary mt-1 block max-w-[52ch] text-sm text-ink-muted">
                       {project.summary}
                     </span>
                   </span>
 
                   <span className="parts-cell parts-note" data-label="note">
                     {project.role ?? "role not recorded"}
-                    {project.year ? <span className="block text-ink-muted">{project.year}</span> : null}
+                    {project.year ? (
+                      <span className="parts-year block text-ink-muted">{project.year}</span>
+                    ) : null}
                   </span>
 
                   <span className="parts-cell parts-material" data-label="material">
