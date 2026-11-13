@@ -28,7 +28,7 @@ export function SiteHeader() {
             <Link
               href="/"
               data-egg="logo"
-              className="eyebrow border-b border-transparent hover:border-band-ink"
+              className="band-home eyebrow border-b border-transparent hover:border-band-ink"
               aria-label="Service Manual - home"
             >
               Service Manual
@@ -56,21 +56,24 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <div className="flex flex-nowrap items-center justify-between gap-x-6 gap-y-2 py-1.5 md:flex-wrap md:py-2">
-          <p className="flex min-w-0 items-baseline gap-2">
-            <span className="label shrink-0 text-xs text-band-ink/85">
+        <div className="band-main flex flex-nowrap items-center justify-between gap-x-6 gap-y-2 py-1 md:flex-wrap md:py-2">
+          <p className="flex min-w-0 flex-1 items-center gap-2 md:flex-none md:items-baseline">
+            <span className="band-code label shrink-0 text-xs text-band-ink/85">
               {section.section}
             </span>
-            <span className="label hidden truncate text-sm tracking-[0.08em] md:inline md:text-base">
-              {section.title}
-            </span>
-            <span className="eyebrow min-w-0 truncate text-band-ink/80 md:shrink-0">
-              · {section.plain}
+            <span className="flex min-w-0 flex-col md:flex-row md:items-baseline md:gap-2">
+              <span className="band-title label truncate text-sm tracking-[0.08em] md:text-base">
+                {section.title}
+              </span>
+              <span className="band-plain eyebrow min-w-0 truncate text-band-ink/85 md:shrink-0">
+                <span className="hidden md:inline">· </span>
+                {section.plain}
+              </span>
             </span>
           </p>
 
           <div className="flex flex-nowrap items-center gap-2 md:flex-wrap">
-            <ThemeShift />
+            <ThemeShift className="band-shift" />
             <span className="hidden md:inline-flex">
               <MotionToggle className="band-control eyebrow" />
             </span>

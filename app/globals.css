@@ -210,30 +210,77 @@ html[data-shift="night"] {
   color: var(--color-band);
 }
 
-/* Phones keep the desktop control box (23px tall, 1px border) and take the 44px
-   tap target from an invisible panel inside the band, so the border does not
-   grow. The panel reaches up only: downwards it would leave the band and steal
-   taps from the page below. */
+/* Phones: the band becomes a two-tier plate. The top tier keeps the brand and
+   hands the assembly holes the right edge; the bottom tier prints the section
+   as a mustard code block beside its real title, and the controls grow into
+   honest 44px boxes instead of 23px boxes with an invisible tap panel. */
 @media (max-width: 767px) {
-  .band-control {
+  /* The home link is 16px of text; the panel reaches above and below it inside
+     the band, so the finger does not have to hit the word. */
+  .band-home {
     position: relative;
   }
 
-  .band-control::after {
+  .band-home::after {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 44px;
+    inset: -14px -6px;
   }
 
-  /* The icon button is the last control, so its panel may spread sideways into
-     the free space. It stops 4px short of the Contents button and uses the outer
-     padding on the right. */
-  .band-icon::after {
-    left: -4px;
-    right: -10px;
+  .band-code {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.125rem;
+    height: 2.125rem;
+    flex: none;
+    background-color: var(--color-mustard);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* Long chapter names and their plain lines wrap instead of losing their tail;
+     the box beside the code still stays shorter than the 44px controls. */
+  .band-title {
+    white-space: normal;
+    overflow: visible;
+    font-size: 0.6875rem;
+    line-height: 1.15;
+    letter-spacing: 0.06em;
+  }
+
+  .band-plain {
+    white-space: normal;
+    overflow: visible;
+    font-size: 0.5625rem;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+  }
+
+  .band-control {
+    min-height: 44px;
+    padding-inline: 0.5rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+
+  /* Tighter gap between the chapter box and the controls: "NIGHT SHIFT" is a
+     word wider than "DAY SHIFT", and the title must not lose its last letter. */
+  .band-main {
+    column-gap: 0.75rem;
+  }
+
+  .band-shift {
+    min-width: 0;
+  }
+
+  .band-settings {
+    width: 44px;
+    min-width: 44px;
+    padding-inline: 0;
   }
 }
 

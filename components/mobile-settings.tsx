@@ -122,7 +122,7 @@ export function MobileSettings() {
         aria-expanded={open}
         aria-controls="mobile-settings"
         onClick={() => setOpen((value) => !value)}
-        className="band-control band-icon inline-flex items-center justify-center"
+        className="band-control band-settings band-icon inline-flex items-center justify-center"
       >
         <SlidersIcon />
       </button>
