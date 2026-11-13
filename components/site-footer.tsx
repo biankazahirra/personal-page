@@ -3,6 +3,8 @@ import Link from "next/link";
 import { manual } from "@/content/manual";
 import { site } from "@/content/site";
 
+import { TearStub } from "./tear-stub";
+
 /**
  * Closing page: service request details in plain text, then one compact row.
  * The revision table, print editions and hidden parts live on /colophon.
@@ -17,26 +19,21 @@ export function SiteFooter() {
     >
       <div className="hazard h-2.5" aria-hidden="true" />
 
-      <div className="mx-auto max-w-[1440px] px-6 py-14 md:px-12 md:py-20">
-        <div className="grid gap-10 md:grid-cols-12">
+      <div className="footer-inner mx-auto max-w-[1440px] px-6 py-14 md:px-12 md:py-20">
+        <div className="footer-grid grid gap-10 md:grid-cols-12">
           <div className="md:col-span-5">
             <p className="eyebrow text-ink-muted">7.0 · Service Request</p>
-            <h2 className="display mt-4 text-[clamp(2.25rem,6vw,4.5rem)]">
+            <h2 className="footer-say display mt-4 text-[clamp(2.25rem,6vw,4.5rem)]">
               Say hi.
             </h2>
-            <p className="mt-5 max-w-[38ch] text-ink-muted">
+            <p className="footer-lede mt-5 max-w-[38ch] text-ink-muted">
               Plain text is enough.
             </p>
 
-            <div className="mt-8 border-t border-ink/25 pt-5">
-              <p className="label text-[10px] text-ink-muted">Email</p>
+            <div className="footer-mail mt-8 border-t border-ink/25 pt-5">
+              <p className="footer-mail-label label text-[10px] text-ink-muted">Email</p>
               {site.email ? (
-                <a
-                  href={`mailto:${site.email}`}
-                  className="mt-1 inline-block border-b border-accent pb-0.5 text-lg hover:text-accent"
-                >
-                  {site.email}
-                </a>
+                <TearStub email={site.email} />
               ) : (
                 <p className="mt-1 max-w-[34ch] border border-dashed border-ink/45 px-3 py-2 text-sm text-ink-muted">
                   [ email pending — add it to{" "}
@@ -44,8 +41,8 @@ export function SiteFooter() {
                 </p>
               )}
 
-              <p className="label mt-6 text-[10px] text-ink-muted">Elsewhere</p>
-              <ul className="mt-1 space-y-1">
+              <p className="footer-elsewhere-label label mt-6 text-[10px] text-ink-muted">Elsewhere</p>
+              <ul className="footer-elsewhere mt-1 space-y-1">
                 {available.map((link) => (
                   <li key={link.label}>
                     <a
@@ -57,6 +54,10 @@ export function SiteFooter() {
                       <span className="border-b border-ink/30 pb-0.5 group-hover:border-accent">
                         {link.label}
                       </span>
+                      <span className="footer-leader" aria-hidden="true" />
+                      <span className="footer-open" aria-hidden="true">
+                        open
+                      </span>
                     </a>
                   </li>
                 ))}
@@ -65,28 +66,32 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="flex flex-col justify-end md:col-span-6 md:col-start-7">
-            <p className="text-sm text-ink-muted">{manual.closing}</p>
+          <div className="footer-end flex flex-col justify-end md:col-span-6 md:col-start-7">
+            <p className="footer-closing text-sm text-ink-muted">{manual.closing}</p>
 
-            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-ink/25 pt-4 text-sm">
-              <Link href="/" className="eyebrow border-b border-ink/40 pb-0.5 hover:text-accent">
-                ← back to the index
+            <div className="footer-utility mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-ink/25 pt-4 text-sm">
+              <Link
+                href="/"
+                className="footer-utility-link eyebrow border-b border-ink/40 pb-0.5 hover:text-accent"
+              >
+                <span className="md:hidden">← index</span>
+                <span className="hidden md:inline">← back to the index</span>
               </Link>
-              <span aria-hidden="true" className="text-ink-muted">
+              <span aria-hidden="true" className="footer-dot text-ink-muted">
                 ·
               </span>
               <a
                 href={`mailto:${site.email}`}
-                className="eyebrow border-b border-ink/40 pb-0.5 hover:text-accent"
+                className="footer-utility-link eyebrow border-b border-ink/40 pb-0.5 hover:text-accent"
               >
                 email
               </a>
-              <span aria-hidden="true" className="text-ink-muted">
+              <span aria-hidden="true" className="footer-dot text-ink-muted">
                 ·
               </span>
               <Link
                 href="/colophon"
-                className="eyebrow border-b border-ink/40 pb-0.5 hover:text-accent"
+                className="footer-utility-link eyebrow border-b border-ink/40 pb-0.5 hover:text-accent"
               >
                 colophon
               </Link>

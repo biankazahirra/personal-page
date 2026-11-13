@@ -2410,3 +2410,476 @@ html[data-motion="reduce"] .photo-layer {
   animation: none !important;
   transition: none !important;
 }
+
+/* --- Closing plate: tear-off stub (phones) -------------------------------- */
+
+/* Desktop keeps the plain email line: the stub furniture only exists below
+   768px, where the footer becomes a ticket you could tear off. */
+.footer-leader,
+.footer-open,
+.footer-stub-k,
+.footer-stub-tear {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .footer-inner {
+    /* Bottom room keeps the three-tab spine clear of the fixed warranty
+       sticker, which sits over the last 50px of the viewport. */
+    padding: 1.25rem 1.25rem 5rem;
+  }
+
+  .footer-grid {
+    gap: 1rem;
+  }
+
+  .footer-say {
+    margin-top: 0.5rem;
+  }
+
+  .footer-lede {
+    margin-top: 0.75rem;
+  }
+
+  .footer-elsewhere-label {
+    margin-top: 1rem;
+  }
+
+  .footer-mail {
+    margin-top: 0.875rem;
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .footer-mail-label {
+    display: none;
+  }
+
+  /* The stub is paper pinned to the plate, so it keeps its own ink in both
+     shifts, like the carbon sheet on /contact. */
+  .footer-stub {
+    position: relative;
+    margin-top: 0.875rem;
+    border: 1px solid color-mix(in oklab, #2b2620 55%, transparent);
+    background-color: #efe6d0;
+    color: #2b2620;
+    padding: 0.7rem 0.875rem 0;
+    transform-origin: 50% 0;
+  }
+
+  .footer-stub-k {
+    display: block;
+    font-family: var(--font-label);
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #8a2a17;
+  }
+
+  .footer-stub .footer-stub-mail {
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    margin-top: 0;
+    border: 0;
+    padding: 0;
+    color: #2b2620;
+    font-size: 0.9375rem;
+    letter-spacing: -0.01em;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+    transition: transform 260ms cubic-bezier(0.2, 0.9, 0.3, 1), color 260ms ease;
+  }
+
+  .footer-stub-tear {
+    display: block;
+    position: relative;
+    margin: 0 -0.875rem;
+  }
+
+  /* The two half-punches at the stub edge. They sit on the paper edge, so they
+     are painted with the plate tone behind it. */
+  .footer-stub-tear::before,
+  .footer-stub-tear::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    margin-top: -6px;
+    border-radius: 50%;
+    background-color: var(--bd-plate, #bdb7a7);
+    border: 1px solid color-mix(in oklab, #2b2620 40%, transparent);
+    transition: transform 260ms cubic-bezier(0.2, 0.9, 0.3, 1), opacity 200ms ease;
+  }
+
+  .footer-stub-tear::before {
+    left: -7px;
+    border-left-color: transparent;
+  }
+
+  .footer-stub-tear::after {
+    right: -7px;
+    border-right-color: transparent;
+  }
+
+  .footer-tear-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #5a5145;
+    cursor: pointer;
+  }
+
+  .footer-tear-btn:hover .footer-tear-label {
+    color: #8a2a17;
+  }
+
+  .footer-tear-btn:active .footer-tear-label {
+    transform: translateY(1px);
+  }
+
+  .footer-tear-btn:focus-visible {
+    outline: 2px solid #8a2a17;
+    outline-offset: -6px;
+  }
+
+  /* Paper dust off the perforation. Two bits are enough to sell the snap. */
+  .footer-tear-btn::before,
+  .footer-tear-btn::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 3px;
+    height: 3px;
+    background-color: color-mix(in oklab, #2b2620 70%, transparent);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .footer-tear-btn::before {
+    left: 30%;
+  }
+
+  .footer-tear-btn::after {
+    right: 30%;
+  }
+
+  .footer-stub[data-torn] .footer-tear-btn::before {
+    animation: footer-fleck-left 520ms ease-out 60ms both;
+  }
+
+  .footer-stub[data-torn] .footer-tear-btn::after {
+    animation: footer-fleck-right 520ms ease-out 60ms both;
+  }
+
+  @keyframes footer-fleck-left {
+    0% {
+      opacity: 0;
+      transform: none;
+    }
+    18% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-11px, -15px) rotate(115deg) scale(0.6);
+    }
+  }
+
+  @keyframes footer-fleck-right {
+    0% {
+      opacity: 0;
+      transform: none;
+    }
+    18% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(9px, -17px) rotate(-95deg) scale(0.6);
+    }
+  }
+
+  /* Two identical dashed rules sit on top of each other: one line at rest,
+     two torn edges after the tear. The dashes travel as they split. */
+  .footer-tear-dash,
+  .footer-tear-dash::after {
+    content: "";
+    position: absolute;
+    left: 1.75rem;
+    right: 1.75rem;
+    top: 50%;
+    height: 1px;
+    background-image: repeating-linear-gradient(
+      90deg,
+      color-mix(in oklab, #2b2620 55%, transparent) 0 4px,
+      transparent 4px 8px
+    );
+    background-position-x: 0;
+    transition: transform 240ms cubic-bezier(0.2, 0.9, 0.3, 1), background-position-x 240ms linear;
+  }
+
+  .footer-tear-dash::after {
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+
+  .footer-tear-label {
+    position: relative;
+    padding: 0 0.5rem;
+    background-color: #efe6d0;
+    font-family: var(--font-label);
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition: transform 160ms ease, color 160ms ease;
+  }
+
+  .footer-stub-stamp {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.55rem;
+    padding: 0.15rem 0.4rem;
+    border: 2px double #8a2a17;
+    background-color: color-mix(in oklab, #d9a441 60%, #efe6d0);
+    color: #2b2620;
+    font-family: var(--font-label);
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    opacity: 0;
+    transform: rotate(-6deg) scale(0.7);
+    transform-origin: 50% 50%;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+
+  /* --- the tear ---------------------------------------------------------- */
+
+  .footer-stub[data-torn] {
+    animation: footer-tear-jolt 560ms cubic-bezier(0.22, 0.9, 0.3, 1) both;
+    box-shadow: 0 14px 20px -16px rgb(20 17 13 / 0.9);
+  }
+
+  .footer-stub[data-torn] .footer-stub-mail {
+    color: #8a2a17;
+    transform: translateY(-2px);
+  }
+
+  .footer-stub[data-torn] .footer-tear-dash {
+    background-position-x: 12px;
+    transform: translateY(-2px);
+  }
+
+  .footer-stub[data-torn] .footer-tear-dash::after {
+    background-position-x: -12px;
+    transform: translateY(4px);
+  }
+
+  .footer-stub[data-torn] .footer-stub-tear::before {
+    opacity: 0;
+    transform: translateX(-7px) rotate(-20deg);
+  }
+
+  .footer-stub[data-torn] .footer-stub-tear::after {
+    opacity: 0;
+    transform: translateX(7px) rotate(20deg);
+  }
+
+  .footer-stub[data-torn] .footer-tear-label {
+    color: #8a2a17;
+  }
+
+  .footer-stub[data-torn] .footer-stub-stamp {
+    animation: footer-stamp 420ms cubic-bezier(0.2, 1.5, 0.35, 1) 130ms both;
+  }
+
+  /* The perforation snaps through the stub: a short knock, then it settles
+     slightly crooked, the way a torn coupon actually sits. */
+  @keyframes footer-tear-jolt {
+    0% {
+      transform: none;
+    }
+    22% {
+      transform: translate(-2px, -3px) rotate(-0.6deg);
+    }
+    40% {
+      transform: translate(1px, 1px) rotate(0.35deg);
+    }
+    58% {
+      transform: translate(-0.5px, 0) rotate(-0.2deg);
+    }
+    76% {
+      transform: translate(0.5px, 0) rotate(-0.4deg);
+    }
+    100% {
+      transform: rotate(-0.35deg);
+    }
+  }
+
+  @keyframes footer-stamp {
+    0% {
+      opacity: 0;
+      transform: rotate(3deg) scale(1.9);
+    }
+    55% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: rotate(-6deg) scale(1);
+    }
+  }
+
+  /* --- elsewhere as a dotted list ---------------------------------------- */
+
+  .footer-elsewhere {
+    margin-top: 0.75rem;
+    border-top: 1px solid color-mix(in oklab, var(--color-ink) 38%, transparent);
+  }
+
+  .footer-elsewhere li + li {
+    border-top: 1px solid color-mix(in oklab, var(--color-ink) 16%, transparent);
+  }
+
+  .footer-elsewhere li a {
+    width: 100%;
+    min-height: 44px;
+    align-items: center;
+    padding: 0.6rem 0;
+    font-size: 0.8125rem;
+  }
+
+  .footer-elsewhere li a > span:first-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .footer-elsewhere li a:hover > span:first-child,
+  .footer-elsewhere li a:focus-visible > span:first-child {
+    color: var(--color-accent);
+  }
+
+  .footer-leader {
+    display: block;
+    flex: 1;
+    margin: 0 0.4rem;
+    height: 0;
+    border-bottom: 1px dotted color-mix(in oklab, var(--color-ink) 45%, transparent);
+  }
+
+  .footer-open {
+    display: inline;
+    font-family: var(--font-label);
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  /* --- the three utility links, as a spine of tabs ------------------------ */
+
+  .footer-end {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-utility {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 0;
+    border: 1px solid color-mix(in oklab, var(--color-ink) 45%, transparent);
+    padding-top: 0;
+  }
+
+  .footer-dot {
+    display: none;
+  }
+
+  .footer-utility-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    border-bottom: 0;
+    padding: 0 0.3rem;
+    font-size: 0.5625rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .footer-utility-link ~ .footer-utility-link {
+    border-left: 1px solid color-mix(in oklab, var(--color-ink) 40%, transparent);
+  }
+
+  .footer-closing {
+    order: 2;
+    margin-top: 0.875rem;
+    font-size: 0.6875rem;
+    line-height: 1.45;
+  }
+}
+
+/* Reduced motion: the copy still works, the paper stays still. */
+@media (prefers-reduced-motion: reduce) {
+  .footer-stub[data-torn],
+  .footer-stub[data-torn] .footer-stub-stamp,
+  .footer-stub[data-torn] .footer-tear-btn::before,
+  .footer-stub[data-torn] .footer-tear-btn::after {
+    animation: none !important;
+  }
+
+  .footer-stub[data-torn] .footer-stub-stamp {
+    opacity: 1;
+    transform: rotate(-6deg);
+  }
+
+  .footer-stub,
+  .footer-stub .footer-stub-mail,
+  .footer-stub-tear::before,
+  .footer-stub-tear::after,
+  .footer-tear-dash,
+  .footer-tear-dash::after,
+  .footer-tear-label,
+  .footer-stub-stamp {
+    transition: none !important;
+  }
+}
+
+html[data-motion="reduce"] .footer-stub[data-torn],
+html[data-motion="reduce"] .footer-stub[data-torn] .footer-stub-stamp,
+html[data-motion="reduce"] .footer-stub[data-torn] .footer-tear-btn::before,
+html[data-motion="reduce"] .footer-stub[data-torn] .footer-tear-btn::after {
+  animation: none !important;
+}
+
+html[data-motion="reduce"] .footer-stub[data-torn] .footer-stub-stamp {
+  opacity: 1;
+  transform: rotate(-6deg);
+}
+
+html[data-motion="reduce"] .footer-stub,
+html[data-motion="reduce"] .footer-stub .footer-stub-mail,
+html[data-motion="reduce"] .footer-stub-tear::before,
+html[data-motion="reduce"] .footer-stub-tear::after,
+html[data-motion="reduce"] .footer-tear-dash,
+html[data-motion="reduce"] .footer-tear-dash::after,
+html[data-motion="reduce"] .footer-tear-label,
+html[data-motion="reduce"] .footer-stub-stamp {
+  transition: none !important;
+}
