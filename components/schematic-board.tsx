@@ -32,7 +32,69 @@ export function SchematicBoard() {
     <div className="socket-board">
       <div className="socket-board-head">
         <p className="eyebrow text-ink-muted">assembly board · rev 2026</p>
-        <p className="eyebrow text-ink-muted">probe a socket</p>
+        <p className="eyebrow text-ink-muted">
+          <span className="hidden md:inline">probe a socket</span>
+          <span className="md:hidden">six sockets</span>
+        </p>
+      </div>
+
+      {/* Phones get the whole plate: six labelled sockets at once, a readout that
+          names the touched one, and one open link. No sideways rack, no swipe. */}
+      <div className="md:hidden">
+        <ul className="socket-grid" aria-label="Sockets">
+          {components.map((item) => {
+            const isActive = active.code === item.code;
+            return (
+              <li key={item.code}>
+                <button
+                  type="button"
+                  aria-pressed={isActive}
+                  aria-label={`${item.code} ${item.label} — ${item.plain}`}
+                  aria-controls="socket-readout"
+                  onClick={() => setProbed(item.code)}
+                  data-active={isActive}
+                  className="socket-slot"
+                >
+                  <span className="socket-slot-row">
+                    <span aria-hidden="true" className="socket-jack" />
+                    <span className="socket-tab-code label text-[10px]">
+                      {item.code}
+                    </span>
+                    <span className="socket-slot-status eyebrow">{item.status}</span>
+                  </span>
+                  <span className="label socket-slot-title">{item.label}</span>
+                  <span className="eyebrow socket-slot-plain">{item.plain}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div
+          id="socket-readout"
+          className="socket-readout"
+          role="region"
+          aria-label={`Socket readout: ${active.label} — ${active.plain}`}
+          aria-live="polite"
+        >
+          <div className="min-w-0">
+            <p className="label text-[10px]">
+              <span className="text-accent">{active.code}</span>
+              <span className="eyebrow text-ink-muted"> · {active.blurb}</span>
+            </p>
+            <p className="socket-readout-spec">{active.spec}</p>
+          </div>
+
+          {active.draft ? (
+            <span className="stamp shrink-0" data-tone="mustard">
+              Under construction
+            </span>
+          ) : (
+            <Link href={active.href} className="socket-readout-open">
+              open →
+            </Link>
+          )}
+        </div>
       </div>
 
       <div className="socket-board-body">
@@ -45,9 +107,6 @@ export function SchematicBoard() {
                   {item.code}
                 </span>
                 <span className="label text-xs">{item.label}</span>
-                <span className="socket-tab-plain eyebrow text-[9px] text-ink-muted md:hidden">
-                  {item.plain}
-                </span>
                 <span className="eyebrow ml-auto text-[9px] text-ink-muted">
                   {item.status}
                 </span>

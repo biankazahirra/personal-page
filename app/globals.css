@@ -1024,8 +1024,14 @@ html:not([data-motion="full"]) .assemble-btn::before {
 }
 
 .socket-board-body {
-  display: grid;
+  display: none;
   gap: 0;
+}
+
+@media (min-width: 768px) {
+  .socket-board-body {
+    display: grid;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -1092,50 +1098,132 @@ html:not([data-motion="full"]) .assemble-btn::before {
 }
 
 @media (max-width: 767px) {
-  .socket-tab-spur {
-    display: none;
-  }
-
-  /* The rack turns sideways: native scroll-snap, tap to open. */
-  .socket-tabs {
-    flex-direction: row;
+  /* The plate: six sockets in two columns, every one on screen at once. */
+  .socket-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding: 0.6rem;
-    scrollbar-width: none;
+    padding: 0.625rem;
   }
 
-  .socket-tabs::-webkit-scrollbar {
-    display: none;
-  }
-
-  .socket-tabs > li {
-    flex: none;
-    scroll-snap-align: start;
-  }
-
-  .socket-tab {
-    min-width: 9.5rem;
-    min-height: 44px;
-    flex-wrap: wrap;
-    margin-top: 0;
-  }
-
-  .socket-tab[data-active="true"] {
-    transform: none;
-    border-top-width: 1px;
-    border-left: 3px solid var(--color-mustard);
-  }
-
-  /* Every tab carries its plain subtitle, so the preview can stay off a phone. */
-  .socket-tab-plain {
-    order: 3;
+  .socket-slot {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
     width: 100%;
+    min-height: 84px;
+    border: 1px solid color-mix(in oklab, var(--color-ink) 38%, transparent);
+    background-color: var(--color-paper-2);
+    padding: 0.5rem 0.5625rem 0.5625rem;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition:
+      background-color 160ms ease,
+      border-color 160ms ease;
   }
 
-  .socket-preview {
-    display: none;
+  .socket-slot[data-active="true"] {
+    border-color: color-mix(in oklab, var(--color-ink) 55%, transparent);
+    background-color: var(--color-paper);
+    box-shadow: inset 3px 0 0 var(--color-mustard);
+  }
+
+  .socket-slot-row {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .socket-jack {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    flex: none;
+    border: 1.5px solid color-mix(in oklab, var(--color-ink) 50%, transparent);
+    border-radius: 9999px;
+  }
+
+  .socket-jack::after {
+    content: "";
+    position: absolute;
+    inset: 3.5px;
+    border-radius: 9999px;
+    background-color: color-mix(in oklab, var(--color-ink) 18%, transparent);
+  }
+
+  .socket-slot[data-active="true"] .socket-jack {
+    border-color: var(--color-mustard);
+    background-color: var(--color-mustard);
+  }
+
+  .socket-slot[data-active="true"] .socket-jack::after {
+    background-color: var(--color-ink);
+  }
+
+  .socket-slot-status {
+    margin-left: auto;
+    font-size: 7.5px;
+    color: var(--color-ink-muted);
+  }
+
+  .socket-slot-title {
+    min-height: 2.32em;
+    font-size: 0.71875rem;
+    line-height: 1.16;
+    letter-spacing: 0.05em;
+    /* Long chapter names keep two lines, then stop. */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .socket-slot-plain {
+    font-size: 8.5px;
+    color: var(--color-ink-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .socket-readout {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 3.5rem;
+    border-top: 2px solid color-mix(in oklab, var(--color-ink) 45%, transparent);
+    padding: 0.5rem 0.75rem;
+  }
+
+  .socket-readout-spec {
+    margin-top: 1px;
+    font-size: 10.5px;
+    line-height: 1.25;
+    color: var(--color-ink-muted);
+  }
+
+  .socket-readout-open {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin-left: auto;
+    padding: 0 0.625rem;
+    flex: none;
+    border: 1px solid color-mix(in oklab, var(--color-ink) 45%, transparent);
+    font-family: var(--font-label);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .socket-readout-open:hover,
+  .socket-readout-open:focus-visible {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
   }
 }
 
