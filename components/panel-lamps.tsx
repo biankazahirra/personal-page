@@ -12,6 +12,10 @@ export function PanelLamps({ films }: { films: FilmEntry[] }) {
         <li key={`${film.title}-${film.watchedOn ?? ""}`}>
           <details className="lamp-panel">
             <summary className="lamp-summary">
+              <span className="lamp-no" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
               <span className="lamp-bezel" aria-hidden="true">
                 <span className="lamp-lens" />
               </span>
@@ -36,6 +40,15 @@ export function PanelLamps({ films }: { films: FilmEntry[] }) {
                   </span>
                 ) : null}
               </span>
+
+              {film.rating ? (
+                <span className="lamp-rest-stars" aria-hidden="true">
+                  {"★".repeat(film.rating)}
+                  <span className="lamp-rest-stars-empty">
+                    {"☆".repeat(5 - film.rating)}
+                  </span>
+                </span>
+              ) : null}
 
               <span className="lamp-cue eyebrow" aria-hidden="true">
                 <span className="lamp-cue-on">press</span>

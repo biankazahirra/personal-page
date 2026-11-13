@@ -1531,6 +1531,12 @@ html:has(dialog[open]) {
   box-shadow: 0 0 16px color-mix(in oklab, var(--color-mustard) 70%, transparent);
 }
 
+/* Phone-only bits: the rack number and the rating that stays lit at rest. */
+.lamp-no,
+.lamp-rest-stars {
+  display: none;
+}
+
 .lamp-state-on {
   display: none;
 }
@@ -1577,6 +1583,97 @@ html:has(dialog[open]) {
 .lamp-meta dd {
   margin-top: 0.1rem;
   font-size: 0.9375rem;
+}
+
+/* Phones read C05 as one lamp rack: four 76px rows on a single plate, the
+   rating lit at rest, and no repeated PRESS. */
+@media (max-width: 767px) {
+  .lamp-grid {
+    gap: 0;
+    border: 1px solid color-mix(in oklab, var(--color-ink) 32%, transparent);
+    background-color: color-mix(in oklab, var(--color-paper-2) 55%, transparent);
+    padding-top: 0;
+  }
+
+  .lamp-grid > li + li .lamp-panel {
+    border-top: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent);
+  }
+
+  .lamp-panel {
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .lamp-summary {
+    grid-template-columns: 1rem 2.375rem minmax(0, 1fr) auto;
+    gap: 0.625rem;
+    min-height: 76px;
+    padding: 0.5625rem 0.75rem;
+  }
+
+  .lamp-no {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-muted);
+  }
+
+  .lamp-bezel {
+    width: 2.375rem;
+    height: 2.375rem;
+  }
+
+  /* The number column carries the lamp index, so the C05-0n line can go. */
+  .lamp-label > .eyebrow:first-of-type {
+    display: none;
+  }
+
+  .lamp-label .display {
+    margin-top: 0;
+    font-size: 1.0625rem;
+    line-height: 1.02;
+  }
+
+  .lamp-label .display .text-ink-muted {
+    font-size: 0.8125rem;
+  }
+
+  .lamp-label > .eyebrow {
+    margin-top: 3px;
+    font-size: 9px;
+  }
+
+  .lamp-cue {
+    display: none;
+  }
+
+  .lamp-rest-stars {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--color-mustard);
+    white-space: nowrap;
+  }
+
+  .lamp-rest-stars-empty {
+    color: var(--color-ink-muted);
+  }
+
+  .lamp-panel[open] .lamp-summary {
+    box-shadow: inset 3px 0 0 var(--color-mustard);
+  }
+
+  .lamp-panel[open] .lamp-label .display {
+    color: var(--color-mustard);
+  }
+
+  .lamp-note {
+    background-color: transparent;
+    padding: 0 0.75rem 0.875rem 4.75rem;
+  }
 }
 
 /* --- Section 7 Carbon-copy service request ------------------------------ */
